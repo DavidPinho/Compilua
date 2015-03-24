@@ -2,7 +2,7 @@
 public class Token {
 	
 	//Um token possui um tipo e um valor
-	private int type;
+	private int type;//Pq o tipo n eh do tipo do enum TokenType?
 	private String value;
 	
 	
