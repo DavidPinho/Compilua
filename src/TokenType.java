@@ -3,7 +3,12 @@ public enum TokenType {
 	
 	EOF,
 	IDENTIFIER,
-	INT,
+	NUMBER,
+	BOOLEAN,
+	STRING,
+	USERDATA,
+	THREAD,
+	TABLE,
 	LPAREN,
 	RPAREN,
 	LBRACE,//{
