@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 
 public class FileHandler {
@@ -8,18 +10,19 @@ public class FileHandler {
 	
 	
 	
-	public String readFile(String fileName) throws IOException {
+	public ArrayList<String> readFile(String fileName) throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader(fileName));
 	    try {
 	        StringBuilder sb = new StringBuilder();
 	        String line = br.readLine();
+	        ArrayList<String> linhas= new ArrayList<String>();
 
 	        while (line != null) {
-	            sb.append(line);
-	            sb.append("\n");
-	            line = br.readLine();
+	        	
+	        	linhas.add(line);
+	        	line = br.readLine();
 	        }
-	        return sb.toString();
+	        return linhas;
 	    } finally {
 	        br.close();
 	    }

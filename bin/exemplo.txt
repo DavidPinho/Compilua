@@ -1,4 +1,4 @@
--- Variable definition:
+-- Variable = definition:
 local a, b
 -- Initialization
 a = 10
