@@ -26,6 +26,15 @@ public class Compiler {
 		
 		tokensAux=lexicalAnalyzer.splitTokens(lines);				
 
-	}	
+		tokens = lexicalAnalyzer.doLexAnalysis(tokensAux);
+		printTokenList(tokens);
+	}
+	
+	public static void printTokenList(ArrayList<Token> tokens) {
+		
+		for (Token token : tokens) {
+			System.out.println("<"+token.getType()+","+token.getValue()+">");
+		}
+	}
 
 }

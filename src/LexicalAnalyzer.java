@@ -244,10 +244,22 @@ public class LexicalAnalyzer {
 	}
 	
 	
+	public ArrayList<Token> doLexAnalysis(ArrayList<String> tokens) {
+		ArrayList<Token> lexemes = new ArrayList<Token>();
+		Token t;
+		
+		for(int i = 0; i < tokens.size(); i++) {
+			t = new Token(getTokenType(tokens.get(i)), tokens.get(i));
+		}
+		
+		return lexemes;
+	}
 	
 	
-	
-	
+	public int getTokenType(String word) {
+		//TODO: fazer parte dos ifs pra saber o tipo da palavra
+		return 0;
+	}
 	
 	
 	
