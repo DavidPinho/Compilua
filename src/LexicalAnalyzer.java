@@ -12,26 +12,27 @@ public class LexicalAnalyzer {
 
 	
 	
-	
+	//method to read a file and return an Array of String, where each String is a line of the file
 	public ArrayList<String> readFile(String fileName) throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader(fileName));
 	    try {
 	        StringBuilder sb = new StringBuilder();
 	        String line = br.readLine();
-	        ArrayList<String> linhas= new ArrayList<String>();
+	        ArrayList<String> lines= new ArrayList<String>();
 
 	        while (line != null) {
 	        	
-	        	linhas.add(line);
+	        	lines.add(line);
 	        	line = br.readLine();
 	        }
-	        return linhas;
+	        return lines;
 	    } finally {
 	        br.close();
 	    }
 	}
 	
 	
+	//This method remove all comments in the code
 	public ArrayList<String> removeComment(ArrayList<String> lines){
 		
 		boolean block = false;
@@ -85,8 +86,8 @@ public class LexicalAnalyzer {
 									 "((?<=\\))|(?=\\)))|" +
 									 "((?<=\\{)|(?=\\{))|" +
 									 "((?<=\\})|(?=\\}))|" +
-									 "((?<=[)|(?=[))|" +              //O SPLIT POR ESSE DELIMITER "[" "]" NÃO ESTAFUNCIONANDO! CONCERTAR!!!!
-									 "((?<=])|(?=]))|" +
+									 "((?<=\\[)|(?=\\[))|" +         
+									 "((?<=\\])|(?=\\]))|" +
 									 "((?<=;)|(?=;))|" +
 									 "((?<=:)|(?=:))|" +
 									 "((?<=\")|(?=\"))|" +									 
@@ -96,6 +97,7 @@ public class LexicalAnalyzer {
 			
 			lookAhead(aux, tokens);
 		}	
+		
 		
 		for(String t : tokens)
 			System.out.println(t);
@@ -227,6 +229,8 @@ public class LexicalAnalyzer {
 		}				
 		tokens.add("\\n");		
 	}
+	
+	
 	
 	
 	

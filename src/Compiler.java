@@ -10,6 +10,7 @@ public class Compiler {
 		
 		LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer();		
 		ArrayList<String> lines  = new ArrayList<String>();	
+		ArrayList<String> tokensAux  = new ArrayList<String>();	
 		ArrayList<Token> tokens = new ArrayList<Token>();		
 		
 		try {
@@ -22,30 +23,8 @@ public class Compiler {
 		
 		lines = lexicalAnalyzer.removeComment(lines);
 		
-		lexicalAnalyzer.splitTokens(lines);
-		
-		
-		/*
-		//Automato
-		for(int i =0; i<linhas.size();i++){
-				
-			String linha =  linhas.get(i);
-			String [] test =  linha.split("((?<==)|(?==)| (?<=:)|(?=:))");
-			
-			for(int j = 0; j<test.length;j++)
-				System.out.println(test[j].trim());
-				
-			break;
-		}
-		*/
-		
-		
-	
-		
+		tokensAux=lexicalAnalyzer.splitTokens(lines);				
 
-	}
-	
-	
-	
+	}	
 
 }
