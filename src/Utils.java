@@ -3,6 +3,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Utils {
@@ -51,11 +54,189 @@ public class Utils {
 			}else if(line.startsWith("--")){
 				lines.remove(line);
 				}else if(block)
-					lines.remove(line);
-			
+					lines.remove(line);			
 		}		
 		return lines;			
 	}
+	
+	
+	
+	public ArrayList<String> splitTokens(ArrayList<String> lines){
+		
+		ArrayList<String> tokens = new ArrayList<String>();
+		String [] aux;
+	
+		for(String line: lines){					
+			
+			aux =  line.trim().split("(\\s+|" +
+									 "((?<=,)|(?=,))|" +
+									 "((?<==)|(?==))|" +
+									 "((?<=\\+)|(?=\\+))|" +
+									 "((?<=-)|(?=-))|" +
+									 "((?<=\\*)|(?=\\*))|" +
+									 "((?<=/)|(?=/))|" +
+									 "((?<=%)|(?=%))|" +
+									 "((?<=^)|(?=^))|" +
+									 "((?<=#)|(?=#))|" +
+									 "((?<=~)|(?=~))|" +
+									 "((?<=>)|(?=>))|" +
+									 "((?<=<)|(?=<))|" +
+									 "((?<=\\()|(?=\\())|" +
+									 "((?<=\\))|(?=\\)))|" +
+									 "((?<=\\{)|(?=\\{))|" +
+									 "((?<=\\})|(?=\\}))|" +
+									 "((?<=[)|(?=[))|" +
+									 "((?<=])|(?=]))|" +
+									 "((?<=;)|(?=;))|" +
+									 "((?<=:)|(?=:))|" +
+									 "((?<=\")|(?=\"))|" +									 
+									 "((?<=\')|(?=\'))|" +
+									 "((?<=\\.)|(?=\\.)))" +								 
+									 "");
+			
+			
+			String tokenAux;
+			String stringAux="";
+			boolean doubleQuota = false;
+			boolean singleQuota = false;
+			
+			//The follow code aim to solve possible problems caused by the split operation. 
+			//For example, we used "=" as a delimiter, but there are different expressions that use the operator "="  (<=, >=,==, =)
+			//So, we make sure that the code was splited correctly
+			for(int j = 0; j<aux.length;j++){
+				 tokenAux= aux[j].trim();			 
+			
+				 if(tokenAux.equals("\"")){			
+				    if(doubleQuota){  
+				    	if(stringAux.endsWith("\\")){               //Identify an quote(") inside of "
+				    		stringAux = stringAux + tokenAux;
+				    	}else{										
+				    		stringAux = stringAux + tokenAux;		//Identify end of string
+				    	 	tokens.add(stringAux);
+				    	 	stringAux=new String();
+				    	 	doubleQuota=false;
+				    	}
+				    }else if(singleQuota){							//Identify the begin of a string (The first quote ("))
+				    		stringAux = stringAux + tokenAux;
+				    	   }else{
+				    		  doubleQuota=true;
+				    		  stringAux = stringAux + tokenAux;
+				    	  }				    							
+				  }else 					  
+					  
+					  if(tokenAux.equals("\'")){							
+						    if(singleQuota){   
+						    	if(stringAux.endsWith("\\")){			//Identify an single quote(') inside of '
+						    		stringAux = stringAux + tokenAux;
+						    	}else{
+						    		stringAux = stringAux + tokenAux;  //Identify end of string
+						    		tokens.add(stringAux);
+							    	stringAux=new String();
+							    	singleQuota=false;
+						    	}							    	
+						    }else if(doubleQuota){
+						    		stringAux = stringAux + tokenAux;   //Identify a single quote inside a quote
+						    	  }
+						    	  else{
+						    		stringAux = stringAux + tokenAux;
+						    		singleQuota=true;		 		    //Identify the begin of a string (The first single quote ('))
+						    	  }
+				  		}else				  			
+				  			
+				  			if(doubleQuota||singleQuota){		  			   
+				  			    	stringAux = stringAux + " "+ tokenAux;
+				  			}else 
+				  				
+				  				if(tokenAux.equals(""))		
+				  					continue;
+				  				else
+				  				
+					  				if(tokenAux.equals("~")){
+					  				  	   if(aux[j+1].equals("=")){
+					  				  		   tokens.add("~=");
+					  				  		   j++;
+					  				  	   }else{
+					  				  		   tokens.add("~");
+					  				  	   }				  				  		   
+					  			  	}else
+					  			  		
+						  			  	if(tokenAux.equals("<")){
+						  				  	   if(aux[j+1].equals("=")){
+						  				  		   tokens.add("<=");
+						  				  		   j++;
+						  				  	   }else{
+						  				  		   tokens.add("<");
+						  				  	   }				  				  		   
+						  			  	}else
+						  			  		
+							  			  	if(tokenAux.equals(">")){
+							  				  	   if(aux[j+1].equals("=")){
+							  				  		   tokens.add(">=");
+							  				  		   j++;
+							  				  	   }else{
+							  				  		   tokens.add(">");
+							  				  	   }				  				  		   
+							  			  	}else
+							  			  		
+								  			  	if(tokenAux.equals("=")){
+								  				  	   if(aux[j+1].equals("=")){
+								  				  		   tokens.add("==");
+								  				  		   j++;
+								  				  	   }else{
+								  				  		   tokens.add("=");
+								  				  	   }				  				  		   
+								  			  	}else
+								  			  		
+								  			  		if(tokenAux.equals(".")){
+								  			  			if(aux[j-1].matches("[0-9]+")){     //FLOAT NUMBER
+								  			  				tokens.remove(tokens.size()-1);
+								  			  				tokens.add(aux[j-1]+tokenAux+aux[j+1]);
+								  			  				j++;
+								  			  			}else{ 
+								  			  				if(aux.length>j+1){			//3 DOTS (...)
+								  			  					if(aux.length>j+2){
+								  			  						if(aux[j+1].equals(".")&&aux[j+2].equals(".")){
+								  			  							tokens.add("...");
+								  			  							j=j+2;
+								  			  						}
+								  			  					}else{
+								  			  					if(aux[j+1].equals(".")){    //2 DOTS (..)
+							  			  							tokens.add("..");
+							  			  							j++;
+							  			  						}
+								  			  					}
+								  			  				  }
+								  			  			}
+								  			  				
+								  			  		}else{
+								  			  			tokens.add(tokenAux);	//OTHERWISE
+								  			  		 }				 							
+				 
+						
+			}		
+				
+			tokens.add("\\n");
+		}	
+		for(String t : tokens)
+			System.out.println(t);
+		
+		return tokens;
+	
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

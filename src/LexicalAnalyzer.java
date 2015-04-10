@@ -9,24 +9,21 @@ public class LexicalAnalyzer {
 		// TODO Auto-generated method stub
 		
 		Utils utils =  new Utils();		
-		ArrayList<String> linhas  = new ArrayList<String>();	
-		ArrayList<Token> tokens = new ArrayList<Token>();
-		
+		ArrayList<String> lines  = new ArrayList<String>();	
+		ArrayList<Token> tokens = new ArrayList<Token>();		
 		
 		try {
-			 linhas = utils.readFile("/home/david/workspace/Compilua/src/exemplo.txt");
+			 lines = utils.readFile("/home/david/workspace/Compilua/src/exemplo.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		
 		
-		linhas = utils.removeComment(linhas);
-		for(int i =0; i<linhas.size();i++){
-			
-			String linha =  linhas.get(i);
-			System.out.println(linha);
-		}
+		lines = utils.removeComment(lines);
+		
+		utils.splitTokens(lines);
+		
 		
 		/*
 		//Automato
