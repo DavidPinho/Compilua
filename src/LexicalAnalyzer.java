@@ -250,15 +250,18 @@ public class LexicalAnalyzer {
 		
 		for(int i = 0; i < tokens.size(); i++) {
 			t = new Token(getTokenType(tokens.get(i)), tokens.get(i));
+			lexemes.add(t);
 		}
 		
 		return lexemes;
 	}
 	
 	
-	public int getTokenType(String word) {
-		//TODO: fazer parte dos ifs pra saber o tipo da palavra
-		return 0;
+	public TokenType getTokenType(String word) {
+		if(word.startsWith("'") || word.startsWith("\"")) {
+			return TokenType.STRING;
+		}
+		return null;
 	}
 	
 	

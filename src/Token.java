@@ -2,22 +2,22 @@
 public class Token {
 	
 	//Um token possui um tipo e um valor
-	private int type;
+	private TokenType type;
 	private String value;
 	
 	
-	public Token(int type, String value){
+	public Token(TokenType type, String value){
 		this.type = type;
 		this.value =value;
 	}
 
 
-	public int getType() {
+	public TokenType getType() {
 		return type;
 	}
 
 
-	public void setType(int type) {
+	public void setType(TokenType type) {
 		this.type = type;
 	}
 
