@@ -1,9 +1,22 @@
-function fat(n)
-    if n == 0 then 
-      return 1
-    else 
-      return n * fatorial (n-1)
-    end
-end
+-- Variable definition:
+local a, b
+-- Initialization
+a = 10
+b = 30
 
-fat(10)
+print("value of a:", a)
+
+print("value of b:", b)
+
+-- Swapping of variables
+tmp = b
+b = a
+a = tmp
+-- or may directly use: b, a = a, b 
+
+print("value of a:", a)
+
+print("value of b:", b)
+
+f = 70.0/3.0
+print("value of f", f)

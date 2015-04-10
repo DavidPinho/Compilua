@@ -107,6 +107,19 @@ public class LexicalAnalyzer {
 		
 	}
 	
+	/* TODO: estamos com um problema quando eh string
+	 * temos que reconhecer quando abrir " ou ', ta dando o split de boa
+	 * mas ta adicionando um espaco depois da aspa, temos que fazer algo do tipo:
+	 * 
+	 * para o primeiro elemento depois da aspa ele nao gera aquele espaco que vc ta gerando pra concatenar
+	 * 
+	 * ta assim:
+	 * "value of a:"
+	 * 
+	 * e na saida
+	 * 
+	 * " value of a :"
+	 */
 	
 	public void lookAhead(String[] aux, ArrayList<String> tokens){
 		
