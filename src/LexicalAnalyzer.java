@@ -258,8 +258,17 @@ public class LexicalAnalyzer {
 	
 	
 	public TokenType getTokenType(String word) {
-		if(word.startsWith("'") || word.startsWith("\"")) {
+	//TODO: fazer o \n	
+		Pattern p = Pattern.compile(
+			    "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
+			    	    "([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|" +
+			    	    "(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))" +
+			    	    "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*");//number
+		Matcher m = p.matcher(word);
+		if(word.contains("'") || word.contains("\"")) {
 			return TokenType.STRING;
+		} else if(m.matches()) {
+			return TokenType.NUMBER;
 		}
 		return null;
 	}

@@ -1,6 +1,6 @@
 
 public enum TokenType {
-	
+	NEWLINE,// \n
 	EOF,
 	IDENTIFIER,
 	NUMBER,
