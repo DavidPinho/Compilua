@@ -19,4 +19,4 @@ in
 
 "Davi, anota isso na lista do que temos que fazer"
 "Estamos com problemas pra reconhecer .  ..  ... "
-"temos que fazer assim: se for .  lookAhead pra ver se tem . depois"
+"temos que fazer assim: se for .  								lookAhead pra ver se tem . depois"

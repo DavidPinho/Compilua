@@ -14,8 +14,8 @@ public class Compiler {
 		ArrayList<Token> tokens = new ArrayList<Token>();		
 		
 		try {
-			 //lines = lexicalAnalyzer.readFile("/home/david/workspace/Compilua/src/exemplo.txt");
-			 lines = lexicalAnalyzer.readFile("C:/Users/Diego/Workspace/compilua/src/exemplo.txt");
+			 lines = lexicalAnalyzer.readFile("/home/david/workspace/Compilua/src/exemplo.txt");
+			 //lines = lexicalAnalyzer.readFile("C:/Users/Diego/Workspace/compilua/src/exemplo.txt");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

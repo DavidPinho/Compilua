@@ -69,7 +69,7 @@ public class LexicalAnalyzer {
 	
 		for(String line: lines){					
 			
-			aux =  line.trim().split("(\\s+|" +
+			aux =  line.trim().split("(((?<=\\s+)|(?=\\s+))|" +
 									 "((?<=,)|(?=,))|" +
 									 "((?<==)|(?==))|" +
 									 "((?<=\\+)|(?=\\+))|" +
@@ -132,7 +132,7 @@ public class LexicalAnalyzer {
 		//For example, we used "=" as a delimiter, but there are different expressions that use the operator "="  (<=, >=,==, =)
 		//So, we make sure that the code was splited correctly
 		for(int j = 0; j<aux.length;j++){
-			 tokenAux= aux[j].trim();			 
+			 tokenAux= aux[j];			 
 		
 			 if(tokenAux.equals("\"")){			
 			    if(doubleQuota){  
@@ -172,10 +172,10 @@ public class LexicalAnalyzer {
 			  		}else				  			
 			  			
 			  			if(doubleQuota||singleQuota){		  			   
-			  			    	stringAux = stringAux + " "+ tokenAux;
+			  			    	stringAux = stringAux + tokenAux;
 			  			}else 
 			  				
-			  				if(tokenAux.equals(""))		
+			  				if(tokenAux.trim().equals(""))		
 			  					continue;
 			  				else			  				
 				  				if(tokenAux.equals("~")){

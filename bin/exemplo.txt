@@ -1,9 +1,22 @@
-function fat(n)
-    if n == 0 then 
-      return 1
-    else 
-      return n * fatorial (n-1)
-    end
-end
+"teste"
+5
+0.4
+55.2653
+{(10-8)*[3/(1+2)]} == 2 > 1 ~= 0
+x = 2;
+y >= x
+x <= y
+#
+:
+a.s
 
-fat(10)
+false
+break
+return
+and
+end
+in
+
+"Davi, anota isso na lista do que temos que fazer"
+"Estamos com problemas pra reconhecer .  ..  ... "
+"temos que fazer assim: se for .  								lookAhead pra ver se tem . depois"
