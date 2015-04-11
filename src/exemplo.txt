@@ -10,6 +10,12 @@ x <= y
 :
 a.s
 
+false
+break
+return
+and
+end
+in
 
 "Davi, anota isso na lista do que temos que fazer"
 "Estamos com problemas pra reconhecer .  ..  ...  e tb pra reconhecer ~= "

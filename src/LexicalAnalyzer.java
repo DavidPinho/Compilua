@@ -258,7 +258,6 @@ public class LexicalAnalyzer {
 	
 	
 	public TokenType getTokenType(String word) {
-	//TODO: fazer o \n	
 		TokenType type = null;
 		Pattern p = Pattern.compile(
 			    "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
@@ -270,8 +269,6 @@ public class LexicalAnalyzer {
 			type = TokenType.STRING;
 		} else if(m.matches()) {
 			type = TokenType.NUMBER;
-		} else if(word.equals("true") || word.equals("false")) {
-			type = TokenType.BOOLEAN;
 		} else if(word.equals("(")) {
 			type = TokenType.LPAREN;
 		} else if(word.equals(")")) {
@@ -324,7 +321,51 @@ public class LexicalAnalyzer {
 			type = TokenType.MORE_OP;
 		} else if(word.equals("=")) {
 			type = TokenType.ASSIGN_OP;
-		}
+		} else if(word.equals("and")) {
+			type = TokenType.AND_KWORD;
+		} else if(word.equals("end")) {
+			type = TokenType.END_KWORD;
+		} else if(word.equals("in")) {
+			type = TokenType.IN_KWORD;
+		} else if(word.equals("repeat")) {
+			type = TokenType.REPEAT_KWORD;
+		} else if(word.equals("break")) {
+			type = TokenType.BREAK_KWORD;
+		} else if(word.equals("false")) {
+			type = TokenType.FALSE_KWORD;
+		} else if(word.equals("local")) {
+			type = TokenType.LOCAL_KWORD;
+		} else if(word.equals("return")) {
+			type = TokenType.RETURN_KWORD;
+		} else if(word.equals("do")) {
+			type = TokenType.DO_KWORD;
+		} else if(word.equals("for")) {
+			type = TokenType.FOR_KWORD;
+		} else if(word.equals("nil")) {
+			type = TokenType.NIL_KWORD;
+		} else if(word.equals("then")) {
+			type = TokenType.THEN_KWORD;
+		} else if(word.equals("else")) {
+			type = TokenType.ELSE_KWORD;
+		} else if(word.equals("function")) {
+			type = TokenType.FUNCTION_KWORD;
+		} else if(word.equals("not")) {
+			type = TokenType.NOT_KWORD;
+		} else if(word.equals("true")) {
+			type = TokenType.TRUE_KWORD;
+		} else if(word.equals("elseif")) {
+			type = TokenType.ELSEIF_KWORD;
+		} else if(word.equals("if")) {
+			type = TokenType.IF_KWORD;
+		} else if(word.equals("or")) {
+			type = TokenType.OR_KWORD;
+		} else if(word.equals("until")) {
+			type = TokenType.UNTIL_KWORD;
+		} else if(word.equals("while")) {
+			type = TokenType.WHILE;
+		} else if(word.equals("\\n")) {
+			type = TokenType.NEWLINE;
+		} else type = TokenType.IDENTIFIER;//otherwise
 		return type;
 	}
 	
