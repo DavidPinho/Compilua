@@ -280,6 +280,50 @@ public class LexicalAnalyzer {
 			type = TokenType.LBRACE;
 		} else if(word.equals("}")) {
 			type = TokenType.RBRACE;
+		} else if(word.equals("[")) {
+			type = TokenType.LBRACKET;
+		} else if(word.equals("]")) {
+			type = TokenType.RBRACKET;
+		} else if(word.equals(";")) {
+			type = TokenType.SEMICOLON;
+		} else if(word.equals(":")) {
+			type = TokenType.COLON;
+		} else if(word.equals(",")) {
+			type = TokenType.COMA;
+		} else if(word.equals(".")) {
+			type = TokenType.DOT;
+		} else if(word.equals("..")) {
+			type = TokenType.TWODOTS;
+		} else if(word.equals("...")) {
+			type = TokenType.THREEDOTS;
+		} else if(word.equals("+")) {
+			type = TokenType.PLUS_OP;
+		} else if(word.equals("-")) {
+			type = TokenType.MINUS_OP;
+		} else if(word.equals("==")) {
+			type = TokenType.EQUALS_OP;
+		} else if(word.equals("!=")) {
+			type = TokenType.DIFFERENT_OP;
+		} else if(word.equals("*")) {
+			type = TokenType.TIMES_OP;
+		} else if(word.equals("/")) {
+			type = TokenType.SLASH_OP;
+		} else if(word.equals("%")) {
+			type = TokenType.PERCENT_OP;
+		} else if(word.equals("^")) {
+			type = TokenType.POT_OP;
+		} else if(word.equals("#")) {
+			type = TokenType.HASH_OP;
+		} else if(word.equals("<=")) {
+			type = TokenType.LESSEQUALS_OP;
+		} else if(word.equals(">=")) {
+			type = TokenType.MOREEQUALS_OP;
+		} else if(word.equals("<")) {
+			type = TokenType.LESS_OP;
+		} else if(word.equals(">")) {
+			type = TokenType.MORE_OP;
+		} else if(word.equals("=")) {
+			type = TokenType.ASSIGN_OP;
 		}
 		return type;
 	}

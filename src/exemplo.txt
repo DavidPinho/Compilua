@@ -2,3 +2,15 @@
 5
 0.4
 55.2653
+{(10-8)*[3/(1+2)]} == 2 > 1 ~= 0
+x = 2;
+y >= x
+x <= y
+#
+:
+a.s
+
+
+"Davi, anota isso na lista do que temos que fazer"
+"Estamos com problemas pra reconhecer .  ..  ...  e tb pra reconhecer ~= "
+"temos que fazer assim: se for .  lookAhead pra ver se tem . depois"
