@@ -177,8 +177,7 @@ public class LexicalAnalyzer {
 			  				
 			  				if(tokenAux.equals(""))		
 			  					continue;
-			  				else
-			  				
+			  				else			  				
 				  				if(tokenAux.equals("~")){
 				  				  	   if(aux[j+1].equals("=")){
 				  				  		   tokens.add("~=");
@@ -299,7 +298,7 @@ public class LexicalAnalyzer {
 			type = TokenType.MINUS_OP;
 		} else if(word.equals("==")) {
 			type = TokenType.EQUALS_OP;
-		} else if(word.equals("!=")) {
+		} else if(word.equals("~=")) {
 			type = TokenType.DIFFERENT_OP;
 		} else if(word.equals("*")) {
 			type = TokenType.TIMES_OP;
