@@ -259,6 +259,7 @@ public class LexicalAnalyzer {
 	
 	public TokenType getTokenType(String word) {
 	//TODO: fazer o \n	
+		TokenType type = null;
 		Pattern p = Pattern.compile(
 			    "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
 			    	    "([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|" +
@@ -266,11 +267,21 @@ public class LexicalAnalyzer {
 			    	    "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*");//number
 		Matcher m = p.matcher(word);
 		if(word.contains("'") || word.contains("\"")) {
-			return TokenType.STRING;
+			type = TokenType.STRING;
 		} else if(m.matches()) {
-			return TokenType.NUMBER;
+			type = TokenType.NUMBER;
+		} else if(word.equals("true") || word.equals("false")) {
+			type = TokenType.BOOLEAN;
+		} else if(word.equals("(")) {
+			type = TokenType.LPAREN;
+		} else if(word.equals(")")) {
+			type = TokenType.RPAREN;
+		} else if(word.equals("{")) {
+			type = TokenType.LBRACE;
+		} else if(word.equals("}")) {
+			type = TokenType.RBRACE;
 		}
-		return null;
+		return type;
 	}
 	
 	
