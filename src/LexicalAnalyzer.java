@@ -215,7 +215,7 @@ public class LexicalAnalyzer {
 							  			  	}else
 							  			  		
 							  			  		if(tokenAux.equals(".")){
-							  			  			if(aux[j-1].matches("[0-9]+")){     //FLOAT NUMBER
+							  			  			if(aux[j-1].trim().matches("[0-9]+")){     //FLOAT NUMBER
 							  			  				tokens.remove(tokens.size()-1);
 							  			  				tokens.add(aux[j-1]+tokenAux+aux[j+1]);
 							  			  				j++;
@@ -225,13 +225,20 @@ public class LexicalAnalyzer {
 							  			  						if(aux[j+1].equals(".")&&aux[j+2].equals(".")){
 							  			  							tokens.add("...");
 							  			  							j=j+2;
-							  			  						}
+							  			  						}else if(aux[j+1].equals(".")){    //2 DOTS (..)
+								  			  							tokens.add("..");
+								  			  							j++;
+							  			  							  }else{
+							  			  								  tokens.add(".");
+							  			  							  }
 							  			  					}else{
 							  			  					if(aux[j+1].equals(".")){    //2 DOTS (..)
 						  			  							tokens.add("..");
 						  			  							j++;
 						  			  						}
 							  			  					}
+							  			  				  }else{
+							  			  					  tokens.add(".");
 							  			  				  }
 							  			  			}
 							  			  				
