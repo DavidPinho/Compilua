@@ -10,8 +10,7 @@ import java.util.regex.Pattern;
 
 public class LexicalAnalyzer {
 
-	
-	
+		
 	//method to read a file and return an Array of String, where each String is a line of the file
 	public ArrayList<String> readFile(String fileName) throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader(fileName));
@@ -66,6 +65,15 @@ public class LexicalAnalyzer {
 		
 		ArrayList<String> tokens = new ArrayList<String>();
 		String [] aux;
+		String tokenAux;	
+		String stringAux="";
+		String openPattern="";
+		String closePattern="";
+		boolean doubleQuota = false;
+		boolean singleQuota = false;
+		boolean firstOpenBracket =false;		
+		boolean stringBool=false;
+		
 	
 		for(String line: lines){					
 			
@@ -93,161 +101,200 @@ public class LexicalAnalyzer {
 									 "((?<=\")|(?=\"))|" +									 
 									 "((?<=\')|(?=\'))|" +
 									 "((?<=\\.)|(?=\\.)))" +								 
-									 "");		
+									 "");
 			
-			lookAhead(aux, tokens);
-		}	
-		
-		
-		for(String t : tokens)
-			System.out.println(t);
-		
-		return tokens;
-	
-		
-	}
-	
-	/* TODO: estamos com um problema quando eh string
-	 * temos que reconhecer quando abrir " ou ', ta dando o split de boa
-	 * mas ta adicionando um espaco depois da aspa, temos que fazer algo do tipo:
-	 * 
-	 * para o primeiro elemento depois da aspa ele nao gera aquele espaco que vc ta gerando pra concatenar
-	 * 
-	 * ta assim:
-	 * "value of a:"
-	 * 
-	 * e na saida
-	 * 
-	 * " value of a :"
-	 */
-	
-	public void lookAhead(String[] aux, ArrayList<String> tokens){
-		
-		String tokenAux;
-		String stringAux="";
-		boolean doubleQuota = false;
-		boolean singleQuota = false;
-		
-		//The follow code aim to solve possible problems caused by the split operation. 
-		//For example, we used "=" as a delimiter, but there are different expressions that use the operator "="  (<=, >=,==, =)
-		//So, we make sure that the code was splited correctly
-		for(int j = 0; j<aux.length;j++){
-			 tokenAux= aux[j];			 
-		
-			 if(tokenAux.equals("\"")){			
-			    if(doubleQuota){  
-			    	if(stringAux.endsWith("\\")){               //Identify an quote(") inside of "
-			    		stringAux = stringAux + tokenAux;
-			    	}else{										
-			    		stringAux = stringAux + tokenAux;		//Identify end of string
-			    	 	tokens.add(stringAux);
-			    	 	stringAux=new String();
-			    	 	doubleQuota=false;
-			    	}
-			    }else if(singleQuota){							//Identify the begin of a string (The first quote ("))
-			    		stringAux = stringAux + tokenAux;
-			    	   }else{
-			    		  doubleQuota=true;
-			    		  stringAux = stringAux + tokenAux;
-			    	  }				    							
-			  }else 					  
-				  
-				  if(tokenAux.equals("\'")){							
-					    if(singleQuota){   
-					    	if(stringAux.endsWith("\\")){			//Identify an single quote(') inside of '
-					    		stringAux = stringAux + tokenAux;
-					    	}else{
-					    		stringAux = stringAux + tokenAux;  //Identify end of string
-					    		tokens.add(stringAux);
-						    	stringAux=new String();
-						    	singleQuota=false;
-					    	}							    	
-					    }else if(doubleQuota){
-					    		stringAux = stringAux + tokenAux;   //Identify a single quote inside a quote
-					    	  }
-					    	  else{
-					    		stringAux = stringAux + tokenAux;
-					    		singleQuota=true;		 		    //Identify the begin of a string (The first single quote ('))
-					    	  }
-			  		}else				  			
-			  			
-			  			if(doubleQuota||singleQuota){		  			   
-			  			    	stringAux = stringAux + tokenAux;
-			  			}else 
-			  				
-			  				if(tokenAux.trim().equals(""))		
-			  					continue;
-			  				else			  				
-				  				if(tokenAux.equals("~")){
-				  				  	   if(aux[j+1].equals("=")){
-				  				  		   tokens.add("~=");
-				  				  		   j++;
-				  				  	   }else{
-				  				  		   tokens.add("~");
-				  				  	   }				  				  		   
-				  			  	}else
-				  			  		
-					  			  	if(tokenAux.equals("<")){
-					  				  	   if(aux[j+1].equals("=")){
-					  				  		   tokens.add("<=");
+			//LOOKAHEAD
+			//The follow code aim to solve possible problems caused by the split operation. 
+			//For example, we used "=" as a delimiter, but there are different expressions that use the operator "="  (<=, >=,==, =)
+			//So, we make sure that the code was splited correctly
+			for(int j = 0; j<aux.length;j++){
+				 tokenAux= aux[j];
+				 
+				 if(tokenAux.equals("[") || tokenAux.equals("]") || tokenAux.equals("=")){
+					 if(doubleQuota || singleQuota){
+						 stringAux=stringAux+tokenAux;
+					 }else  
+						 if(tokenAux.equals("[")){
+							 if(stringBool){
+								 stringAux=stringAux+tokenAux;
+							 }else
+								 if(!firstOpenBracket){
+									 if(j+1<aux.length){
+										 if(aux[j+1].equals("[") || aux[j+1].equals("=")){
+											 stringAux = stringAux + tokenAux;
+											 firstOpenBracket=true;
+										 }
+										 else{
+											 tokens.add(tokenAux);
+										 }
+									 }else{
+										 tokens.add(tokenAux);
+									 }
+								 }else{
+									 stringAux = stringAux + tokenAux;
+									 stringBool=true;
+									 firstOpenBracket=false;
+									 openPattern= openPattern+stringAux;
+								 }
+						 }else
+							 if(tokenAux.equals("=")){
+								 if(stringBool){
+									 stringAux=stringAux+tokenAux;
+									 if(!closePattern.equals("")&&(aux[j+1].equals("=")||aux[j+1].equals("]"))){
+										 closePattern=closePattern+tokenAux;
+									 }
+								 }else
+									 if(firstOpenBracket){
+										 stringAux=stringAux+ tokenAux;
+									 }else
+										 if(aux[j+1].equals("=")){
+					  				  		   tokens.add("==");
 					  				  		   j++;
 					  				  	   }else{
-					  				  		   tokens.add("<");
-					  				  	   }				  				  		   
-					  			  	}else
-					  			  		
-						  			  	if(tokenAux.equals(">")){
+					  				  		   tokens.add("=");
+					  				  	  }
+							 }else
+								 if(tokenAux.equals("]")){
+									 if(stringBool){
+										 stringAux=stringAux+tokenAux;
+										 closePattern=closePattern+tokenAux;
+										 if(matchPatterns(openPattern, closePattern)){
+											 tokens.add(stringAux);
+											 stringBool=false;
+											 stringAux=new String();
+											 openPattern="";
+											 closePattern="";											 
+										 }else
+										 	 if(j+1<aux.length){
+										 		 if(!(aux[j+1].equals("=")||aux[j+1].equals("]")))
+										 		 	closePattern="";
+										 	 }
+									 }else{
+										 tokens.add(tokenAux);
+									 }
+								 }
+				 }else	
+					 if(tokenAux.equals("\"")){			
+					    if(doubleQuota){  
+					    	if(stringAux.endsWith("\\")){               //Identify an quote(") inside of "
+					    		stringAux = stringAux + tokenAux;
+					    	}else{										
+					    		stringAux = stringAux + tokenAux;		//Identify end of string
+					    	 	tokens.add(stringAux);
+					    	 	stringAux=new String();
+					    	 	doubleQuota=false;
+					    	}
+					    }else if(singleQuota || stringBool){							//Identify the begin of a string (The first quote ("))
+					    		stringAux = stringAux + tokenAux;
+					    	   }else{
+					    		  doubleQuota=true;
+					    		  stringAux = stringAux + tokenAux;
+					    	  }				    							
+					  }else 					  
+						  
+						  if(tokenAux.equals("\'")){							
+							    if(singleQuota){   
+							    	if(stringAux.endsWith("\\")){			//Identify an single quote(') inside of '
+							    		stringAux = stringAux + tokenAux;
+							    	}else{
+							    		stringAux = stringAux + tokenAux;  //Identify end of string
+							    		tokens.add(stringAux);
+								    	stringAux=new String();
+								    	singleQuota=false;
+							    	}							    	
+							    }else if(doubleQuota || stringBool){
+							    		stringAux = stringAux + tokenAux;   //Identify a single quote inside a quote
+							    	  }
+							    	  else{
+							    		stringAux = stringAux + tokenAux;
+							    		singleQuota=true;		 		    //Identify the begin of a string (The first single quote ('))
+							    	  }
+					  		}else				  			
+					  			
+					  			if(stringBool||doubleQuota||singleQuota){		  			   
+					  			    	stringAux = stringAux + tokenAux;
+					  			}else 
+					  				
+					  				if(tokenAux.trim().equals(""))		
+					  					continue;
+					  				else			  				
+						  				if(tokenAux.equals("~")){
 						  				  	   if(aux[j+1].equals("=")){
-						  				  		   tokens.add(">=");
+						  				  		   tokens.add("~=");
 						  				  		   j++;
 						  				  	   }else{
-						  				  		   tokens.add(">");
+						  				  		   tokens.add("~");
 						  				  	   }				  				  		   
 						  			  	}else
 						  			  		
-							  			  	if(tokenAux.equals("=")){
+							  			  	if(tokenAux.equals("<")){
 							  				  	   if(aux[j+1].equals("=")){
-							  				  		   tokens.add("==");
+							  				  		   tokens.add("<=");
 							  				  		   j++;
 							  				  	   }else{
-							  				  		   tokens.add("=");
+							  				  		   tokens.add("<");
 							  				  	   }				  				  		   
 							  			  	}else
 							  			  		
-							  			  		if(tokenAux.equals(".")){
-							  			  			if(aux[j-1].trim().matches("[0-9]+")){     //FLOAT NUMBER
-							  			  				tokens.remove(tokens.size()-1);
-							  			  				tokens.add(aux[j-1]+tokenAux+aux[j+1]);
-							  			  				j++;
-							  			  			}else{ 
-							  			  				if(aux.length>j+1){			//3 DOTS (...)
-							  			  					if(aux.length>j+2){
-							  			  						if(aux[j+1].equals(".")&&aux[j+2].equals(".")){
-							  			  							tokens.add("...");
-							  			  							j=j+2;
-							  			  						}else if(aux[j+1].equals(".")){    //2 DOTS (..)
-								  			  							tokens.add("..");
-								  			  							j++;
-							  			  							  }else{
-							  			  								  tokens.add(".");
-							  			  							  }
-							  			  					}else{
-							  			  					if(aux[j+1].equals(".")){    //2 DOTS (..)
-						  			  							tokens.add("..");
-						  			  							j++;
-						  			  						}
-							  			  					}
-							  			  				  }else{
-							  			  					  tokens.add(".");
-							  			  				  }
-							  			  			}
-							  			  				
-							  			  		}else{
-							  			  			tokens.add(tokenAux);	//OTHERWISE
-							  			  		 }						
-		}				
-		tokens.add("\\n");		
+								  			  	if(tokenAux.equals(">")){
+								  				  	   if(aux[j+1].equals("=")){
+								  				  		   tokens.add(">=");
+								  				  		   j++;
+								  				  	   }else{
+								  				  		   tokens.add(">");
+								  				  	   }				  				  		   
+								  			  	}else					  			  		
+								  			  		if(tokenAux.equals(".")){
+								  			  			
+									  			  		Pattern p = Pattern.compile(
+									  						    "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
+									  						    	    "([eE][+-]?(\\p{Digit}+))?)|(\\.((\\p{Digit}+))([eE][+-]?(\\p{Digit}+))?)|" +
+									  						    	    "(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))" +
+									  						    	    "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*");//number
+									  			  		Matcher m1 = p.matcher("."); //only to initialize
+									  			  	    Matcher m2 = p.matcher("."); //only to initialize
+									  					if(j-1>=0)
+									  					  m1 = p.matcher(aux[j-1]);
+									  					if(j+1<aux.length)
+									  					  m2 = p.matcher(aux[j+1]);
+								  			  			if(m1.matches()&& m2.matches()){     //NUMBER
+								  			  				tokens.remove(tokens.size()-1);
+								  			  				tokens.add(aux[j-1]+tokenAux+aux[j+1]);
+								  			  				j++;
+								  			  			}else{ 
+								  			  				if(aux.length>j+1){			//3 DOTS (...)
+								  			  					if(aux.length>j+2){
+								  			  						if(aux[j+1].equals(".")&&aux[j+2].equals(".")){
+								  			  							tokens.add("...");
+								  			  							j=j+2;
+								  			  						}else if(aux[j+1].equals(".")){    //2 DOTS (..)
+									  			  							tokens.add("..");
+									  			  							j++;
+								  			  							  }else{
+								  			  								  tokens.add(".");
+								  			  							  }
+								  			  					}else{
+								  			  					if(aux[j+1].equals(".")){    //2 DOTS (..)
+							  			  							tokens.add("..");
+							  			  							j++;
+							  			  						}
+								  			  					}
+								  			  				  }else{
+								  			  					  tokens.add(".");
+								  			  				  }
+								  			  			}								  			  				
+								  			  		}else{
+								  			  			tokens.add(tokenAux);	//OTHERWISE
+								  			  		 }						
+				}				
+			tokens.add("\\n");	//NEW LINE		
+		}					
+		for(String t : tokens)
+			System.out.println(t);		
+		return tokens;		
 	}
+	
+
 	
 	
 	public ArrayList<Token> doLexAnalysis(ArrayList<String> tokens) {
@@ -271,7 +318,12 @@ public class LexicalAnalyzer {
 			    	    "(((0[xX](\\p{XDigit}+)(\\.)?)|(0[xX](\\p{XDigit}+)?(\\.)(\\p{XDigit}+)))" +
 			    	    "[pP][+-]?(\\p{Digit}+)))[fFdD]?))[\\x00-\\x20]*");//number
 		Matcher m = p.matcher(word);
+		
+		p = Pattern.compile("^\\[=*\\[");
+		Matcher m2 = p.matcher(word);
 		if(word.contains("'") || word.contains("\"")) {
+			type = TokenType.STRING;
+		} else if(m2.matches()) {
 			type = TokenType.STRING;
 		} else if(m.matches()) {
 			type = TokenType.NUMBER;
@@ -376,6 +428,29 @@ public class LexicalAnalyzer {
 	}
 	
 	
+	
+	public boolean matchPatterns(String open, String close){
+		if(open.length()==close.length()){
+			for(int i =0; i<open.length();i++){
+				if(open.charAt(i)=='['){
+					if(close.charAt(i)==']')
+						continue;
+					else
+						return false;
+				}else 
+					if((open.charAt(i)=='=')&&(close.charAt(i)=='='))
+						continue;
+					else
+						return false;
+				
+			}
+			
+		}else{
+			return false;
+		}
+		
+		return true;
+	}
 	
 	
 	
