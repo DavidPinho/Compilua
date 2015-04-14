@@ -32,7 +32,6 @@ public class LexicalAnalyzer {
 	
 	
 	//This method remove all comments in the code
-	@SuppressWarnings("unchecked")
 	public ArrayList<String> removeComment(ArrayList<String> lines){
 		
 		boolean block = false;
