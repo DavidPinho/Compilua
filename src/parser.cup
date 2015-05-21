@@ -1,0 +1,57 @@
+import java_cup.runtime.*;
+
+
+//---------------Preliminaries to set up and use the scanner. -----------------
+
+init with {: LexicalAnalyzer.init();              :};
+scan with {: return LexicalAnalyzer.next_token(); :};
+
+
+//--------------Terminals (tokens returned by the scanner). -----------------
+
+terminal      SEMICOLON, ASSIGN_OP, DO_KWORD, END_KWORD, WHILE;
+terminal      REPEAT_KWORD, UNTIL_KWORD, IF_KWORD, THEN_KWORD, ELSEIF_KWORD;
+terminal      ELSE_KWORD, FOR_KWORD, COMA, IN_KWORD, FUNCTION_KWORD;
+terminal      LOCAL_KWORD, RETURN_KWORD, BREAK_KWORD, DOT, COLON;
+terminal      LBRACKET, RBRACKET, NIL_KWORD, FALSE_KWORD, TRUE_KWORD;
+terminal      THREEDOTS, TWODOTS, LPAREN, RPAREN, LBRACE, RBRACE;
+terminal      PLUS_OP, MINUS_OP, TIMES_OP, SLASH_OP, POT_OP, PERCENT_OP;
+terminal      LESSEQUALS_OP, MOREEQUALS_OP, LESS_OP, MORE_OP, EQUALS_OP, DIFFERENT_OP;
+terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP, NEWLINE;
+
+terminal 	  java.lang.Number NUMBER;
+terminal 	  java.lang.String STRING;
+terminal 	  java.lang.String IDENTIFIER;
+
+
+//----------------Non terminals -----------------------------------------------
+
+non terminal  trecho, bloco, corpodafuncao, construtortabela;
+non terminal  comando, ultimocomando;
+non terminal  nomedafuncao, var, chamadadefuncao, args, funcao, campo;
+non terminal  listavar, listadenomes, listaexp, listapar, listadecampos;
+non terminal  exp, expprefixo;
+non terminal  separadordecampos, opbin, opunaria;
+
+
+//--------------- Precedences---------------------------------------------- 
+
+precedence left PLUS, MINUS;
+precedence left TIMES, DIVIDE, MOD;
+precedence left UMINUS;
+
+
+//----------------The grammar---------------------------------------------------- 
+
+expr_list ::= expr_list expr_part | 
+              expr_part;
+expr_part ::= expr SEMI;
+expr      ::= expr PLUS expr 
+            | expr MINUS expr  
+            | expr TIMES expr  
+            | expr DIVIDE expr  
+            | expr MOD expr 
+	    | MINUS expr %prec UMINUS
+            | LPAREN expr RPAREN
+	    | NUMBER
+	    ;
