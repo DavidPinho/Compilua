@@ -33,7 +33,7 @@ public class Compiler {
 	public static void printTokenList(ArrayList<Token> tokens) {
 		
 		for (Token token : tokens) {
-			System.out.println("<"+token.getValue()+","+token.getType()+">");
+			System.out.println("<"+token.getValue()+","+token.getType()+","+token.getLine()+">");
 		}
 	}
 

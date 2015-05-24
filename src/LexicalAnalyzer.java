@@ -9,20 +9,24 @@ import java.util.regex.Pattern;
 
 
 public class LexicalAnalyzer {
-
+	// attribute to record line numbers
+	private ArrayList<Integer> lineNumbers;
 		
 	//method to read a file and return an Array of String, where each String is a line of the file
 	public ArrayList<String> readFile(String fileName) throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader(fileName));
+	    lineNumbers = new ArrayList<Integer>();
+	    int lineNumber = 1;
 	    try {
 	        StringBuilder sb = new StringBuilder();
 	        String line = br.readLine();
 	        ArrayList<String> lines= new ArrayList<String>();
 
 	        while (line != null) {
-	        	
 	        	lines.add(line);
 	        	line = br.readLine();
+	        	lineNumbers.add(lineNumber);
+	        	lineNumber++;
 	        }
 	        return lines;
 	    } finally {
@@ -43,19 +47,24 @@ public class LexicalAnalyzer {
 			String line = linesAux.get(i);
 			if(line.startsWith("--[[")){
 				block = true;	
-				lines.remove(line);			
+				lines.remove(line);
+				lineNumbers.remove(i);
 			}else if(line.contains("--]]")){
 				block =false;
 				int index = line.lastIndexOf("--]]");
 				index = index + 4;
 				if(line.length()>index)
 					line = line.substring(index, line.length());
-				else
-					lines.remove(line);				
+				else {
+					lines.remove(line);
+					lineNumbers.remove(i);
+				}
 			}else if(line.startsWith("--")){
 				lines.remove(line);
-				}else if(block)
-					lines.remove(line);			
+				}else if(block) {
+					lines.remove(line);
+					lineNumbers.remove(i);
+				}
 		}		
 		return lines;			
 	}
@@ -301,7 +310,7 @@ public class LexicalAnalyzer {
 		Token t;
 		
 		for(int i = 0; i < tokens.size(); i++) {
-			t = new Token(getTokenType(tokens.get(i)), tokens.get(i));
+			t = new Token(getTokenType(tokens.get(i)), tokens.get(i), lineNumbers.get(i));
 			lexemes.add(t);
 		}
 		

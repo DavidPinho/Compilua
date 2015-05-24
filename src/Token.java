@@ -4,11 +4,13 @@ public class Token {
 	//Um token possui um tipo e um valor
 	private TokenType type;
 	private String value;
+	private int line;
 	
 	
-	public Token(TokenType type, String value){
+	public Token(TokenType type, String value, int line){
 		this.type = type;
-		this.value =value;
+		this.value = value;
+		this.line = line;
 	}
 
 
@@ -29,6 +31,16 @@ public class Token {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+
+	public int getLine() {
+		return line;
+	}
+
+
+	public void setLine(int line) {
+		this.line = line;
 	}
 	
 	
