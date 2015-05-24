@@ -7,10 +7,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.DefaultSymbolFactory;
+import java_cup.runtime.Symbol;
+import java_cup.runtime.SymbolFactory;
+
 
 public class LexicalAnalyzer {
 	// attribute to record line numbers
 	private ArrayList<Integer> lineNumbers;
+	private ArrayList<Token> tokens;
+	private SymbolFactory sf = new ComplexSymbolFactory();
 		
 	//method to read a file and return an Array of String, where each String is a line of the file
 	public ArrayList<String> readFile(String fileName) throws IOException {
@@ -313,7 +320,7 @@ public class LexicalAnalyzer {
 			t = new Token(getTokenType(tokens.get(i)), tokens.get(i), lineNumbers.get(i));
 			lexemes.add(t);
 		}
-		
+		this.tokens = lexemes;
 		return lexemes;
 	}
 	
@@ -460,7 +467,12 @@ public class LexicalAnalyzer {
 		return true;
 	}
 	
-	
+	public Symbol nextToken() {
+		for (Token token : tokens) {
+			//return sf.new
+		}
+		return null;
+	}
 	
 	
 	

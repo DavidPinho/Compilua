@@ -36,5 +36,4 @@ public class Compiler {
 			System.out.println("<"+token.getValue()+","+token.getType()+","+token.getLine()+">");
 		}
 	}
-
 }
