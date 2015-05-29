@@ -30,6 +30,7 @@ public enum TokenType {
 	PERCENT_OP,// %
 	POT_OP,//^
 	HASH_OP,//#
+	MINUS_UNOP, // -(UNARY)
 	LESSEQUALS_OP,
 	MOREEQUALS_OP,
 	LESS_OP,
