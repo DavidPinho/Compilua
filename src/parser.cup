@@ -17,7 +17,7 @@ terminal      LBRACKET, RBRACKET, NIL_KWORD, FALSE_KWORD, TRUE_KWORD;
 terminal      THREEDOTS, TWODOTS, LPAREN, RPAREN, LBRACE, RBRACE;
 terminal      PLUS_OP, MINUS_OP, TIMES_OP, SLASH_OP, POT_OP, PERCENT_OP;
 terminal      LESSEQUALS_OP, MOREEQUALS_OP, LESS_OP, MORE_OP, EQUALS_OP, DIFFERENT_OP;
-terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP, NEWLINE;
+terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP, NEWLINE, MINUS_UNOP;
 
 terminal 	  java.lang.Number NUMBER;
 terminal 	  java.lang.String STRING;
@@ -39,9 +39,14 @@ non terminal  separadordecampos, opbin, opunaria;
 
 //--------------- Precedences---------------------------------------------- 
 
-precedence left PLUS, MINUS;
-precedence left TIMES, DIVIDE, MOD;
-precedence left UMINUS;
+precedence left OR_KWORD;
+precedence left AND_KWORD;
+precedence left LESS_OP, MORE_OP, LESSEQUALS_OP, MOREEQUALS_OP, DIFFERENT_OP, EQUALS_OP;
+precedence right TWODOTS;
+precedence left PLUS_OP,MINUS_OP;
+precedence left TIMES_OP, SLASH_OP, PERCENT_OP;
+precedence left NOT_KWORD, HASH_OP, PERCENT_OP, MINUS_UNOP;
+precedence right POT_OP;
 
 
 //----------------The grammar---------------------------------------------------- 
@@ -225,7 +230,7 @@ opbin   ::=         PLUS_OP
 						;
 
 
-opunaria   ::=     MINUS_OP
+opunaria   ::=     MINUS_UNOP
 					   |   NOT_KWORD
 					   |   HASH_OP
 					   ;
