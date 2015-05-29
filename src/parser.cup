@@ -31,7 +31,7 @@ non terminal  bloco, corpodafuncao, construtortabela;
 non terminal  comando, ultimocomando, forcond, ifstat, elseifstat, elsestat;
 non terminal  nomedafuncao, nomedafuncaoaux1, nomedafuncaoaux2;
 non terminal  var, chamadadefuncao, args, funcao, campo;
-non terminal  listavar, listadenomes, listadenomesaux, listaexp, listaexpaux, listapar;
+non terminal  listavar, listavaraux, listadenomes, listadenomesaux, listaexp, listaexpaux, listapar;
 non terminal  listadecampos, listadecamposaux1, listadecamposaux2;
 non terminal  exp, expprefixo;
 non terminal  separadordecampos, opbin, opunaria;
