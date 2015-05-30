@@ -27,7 +27,11 @@ public class Compiler {
 		tokensAux=lexicalAnalyzer.splitTokens(lines);				
 
 		tokens = lexicalAnalyzer.doLexAnalysis(tokensAux);
-		printTokenList(tokens);
+		
+		Parser p = new Parser(lexicalAnalyzer);
+		p.parse();
+		
+		//printTokenList(tokens);
 	}
 	
 	public static void printTokenList(ArrayList<Token> tokens) {
