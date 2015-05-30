@@ -319,8 +319,10 @@ public class LexicalAnalyzer implements Scanner{
 		ArrayList<Token> lexemes = new ArrayList<Token>();
 		Token t;
 		
-		for(int i = 0; i <tokens.size()-1; i++) {
+
+		for(int i = 0; i <tokens.size(); i++) {
 			t = new Token(getTokenType(tokens.get(i)), tokens.get(i), lineNumbers.get(i));
+
 			lexemes.add(t);
 		}
 		LexicalAnalyzer.tokens = lexemes;

@@ -7,10 +7,10 @@ public class Token {
 	private int line;
 	
 	
-	public Token(TokenType type, String value, int line){
+	public Token(TokenType type, String value){
 		this.type = type;
 		this.value = value;
-		this.line = line;
+		//this.line = line;
 	}
 
 
