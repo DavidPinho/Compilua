@@ -25,13 +25,13 @@ public class Compiler {
 		
 		
 		
-		lines = lexicalAnalyzer.removeComment(lines);
-		
+		lines = lexicalAnalyzer.removeComment(lines);																																																																																																																																																																																																																																																					
+																																															
 		tokensAux=lexicalAnalyzer.splitTokens(lines);				
-
+																																																																																							
 		tokens = lexicalAnalyzer.doLexAnalysis(tokensAux);*/
 		
-		LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer(args[0]);	
+		LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer("/home/david/workspace/Compilua/src/exemplo.txt");	
 		parser p = new parser((Scanner) lexicalAnalyzer);
 		try {
 			p.parse();

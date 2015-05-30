@@ -6,10 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import java_cup.runtime.ComplexSymbolFactory;
+import java_cup.runtime.Scanner;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.SymbolFactory;
 
-public class LexicalAnalyzer {
+public class LexicalAnalyzer implements Scanner{
 	// attribute to record line numbers
 	private static ArrayList<Integer> lineNumbers;
 	private static ArrayList<Token> tokens;
@@ -318,7 +319,7 @@ public class LexicalAnalyzer {
 		ArrayList<Token> lexemes = new ArrayList<Token>();
 		Token t;
 		
-		for(int i = 0; i < tokens.size(); i++) {
+		for(int i = 0; i <tokens.size()-1; i++) {
 			t = new Token(getTokenType(tokens.get(i)), tokens.get(i), lineNumbers.get(i));
 			lexemes.add(t);
 		}
@@ -471,7 +472,7 @@ public class LexicalAnalyzer {
 	
 	
 	public static void init() throws java.io.IOException        { 
-				
+		System.out.println("Entrou no init");
 		ArrayList<String> lines  = new ArrayList<String>();	
 		ArrayList<String> tokensAux  = new ArrayList<String>();	
 		
@@ -498,7 +499,7 @@ public class LexicalAnalyzer {
 	 */
 	public static Symbol nextToken() {
 		int i = 0;
-
+		System.out.println("Entrou no nextToken");
 		if(!tokens.isEmpty()) {
 			Token token = tokens.get(0);
 			tokens.remove(token);// tira da lista pra poder funcionar o nextToken
@@ -508,6 +509,13 @@ public class LexicalAnalyzer {
 		} else {
 			return sf.newSymbol("EOF",sym.EOF);
 		}
+	}
+
+	@Override
+	public Symbol next_token() throws Exception {
+		// TODO Auto-generated method stub
+		System.out.println("Entrou no next_token");
+		return null;
 	}
 	
 	
