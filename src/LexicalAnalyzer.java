@@ -16,8 +16,10 @@ import java_cup.runtime.SymbolFactory;
 public class LexicalAnalyzer {
 	// attribute to record line numbers
 	private ArrayList<Integer> lineNumbers;
-	private ArrayList<Token> tokens;
+	private static ArrayList<Token> tokens;
 	private SymbolFactory sf = new ComplexSymbolFactory();
+	
+	
 		
 	//method to read a file and return an Array of String, where each String is a line of the file
 	public ArrayList<String> readFile(String fileName) throws IOException {
@@ -467,7 +469,10 @@ public class LexicalAnalyzer {
 		return true;
 	}
 	
-	public Symbol nextToken() {
+	
+	public static void init() throws java.io.IOException        {  }
+	
+	public static Symbol nextToken() {
 		for (Token token : tokens) {
 			//return sf.new
 		}

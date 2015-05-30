@@ -17,7 +17,7 @@ terminal      LBRACKET, RBRACKET, NIL_KWORD, FALSE_KWORD, TRUE_KWORD;
 terminal      THREEDOTS, TWODOTS, LPAREN, RPAREN, LBRACE, RBRACE;
 terminal      PLUS_OP, MINUS_OP, TIMES_OP, SLASH_OP, POT_OP, PERCENT_OP;
 terminal      LESSEQUALS_OP, MOREEQUALS_OP, LESS_OP, MORE_OP, EQUALS_OP, DIFFERENT_OP;
-terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP, NEWLINE, MINUS_UNOP;
+terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP, MINUS_UNOP;
 
 terminal 	  java.lang.Number NUMBER;
 terminal 	  java.lang.String STRING;
@@ -28,10 +28,12 @@ terminal 	  java.lang.String IDENTIFIER;
 
 non terminal  trecho, trecho1, trecho2;
 non terminal  bloco, corpodafuncao, construtortabela;
-non terminal  comando, ultimocomando, forcond, ifstat, elseifstat, elsestat;
+non terminal  comando, ultimocomando;
+non terminal  forstat, forcond, ifstat, elseifstat, elsestat;
 non terminal  nomedafuncao, nomedafuncaoaux1, nomedafuncaoaux2;
-non terminal  var, chamadadefuncao, args, funcao, campo;
-non terminal  listavar, listavaraux, listadenomes, listadenomesaux, listaexp, listaexpaux, listapar;
+non terminal  var, chamadadefuncao, args, funcao, campo, localfat;
+non terminal  listavar, listavaraux;
+non terminal  listadenomes, listadenomesaux, listadenomesfat, listaexp, listaexpaux, listapar;
 non terminal  listadecampos, listadecamposaux1, listadecamposaux2;
 non terminal  exp, expprefixo;
 non terminal  separadordecampos, opbin, opunaria;
@@ -39,6 +41,7 @@ non terminal  separadordecampos, opbin, opunaria;
 
 //--------------- Precedences---------------------------------------------- 
 
+precedence left COMA;
 precedence left OR_KWORD;
 precedence left AND_KWORD;
 precedence left LESS_OP, MORE_OP, LESSEQUALS_OP, MOREEQUALS_OP, DIFFERENT_OP, EQUALS_OP;
@@ -47,46 +50,51 @@ precedence left PLUS_OP,MINUS_OP;
 precedence left TIMES_OP, SLASH_OP, PERCENT_OP;
 precedence left NOT_KWORD, HASH_OP, PERCENT_OP, MINUS_UNOP;
 precedence right POT_OP;
+precedence left LPAREN, RPAREN;
+
+
 
 
 //----------------The grammar---------------------------------------------------- 
 
-trecho        ::= trecho1 trecho2
-						|
-						;
+start with trecho;
 
-trecho1     ::= comando trecho1
-  					| comando SEMICOLON trecho1
+trecho      ::= trecho1 trecho2	;
+
+trecho1     ::= trecho1 comando 
+  					| trecho1 comando SEMICOLON 
 					|
 					;
 
-trecho2     ::= ultimocomando
-		           | ultimocomando SEMICOLON
-				   |
-				   ;
+trecho2     ::= ultimocomando 
+		            | ultimocomando SEMICOLON
+				    |
+				    ;
     
 
-bloco 	     ::= trecho;
+bloco 	    ::= trecho;
 
 	
-comando      ::=	listavar ASSIGN_OP listaexp
-					       | chamadadefuncao
+comando     ::=	listavar ASSIGN_OP listaexp					       
 					       | WHILE exp DO_KWORD bloco END_KWORD
+					  	   | REPEAT_KWORD bloco UNTIL_KWORD exp
 					       | ifstat 
-			   			   | FOR_KWORD IDENTIFIER ASSIGN_OP exp COMA     exp forcond DO_KWORD bloco END_KWORD
-				           | FOR_KWORD listadenomes IN_KWORD listaexp DO_KWORD bloco END_KWORD
+			   			   | FOR_KWORD forstat
 				           | FUNCTION_KWORD nomedafuncao corpodafuncao
-				           | LOCAL_KWORD FUNCTION_KWORD IDENTIFIER corpodafuncao
-			               | LOCAL_KWORD listadenomes
-				           | LOCAL_KWORD listadenomes ASSIGN_OP listaexp
+				           | chamadadefuncao
+				           | LOCAL_KWORD localfat				                        
 				           ;
 
+
+forstat  ::=  IDENTIFIER ASSIGN_OP exp COMA  exp forcond DO_KWORD bloco END_KWORD
+						| listadenomes IN_KWORD listaexp DO_KWORD bloco END_KWORD
+						;
 
 forcond        ::=   COMA exp
 						|
 						;
 
-ifstat 	         ::=   IF_KWORD exp THEN_KWORD bloco elseifstat elsestat END_KWORD;
+ifstat 	        ::=   IF_KWORD exp THEN_KWORD bloco elseifstat elsestat END_KWORD;
 
 elseifstat      ::=  ELSEIF_KWORD exp THEN_KWORD bloco  elseifstat
 							|
@@ -96,8 +104,11 @@ elsestat        ::=   ELSE_KWORD bloco
 					      |
 					      ;
 
+localfat       ::=	  FUNCTION_KWORD IDENTIFIER corpodafuncao
+			               | listadenomes listadenomesfat				           
+						   ;
 
-ultimocomando    ::=  RETURN_KWORD
+ultimocomando   ::=  RETURN_KWORD
 					       |  RETURN_KWORD listaexp
 					       |   BREAK_KWORD
 					       ;
@@ -105,11 +116,11 @@ ultimocomando    ::=  RETURN_KWORD
 
 nomedafuncao     ::= IDENTIFIER nomedafuncaoaux1 nomedafuncaoaux2;
 
-nomedafuncaoaux1     ::=     DOT IDENTIFIER nomedafuncaoaux1
+nomedafuncaoaux1 ::=     DOT IDENTIFIER nomedafuncaoaux1
 										|
 										;
 
-nomedafuncaoaux2       ::=   COLON IDENTIFIER
+nomedafuncaoaux2 ::=   COLON IDENTIFIER
 								   |
 								   ;
    
@@ -129,35 +140,40 @@ var    ::=	    IDENTIFIER
 
 listadenomes     ::=   	    IDENTIFIER listadenomesaux;
 
-listadenomesaux     ::=     COMA IDENTIFIER listadenomesaux
+listadenomesaux  ::=     COMA IDENTIFIER listadenomesaux
 									  |
 									  ;
+									 
+listadenomesfat  ::=   ASSIGN_OP listaexp	
+								|
+								;
+										 
 
 
 listaexp   ::=      listaexpaux  exp;
 
-listaexpaux  ::=    exp COMA listaexpaux
+listaexpaux  ::=    listaexpaux exp COMA 
 						|
 						;
+						
 
 
 exp       ::=	     NIL_KWORD
 					   |  FALSE_KWORD
 					   |  TRUE_KWORD
-					   |  IDENTIFIER
+					   |  NUMBER
 					   |  STRING
-					   | THREEDOTS
-					   | funcao
-					   | expprefixo 
-					   | construtortabela 
-					   | exp opbin exp
-					   | opunaria exp
+					   |  THREEDOTS
+					   |  funcao
+					   |  expprefixo 
+					   |  construtortabela 
+					   |  exp opbin exp
+					   |  opunaria exp
 					   ; 
 
 
 expprefixo   ::=         var
-						  |   chamadadefuncao
-						  |   LPAREN exp RPAREN
+						  |   LPAREN exp RPAREN	
 						  ; 
 
 chamadadefuncao ::=  	expprefixo args
@@ -193,7 +209,7 @@ construtortabela  ::=   LBRACE  RBRACE
 listadecampos     ::= campo listadecamposaux1 listadecamposaux2;
 
 
-listadecamposaux1     ::=    separadordecampos campo listadecamposaux1
+listadecamposaux1     ::=    listadecamposaux1 separadordecampos campo 
 												|
 												;
 
