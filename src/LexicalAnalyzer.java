@@ -475,12 +475,15 @@ public class LexicalAnalyzer {
 	 */
 	public static Symbol nextToken() {
 		int i = 0;
-		//TODO: fazer alguma verificação e mudança pra final de lista, pq como está pode ocasionar erros.
-		Token token = tokens.get(0);
-		tokens.remove(token);// tira da lista pra poder funcionar o nextToken
-		for(i = 0; i < tokens.size() && sym.terminalNames[i].equals(""+token.getType()); i++);
-		
-		return sf.newSymbol(""+token.getType(),i,token.getValue());
+		if(!tokens.isEmpty()) {
+			Token token = tokens.get(0);
+			tokens.remove(token);// tira da lista pra poder funcionar o nextToken
+			for(i = 0; i < tokens.size() && sym.terminalNames[i].equals(""+token.getType()); i++);
+			
+			return sf.newSymbol(""+token.getType(),i,token.getValue());
+		} else {
+			return sf.newSymbol("EOF",sym.EOF);
+		}
 	}
 	
 	
