@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +15,7 @@ import java_cup.runtime.SymbolFactory;
 public class LexicalAnalyzer implements Scanner{
 	// attribute to record line numbers
 	private static ArrayList<Integer> lineNumbers;
-	private static ArrayList<Token> tokens;
+	private static LinkedList<Token> tokens;
 	private static SymbolFactory sf = new ComplexSymbolFactory();
 	private static String fileToRead;
 	
@@ -316,11 +317,13 @@ public class LexicalAnalyzer implements Scanner{
 
 	
 	
-	public static ArrayList<Token> doLexAnalysis(ArrayList<String> tokens) {
-		ArrayList<Token> lexemes = new ArrayList<Token>();
+	public static LinkedList<Token> doLexAnalysis(ArrayList<String> tokensArray) {
+		LinkedList<Token> lexemes = new LinkedList<Token>();
+		LinkedList<String> tokens = new LinkedList<String>();
 		Token t;
 		
-		tokens.removeAll(Collections.singleton(null));
+		//tokens.removeAll(Collections.singleton(null));
+		tokens = removeNullElements(tokensArray);
 		for(int i = 0; i <tokens.size(); i++) {
 			t = new Token(getTokenType(tokens.get(i)), tokens.get(i));
 
@@ -522,6 +525,18 @@ public class LexicalAnalyzer implements Scanner{
 		// TODO Auto-generated method stub
 		System.out.println("Entrou no next_token");
 		return null;
+	}
+	
+	public static LinkedList<String> removeNullElements(ArrayList<String> tokensArray) {
+		LinkedList<String> aux = new LinkedList<String>();
+		
+		for(String s : tokensArray) {
+			if(!s.equals("null")) {
+				aux.add(s);
+			}
+		}
+		
+		return aux;
 	}
 	
 	
