@@ -2,6 +2,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -319,9 +320,9 @@ public class LexicalAnalyzer implements Scanner{
 		ArrayList<Token> lexemes = new ArrayList<Token>();
 		Token t;
 		
-
+		tokens.removeAll(Collections.singleton(null));
 		for(int i = 0; i <tokens.size(); i++) {
-			t = new Token(getTokenType(tokens.get(i)), tokens.get(i), lineNumbers.get(i));
+			t = new Token(getTokenType(tokens.get(i)), tokens.get(i));
 
 			lexemes.add(t);
 		}
@@ -503,14 +504,17 @@ public class LexicalAnalyzer implements Scanner{
 		int i = 0;
 		System.out.println("Entrou no nextToken");
 		if(!tokens.isEmpty()) {
-			Token token = tokens.get(0);
+			Token token = tokens.get(0);			
 			tokens.remove(token);// tira da lista pra poder funcionar o nextToken
-			for(i = 0; i < tokens.size() && sym.terminalNames[i].equals(""+token.getType()); i++);
-			
-			return sf.newSymbol(""+token.getType(),i,token.getValue());
+			for(i = 0; i < tokens.size(); i++) {
+			    if(sym.terminalNames[i].equals(""+token.getType())) {
+			       return sf.newSymbol(""+token.getType(),i,token.getValue());
+			    }
+			   }			
 		} else {
 			return sf.newSymbol("EOF",sym.EOF);
 		}
+		return null;
 	}
 
 	@Override
