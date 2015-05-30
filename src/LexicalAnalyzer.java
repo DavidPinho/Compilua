@@ -1,23 +1,19 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import java_cup.runtime.ComplexSymbolFactory;
-import java_cup.runtime.DefaultSymbolFactory;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.SymbolFactory;
-
 
 public class LexicalAnalyzer {
 	// attribute to record line numbers
 	private ArrayList<Integer> lineNumbers;
 	private static ArrayList<Token> tokens;
-	private SymbolFactory sf = new ComplexSymbolFactory();
+	private static SymbolFactory sf = new ComplexSymbolFactory();
 	
 	
 		
@@ -472,11 +468,19 @@ public class LexicalAnalyzer {
 	
 	public static void init() throws java.io.IOException        {  }
 	
+	/**
+	 * Called to return the next token of the list.
+	 * when a Token is readed, it is removed from the original list and transformed in a Symbol.
+	 * @return a new symbol
+	 */
 	public static Symbol nextToken() {
-		for (Token token : tokens) {
-			//return sf.new
-		}
-		return null;
+		int i = 0;
+		//TODO: fazer alguma verificação e mudança pra final de lista, pq como está pode ocasionar erros.
+		Token token = tokens.get(0);
+		tokens.remove(token);// tira da lista pra poder funcionar o nextToken
+		for(i = 0; i < tokens.size() && sym.terminalNames[i].equals(""+token.getType()); i++);
+		
+		return sf.newSymbol(""+token.getType(),i,token.getValue());
 	}
 	
 	
