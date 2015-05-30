@@ -11,14 +11,18 @@ import java_cup.runtime.SymbolFactory;
 
 public class LexicalAnalyzer {
 	// attribute to record line numbers
-	private ArrayList<Integer> lineNumbers;
+	private static ArrayList<Integer> lineNumbers;
 	private static ArrayList<Token> tokens;
 	private static SymbolFactory sf = new ComplexSymbolFactory();
+	private static String fileToRead;
 	
 	
+	public LexicalAnalyzer(String args){
+		LexicalAnalyzer.fileToRead=args;
+	}
 		
 	//method to read a file and return an Array of String, where each String is a line of the file
-	public ArrayList<String> readFile(String fileName) throws IOException {
+	public static ArrayList<String> readFile(String fileName) throws IOException {
 	    BufferedReader br = new BufferedReader(new FileReader(fileName));
 	    lineNumbers = new ArrayList<Integer>();
 	    int lineNumber = 1;
@@ -42,7 +46,7 @@ public class LexicalAnalyzer {
 	
 	//This method remove all comments in the code
 	@SuppressWarnings("unchecked")
-	public ArrayList<String> removeComment(ArrayList<String> lines){
+	public static ArrayList<String> removeComment(ArrayList<String> lines){
 		
 		boolean block = false;
 		
@@ -76,7 +80,7 @@ public class LexicalAnalyzer {
 	
 	
 	
-	public ArrayList<String> splitTokens(ArrayList<String> lines){
+	public static ArrayList<String> splitTokens(ArrayList<String> lines){
 		
 		ArrayList<String> tokens = new ArrayList<String>();
 		String [] aux;
@@ -310,7 +314,7 @@ public class LexicalAnalyzer {
 
 	
 	
-	public ArrayList<Token> doLexAnalysis(ArrayList<String> tokens) {
+	public static ArrayList<Token> doLexAnalysis(ArrayList<String> tokens) {
 		ArrayList<Token> lexemes = new ArrayList<Token>();
 		Token t;
 		
@@ -318,12 +322,12 @@ public class LexicalAnalyzer {
 			t = new Token(getTokenType(tokens.get(i)), tokens.get(i), lineNumbers.get(i));
 			lexemes.add(t);
 		}
-		this.tokens = lexemes;
+		LexicalAnalyzer.tokens = lexemes;
 		return lexemes;
 	}
 	
 	
-	public TokenType getTokenType(String word) {
+	public static TokenType getTokenType(String word) {
 		TokenType type = null;
 		Pattern p = Pattern.compile(
 			    "[\\x00-\\x20]*[+-]?(NaN|Infinity|((((\\p{Digit}+)(\\.)?((\\p{Digit}+)?)" +
@@ -442,7 +446,7 @@ public class LexicalAnalyzer {
 	
 	
 	
-	public boolean matchPatterns(String open, String close){
+	public static boolean matchPatterns(String open, String close){
 		if(open.length()==close.length()){
 			for(int i =0; i<open.length();i++){
 				if(open.charAt(i)=='['){
@@ -466,7 +470,26 @@ public class LexicalAnalyzer {
 	}
 	
 	
-	public static void init() throws java.io.IOException        {  }
+	public static void init() throws java.io.IOException        { 
+				
+		ArrayList<String> lines  = new ArrayList<String>();	
+		ArrayList<String> tokensAux  = new ArrayList<String>();	
+		
+		try {
+			 lines = readFile(fileToRead);			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		
+		
+		lines = removeComment(lines);
+		
+		tokensAux=splitTokens(lines);				
+
+		LexicalAnalyzer.tokens = doLexAnalysis(tokensAux);		
+		
+	}
 	
 	/**
 	 * Called to return the next token of the list.
@@ -475,7 +498,7 @@ public class LexicalAnalyzer {
 	 */
 	public static Symbol nextToken() {
 		int i = 0;
-		//TODO: fazer alguma verificação e mudança pra final de lista, pq como está pode ocasionar erros.
+		//TODO: fazer alguma verificaï¿½ï¿½o e mudanï¿½a pra final de lista, pq como estï¿½ pode ocasionar erros.
 		Token token = tokens.get(0);
 		tokens.remove(token);// tira da lista pra poder funcionar o nextToken
 		for(i = 0; i < tokens.size() && sym.terminalNames[i].equals(""+token.getType()); i++);

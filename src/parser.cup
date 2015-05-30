@@ -4,7 +4,7 @@ import java_cup.runtime.*;
 //---------------Preliminaries to set up and use the scanner. -----------------
 
 init with {: LexicalAnalyzer.init();              :};
-scan with {: return LexicalAnalyzer.next_token(); :};
+scan with {: return LexicalAnalyzer.nextToken(); :};
 
 
 //--------------Terminals (tokens returned by the scanner). -----------------

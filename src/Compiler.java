@@ -11,7 +11,7 @@ public class Compiler {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer();		
+		/*LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer();		
 		ArrayList<String> lines  = new ArrayList<String>();	
 		ArrayList<String> tokensAux  = new ArrayList<String>();	
 		ArrayList<Token> tokens = new ArrayList<Token>();		
@@ -29,8 +29,9 @@ public class Compiler {
 		
 		tokensAux=lexicalAnalyzer.splitTokens(lines);				
 
-		tokens = lexicalAnalyzer.doLexAnalysis(tokensAux);
+		tokens = lexicalAnalyzer.doLexAnalysis(tokensAux);*/
 		
+		LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer(args[0]);	
 		parser p = new parser((Scanner) lexicalAnalyzer);
 		try {
 			p.parse();
@@ -42,10 +43,10 @@ public class Compiler {
 		//printTokenList(tokens);
 	}
 	
-	public static void printTokenList(ArrayList<Token> tokens) {
+	/*public static void printTokenList(ArrayList<Token> tokens) {
 		
 		for (Token token : tokens) {
 			System.out.println("<"+token.getValue()+","+token.getType()+","+token.getLine()+">");
 		}
-	}
+	}*/
 }
