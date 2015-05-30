@@ -1,6 +1,9 @@
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java_cup.runtime.Scanner;
+
+
 public class Compiler {
 
    
@@ -28,8 +31,13 @@ public class Compiler {
 
 		tokens = lexicalAnalyzer.doLexAnalysis(tokensAux);
 		
-		Parser p = new Parser(lexicalAnalyzer);
-		p.parse();
+		parser p = new parser((Scanner) lexicalAnalyzer);
+		try {
+			p.parse();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		//printTokenList(tokens);
 	}
