@@ -319,7 +319,7 @@ public class LexicalAnalyzer {
 		Token t;
 		
 		for(int i = 0; i < tokens.size(); i++) {
-			t = new Token(getTokenType(tokens.get(i)), tokens.get(i), lineNumbers.get(i));
+			t = new Token(getTokenType(tokens.get(i)), tokens.get(i));
 			lexemes.add(t);
 		}
 		LexicalAnalyzer.tokens = lexemes;
