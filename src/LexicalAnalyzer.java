@@ -507,14 +507,17 @@ public class LexicalAnalyzer implements Scanner{
 		int i = 0;
 		System.out.println("Entrou no nextToken");
 		if(!tokens.isEmpty()) {
-			Token token = tokens.get(0);			
+			System.out.println("!tokens.isEmpty()");
+			Token token = tokens.getFirst();			
 			tokens.remove(token);// tira da lista pra poder funcionar o nextToken
+			System.out.println("token removido: " + token.getType() + " "+token.getValue());
 			for(i = 0; i < tokens.size(); i++) {
-			    if(sym.terminalNames[i].equals(""+token.getType())) {
+			    if(sym.terminalNames[i].equals(token.getType().name())) {
 			       return sf.newSymbol(""+token.getType(),i,token.getValue());
 			    }
 			   }			
 		} else {
+			System.out.println("tokens  is Empty");
 			return sf.newSymbol("EOF",sym.EOF);
 		}
 		return null;
