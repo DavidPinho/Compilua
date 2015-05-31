@@ -34,4 +34,9 @@ public class Node {
 	public void setNext(Node next) {
 		this.next = next;
 	}
+	
+	public String printToString() {
+		//TODO: implementar de forma generica para funcionar pra qualquer Token
+		return "";
+	}
 }
