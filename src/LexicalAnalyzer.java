@@ -10,6 +10,7 @@ import java_cup.runtime.ComplexSymbolFactory;
 import java_cup.runtime.Scanner;
 import java_cup.runtime.Symbol;
 import java_cup.runtime.SymbolFactory;
+import java_cup.runtime.XMLElement.Terminal;
 
 public class LexicalAnalyzer implements Scanner{
 	// attribute to record line numbers
@@ -322,6 +323,9 @@ public class LexicalAnalyzer implements Scanner{
 		
 		tokens.removeAll(Collections.singleton(null));
 		for(int i = 0; i <tokens.size(); i++) {
+			//TODO - precisamos analisar a questão do NEWLINE
+			if(getTokenType(tokens.get(i))==TokenType.NEWLINE)
+				continue;
 			t = new Token(getTokenType(tokens.get(i)), tokens.get(i));
 
 			lexemes.add(t);
@@ -506,7 +510,7 @@ public class LexicalAnalyzer implements Scanner{
 		if(!tokens.isEmpty()) {
 			Token token = tokens.get(0);			
 			tokens.remove(token);// tira da lista pra poder funcionar o nextToken
-			for(i = 0; i < tokens.size(); i++) {
+			for(i = 0; i < sym.terminalNames.length; i++) {
 			    if(sym.terminalNames[i].equals(""+token.getType())) {
 			       return sf.newSymbol(""+token.getType(),i,token.getValue());
 			    }
