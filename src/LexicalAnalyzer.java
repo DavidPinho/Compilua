@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +16,7 @@ import java_cup.runtime.XMLElement.Terminal;
 public class LexicalAnalyzer implements Scanner{
 	// attribute to record line numbers
 	private static ArrayList<Integer> lineNumbers;
-	private static ArrayList<Token> tokens;
+	private static LinkedList<Token> tokens;
 	private static SymbolFactory sf = new ComplexSymbolFactory();
 	private static String fileToRead;
 	
@@ -317,11 +318,13 @@ public class LexicalAnalyzer implements Scanner{
 
 	
 	
-	public static ArrayList<Token> doLexAnalysis(ArrayList<String> tokens) {
-		ArrayList<Token> lexemes = new ArrayList<Token>();
+	public static LinkedList<Token> doLexAnalysis(ArrayList<String> tokensArray) {
+		LinkedList<Token> lexemes = new LinkedList<Token>();
+		LinkedList<String> tokens = new LinkedList<String>();
 		Token t;
 		
-		tokens.removeAll(Collections.singleton(null));
+		//tokens.removeAll(Collections.singleton(null));
+		tokens = removeNullElements(tokensArray);
 		for(int i = 0; i <tokens.size(); i++) {
 			//TODO - precisamos analisar a questão do NEWLINE
 			if(getTokenType(tokens.get(i))==TokenType.NEWLINE)
@@ -505,17 +508,20 @@ public class LexicalAnalyzer implements Scanner{
 	 * @return a new symbol
 	 */
 	public static Symbol nextToken() {
-		int i = 0;
+		
 		System.out.println("Entrou no nextToken");
-		if(!tokens.isEmpty()) {
-			Token token = tokens.get(0);			
+		if(!tokens.isEmpty()) {			
+			Token token = tokens.getFirst();			
 			tokens.remove(token);// tira da lista pra poder funcionar o nextToken
-			for(i = 0; i < sym.terminalNames.length; i++) {
+
+			for(int i = 0; i < sym.terminalNames.length; i++) {
 			    if(sym.terminalNames[i].equals(""+token.getType())) {
 			       return sf.newSymbol(""+token.getType(),i,token.getValue());
 			    }
 			   }			
+
 		} else {
+			System.out.println("tokens  is Empty");
 			return sf.newSymbol("EOF",sym.EOF);
 		}
 		return null;
@@ -526,6 +532,18 @@ public class LexicalAnalyzer implements Scanner{
 		// TODO Auto-generated method stub
 		System.out.println("Entrou no next_token");
 		return null;
+	}
+	
+	public static LinkedList<String> removeNullElements(ArrayList<String> tokensArray) {
+		LinkedList<String> aux = new LinkedList<String>();
+		
+		for(String s : tokensArray) {
+			if(!s.equals("null")) {
+				aux.add(s);
+			}
+		}
+		
+		return aux;
 	}
 	
 	
