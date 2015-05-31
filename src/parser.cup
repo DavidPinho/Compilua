@@ -61,7 +61,7 @@ start with trecho;
 
 trecho      ::= trecho1 trecho2	;
 
-trecho1     ::= trecho1 comando 
+trecho1     ::= trecho1 comando
   					| trecho1 comando SEMICOLON 
 					|
 					;
@@ -99,10 +99,17 @@ ifstat 	        ::=   IF_KWORD exp THEN_KWORD bloco elseifstat elsestat END_KWOR
 elseifstat      ::=  ELSEIF_KWORD exp THEN_KWORD bloco  elseifstat
 							|
 							;
-
+//esse não é necessario
 elsestat        ::=   ELSE_KWORD bloco
 					      |
 					      ;
+/* da pra substituir no elseifstat 
+	ifstat 	        ::=   IF_KWORD exp THEN_KWORD bloco elseifstat END_KWORD;
+elseifstat      ::=  ELSE bloco
+							| ELSEIF_KWORD exp THEN_KWORD bloco  elseifstat
+							|
+							;
+*/
 
 localfat       ::=	  FUNCTION_KWORD IDENTIFIER corpodafuncao
 			               | listadenomes listadenomesfat				           

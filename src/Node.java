@@ -35,8 +35,11 @@ public class Node {
 		this.next = next;
 	}
 	
-	public String printToString() {
-		//TODO: implementar de forma generica para funcionar pra qualquer Token
-		return "";
+	public void print() {
+		System.out.print(" ["+ value);
+        child.print();
+        System.out.print(", ");
+        next.print();
+        System.out.println("]");
 	}
 }
