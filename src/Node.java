@@ -1,13 +1,16 @@
 
 public class Node {
 	private sym value;
-	private Node child;
+	private Node parent;
 	private Node next;
 	
+	public Node() {
+		
+	}
 	public Node(sym value, Node child, Node next) {
 		super();
 		this.value = value;
-		this.child = child;
+		this.parent = child;
 		this.next = next;
 	}
 
@@ -19,12 +22,12 @@ public class Node {
 		this.value = value;
 	}
 
-	public Node getChild() {
-		return child;
+	public Node getParent() {
+		return parent;
 	}
 
-	public void setChild(Node child) {
-		this.child = child;
+	public void setParent(Node parent) {
+		this.parent = parent;
 	}
 
 	public Node getNext() {
@@ -36,10 +39,12 @@ public class Node {
 	}
 	
 	public void print() {
+		/*
 		System.out.print(" ["+ value);
         child.print();
         System.out.print(", ");
         next.print();
         System.out.println("]");
+        */
 	}
 }
