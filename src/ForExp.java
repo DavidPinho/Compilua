@@ -1,4 +1,4 @@
-public class ForExp extends Exp {
+public class ForExp extends Comando {
 	
 	public String identifier;
 	public Exp exp1;

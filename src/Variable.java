@@ -1,3 +1,9 @@
-public class Variable extends Node {
+public class Variable extends Var {
+
+  public String var;
+
+  public Variable (String var) {
+    this.var = var;
+  }
 	
 }
