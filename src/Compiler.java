@@ -36,7 +36,7 @@ public class Compiler {
 		parser p = new parser((Scanner) lexicalAnalyzer);
 
 		try {
-			p.parse();
+			System.out.println(p.parse().value);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
