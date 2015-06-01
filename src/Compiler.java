@@ -32,7 +32,9 @@ public class Compiler {
 		tokens = lexicalAnalyzer.doLexAnalysis(tokensAux);*/
 		
 
-		LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer("/home/david/workspace/Compilua/src/exemplo.txt");	
+		//LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer("/home/david/workspace/Compilua/src/exemplo.txt");	
+		LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer("C:/Users/Diego/Workspace/compilua/src/exemplo.txt");	
+
 		parser p = new parser((Scanner) lexicalAnalyzer);
 
 		try {
