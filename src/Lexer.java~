@@ -19,7 +19,7 @@ import java_cup.runtime.*;
  * <a href="http://www.jflex.de/">JFlex</a> 1.6.1
  * from the specification file <tt>C:/Users/Diego/Workspace/compilua/src/Scanner.flex</tt>
  */
-public class Lexer implements java_cup.runtime.Scanner, sym {
+public class Lexer implements java_cup.runtime.Scanner {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -781,7 +781,7 @@ public class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 69: break;
           case 7: 
-            { return symbol(sym.ASM);
+            { return symbol(sym.ASSIGN_OP);
             }
           case 70: break;
           case 8: 
@@ -801,7 +801,7 @@ public class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 74: break;
           case 12: 
-            { return symbol(sym.COMMA);
+            { return symbol(sym.COMA);
             }
           case 75: break;
           case 13: 
@@ -866,7 +866,7 @@ public class Lexer implements java_cup.runtime.Scanner, sym {
           case 90: break;
           case 28: 
             { yybegin(YYINITIAL);
-					  return symbol(sym.TEXT,
+					  return symbol(sym.STRING,
 					  string.toString());
             }
           case 91: break;
@@ -975,7 +975,7 @@ public class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 117: break;
           case 55: 
-            { return symbol(sym.LOCAL_kWORD);
+            { return symbol(sym.LOCAL_KWORD);
             }
           case 118: break;
           case 56: 
@@ -987,7 +987,7 @@ public class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 120: break;
           case 58: 
-            { return symbol(sym.WHILE_KWORD);
+            { return symbol(sym.WHILE);
             }
           case 121: break;
           case 59: 
