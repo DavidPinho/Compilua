@@ -3,8 +3,44 @@ import java_cup.runtime.*;
 
 //---------------Preliminaries to set up and use the scanner. -----------------
 
-init with {: LexicalAnalyzer.init();              :};
-scan with {: return LexicalAnalyzer.nextToken(); :};
+scan with {: return lexer.next_token(); :};
+
+parser code {: 
+  public boolean syntaxErrors;
+
+
+  Lexer lexer;
+  
+
+  public parser(Lexer lex) {
+      super(lex);
+  	  
+  	  symbolFactory = lex.getSymbolFactory();
+  	  
+      lexer = lex;
+     
+  }
+  
+  
+  
+  public int line, column;
+
+  
+  public void report_error(String message, Object info) {
+    syntaxErrors = true;
+    
+    
+    if (!(info instanceof Symbol) ) return;
+    Symbol symbol = (Symbol) info;
+    
+    line = symbol.left;
+    column = symbol.right;
+    
+    if (symbol.left < 0 || symbol.right < 0) return;
+
+    //System.out.println(message + " at line " + symbol.left + ", column " + symbol.right);
+  }
+:}; 
 
 
 //--------------Terminals (tokens returned by the scanner). -----------------

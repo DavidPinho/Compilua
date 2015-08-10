@@ -619,18 +619,49 @@ public class parser extends java_cup.runtime.lr_parser {
   public int error_sym() {return 1;}
 
 
-  /** User initialization code. */
-  public void user_init() throws java.lang.Exception
-    {
- LexicalAnalyzer.init();              
-    }
-
   /** Scan to get the next Symbol. */
   public java_cup.runtime.Symbol scan()
     throws java.lang.Exception
     {
- return LexicalAnalyzer.nextToken(); 
+ return lexer.next_token(); 
     }
+
+ 
+  public boolean syntaxErrors;
+
+
+  Lexer lexer;
+  
+
+  public parser(Lexer lex) {
+      super(lex);
+  	  
+  	  symbolFactory = lex.getSymbolFactory();
+  	  
+      lexer = lex;
+     
+  }
+  
+  
+  
+  public int line, column;
+
+  
+  public void report_error(String message, Object info) {
+    syntaxErrors = true;
+    
+    
+    if (!(info instanceof Symbol) ) return;
+    Symbol symbol = (Symbol) info;
+    
+    line = symbol.left;
+    column = symbol.right;
+    
+    if (symbol.left < 0 || symbol.right < 0) return;
+
+    //System.out.println(message + " at line " + symbol.left + ", column " + symbol.right);
+  }
+
 
 /** Cup generated class to encapsulate user supplied action code.*/
 @SuppressWarnings({"rawtypes", "unchecked", "unused"})
