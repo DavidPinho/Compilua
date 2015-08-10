@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 
 import java_cup.runtime.Scanner;
@@ -31,11 +32,12 @@ public class Compiler {
 																																																																																							
 		tokens = lexicalAnalyzer.doLexAnalysis(tokensAux);*/
 		
-
-		//LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer("/home/david/workspace/Compilua/src/exemplo.txt");	
-		LexicalAnalyzer lexicalAnalyzer =  new LexicalAnalyzer("C:/Users/Diego/Workspace/compilua/src/exemplo.txt");	
-
-		parser p = new parser((Scanner) lexicalAnalyzer);
+		//String path =  new LexicalAnalyzer("/home/david/workspace/Compilua/src/exemplo.txt";
+		//String path = args;
+		String path = "C:/Users/Diego/Workspace/compilua/src/exemplo.txt";	
+		
+		Lexer scanner = new Lexer(new StringReader(path));
+		parser p = new parser(scanner);
 
 		try {
 			System.out.println(p.parse().value);

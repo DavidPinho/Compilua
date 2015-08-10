@@ -3,8 +3,6 @@
 */
 
 import java_cup.runtime.Symbol;
-import java.util.regex.Pattern;
-
 import java_cup.runtime.*;
 
 
