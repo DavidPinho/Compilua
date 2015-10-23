@@ -636,7 +636,7 @@ public class parser extends java_cup.runtime.lr_parser {
   public parser(Lexer lex) {
       super(lex);
   	  
-  	  symbolFactory = lex.getSymbolFactory();
+  	  //symbolFactory = lex.getSymbolFactory();
   	  
       lexer = lex;
      
