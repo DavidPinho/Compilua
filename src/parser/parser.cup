@@ -1,47 +1,7 @@
 import java_cup.runtime.*;
 
 
-//---------------Preliminaries to set up and use the scanner. -----------------
-
-scan with {: return lexer.next_token(); :};
-
-parser code {: 
-  public boolean syntaxErrors;
-
-
-  Lexer lexer;
-  
-
-  public parser(Lexer lex) {
-      super(lex);
-        	  
-      lexer = lex;
-     
-  }
-  
-  
-  
-  public int line, column;
-
-  
-  public void report_error(String message, Object info) {
-    syntaxErrors = true;
-    
-    
-    if (!(info instanceof Symbol) ) return;
-    Symbol symbol = (Symbol) info;
-    
-    line = symbol.left;
-    column = symbol.right;
-    
-    if (symbol.left < 0 || symbol.right < 0) return;
-
-    //System.out.println(message + " at line " + symbol.left + ", column " + symbol.right);
-  }
-:}; 
-
-
-//--------------Terminals (tokens returned by the scanner). -----------------
+/* Terminals (tokens returned by lexer). */
 
 terminal      SEMICOLON, ASSIGN_OP, DO_KWORD, END_KWORD, WHILE;
 terminal      REPEAT_KWORD, UNTIL_KWORD, IF_KWORD, THEN_KWORD, ELSEIF_KWORD;
@@ -58,7 +18,7 @@ terminal 	  java.lang.String STRING;
 terminal 	  java.lang.String IDENTIFIER;
 
 
-//----------------Non terminals -----------------------------------------------
+/*NON TERMINALS */
 
 non terminal  trecho, trecho1, trecho2;
 non terminal  bloco, corpodafuncao, construtortabela;
@@ -93,23 +53,23 @@ precedence left LPAREN, RPAREN;
 
 start with trecho;
 
-trecho      ::= trecho1 trecho2	;
+trecho      ::= trecho1:t1 trecho2:t2 {: System.out.println(t1,t2);:}	;
 
-trecho1     ::= trecho1 comando
-  					| trecho1 comando SEMICOLON 
+trecho1     ::= trecho1 comando {: System.out.println("trecho1a");:}
+  					| trecho1 comando SEMICOLON {: System.out.println("trecho1b");:}
 					|
 					;
 
-trecho2     ::= ultimocomando 
-		            | ultimocomando SEMICOLON
+trecho2     ::= ultimocomando {: System.out.println("trecho2a");:}
+		            | ultimocomando SEMICOLON {: System.out.println("trecho2b");:}
 				    |
 				    ;
     
 
-bloco 	    ::= trecho;
+bloco 	    ::= trecho {: System.out.println("bloco");:};
 
 	
-comando     ::=	listavar ASSIGN_OP listaexp					       
+comando     ::=	listavar ASSIGN_OP listaexp 	 {: System.out.println("comando");:}		       
 					       | WHILE exp DO_KWORD bloco END_KWORD
 					  	   | REPEAT_KWORD bloco UNTIL_KWORD exp
 					       | ifstat 
@@ -172,7 +132,7 @@ listavaraux   ::=  COMA var listavaraux
 						;
 
 
-var    ::=	    IDENTIFIER	
+var    ::=	    IDENTIFIER	 {: System.out.println("identifier");:}
 					|  expprefixo LBRACKET exp RBRACKET
 					|  expprefixo DOT IDENTIFIER
 					;
@@ -202,7 +162,7 @@ listaexpaux  ::=    listaexpaux exp COMA
 exp       ::=	     NIL_KWORD
 					   |  FALSE_KWORD
 					   |  TRUE_KWORD
-					   |  NUMBER
+					   |  NUMBER:n1 {: System.out.println("number= "+n1);:}
 					   |  STRING
 					   |  THREEDOTS
 					   |  funcao
@@ -269,16 +229,16 @@ separadordecampos  ::=   COMA
 							|  SEMICOLON
 							;
 
-opbin   ::=         PLUS_OP
-						|   MINUS_OP
-						|    TIMES_OP
-						|    SLASH_OP
+opbin   ::=         PLUS_OP {: System.out.println("+");:}
+						|   MINUS_OP {: System.out.println("-");:}
+						|    TIMES_OP {: System.out.println("*");:}
+						|    SLASH_OP {: System.out.println("/");:}
 						|    POT_OP
 						|    PERCENT_OP
 						|    TWODOTS
 						|    LESS_OP
 						|    LESSEQUALS_OP
-						|    MORE_OP
+						|    MORE_OP 
 						|    MOREEQUALS_OP
 						|    EQUALS_OP
 						|    DIFFERENT_OP
