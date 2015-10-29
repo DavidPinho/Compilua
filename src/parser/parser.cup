@@ -69,10 +69,10 @@ trecho2     ::= ultimocomando {: System.out.println("trecho2a");:}
 bloco 	    ::= trecho {: System.out.println("bloco");:};
 
 	
-comando     ::=	listavar ASSIGN_OP listaexp 	 {: System.out.println("comando");:}		       
-					       | WHILE exp DO_KWORD bloco END_KWORD
+comando     ::=	listavar ASSIGN_OP:a listaexp 	 {: System.out.println("comando " + a);:}		       
+					       | WHILE exp DO_KWORD bloco END_KWORD {: System.out.println("while");:}
 					  	   | REPEAT_KWORD bloco UNTIL_KWORD exp
-					       | ifstat 
+					       | ifstat {: System.out.println("if statement");:}
 			   			   | FOR_KWORD forstat
 				           | FUNCTION_KWORD nomedafuncao corpodafuncao
 				           | chamadadefuncao
@@ -80,8 +80,8 @@ comando     ::=	listavar ASSIGN_OP listaexp 	 {: System.out.println("comando");:
 				           ;
 
 
-forstat  ::=  IDENTIFIER ASSIGN_OP exp COMA  exp forcond DO_KWORD bloco END_KWORD
-						| listadenomes IN_KWORD listaexp DO_KWORD bloco END_KWORD
+forstat  ::=  IDENTIFIER ASSIGN_OP exp COMA  exp forcond DO_KWORD bloco END_KWORD {: System.out.println("for");:}
+						| listadenomes IN_KWORD listaexp DO_KWORD bloco END_KWORD {: System.out.println("foreach");:}
 						;
 
 forcond        ::=   COMA exp
@@ -94,7 +94,7 @@ elseifstat      ::=  ELSEIF_KWORD exp THEN_KWORD bloco  elseifstat
 							|
 							;
 //esse n�o � necessario
-elsestat        ::=   ELSE_KWORD bloco
+elsestat        ::=   ELSE_KWORD bloco {: System.out.println("else");:}
 					      |
 					      ;
 /* da pra substituir no elseifstat 
@@ -163,7 +163,7 @@ exp       ::=	     NIL_KWORD
 					   |  FALSE_KWORD
 					   |  TRUE_KWORD
 					   |  NUMBER:n1 {: System.out.println("number= "+n1);:}
-					   |  STRING
+					   |  STRING:s {: System.out.println(s);:}
 					   |  THREEDOTS
 					   |  funcao
 					   |  expprefixo 
@@ -233,17 +233,17 @@ opbin   ::=         PLUS_OP {: System.out.println("+");:}
 						|   MINUS_OP {: System.out.println("-");:}
 						|    TIMES_OP {: System.out.println("*");:}
 						|    SLASH_OP {: System.out.println("/");:}
-						|    POT_OP
-						|    PERCENT_OP
+						|    POT_OP {: System.out.println("pot");:}
+						|    PERCENT_OP {: System.out.println("%");:}
 						|    TWODOTS
-						|    LESS_OP
-						|    LESSEQUALS_OP
-						|    MORE_OP 
-						|    MOREEQUALS_OP
-						|    EQUALS_OP
-						|    DIFFERENT_OP
-						|    AND_KWORD
-						|    OR_KWORD
+						|    LESS_OP {: System.out.println("<");:}
+						|    LESSEQUALS_OP {: System.out.println("<=");:}
+						|    MORE_OP  {: System.out.println(">");:}
+						|    MOREEQUALS_OP {: System.out.println(">=");:}
+						|    EQUALS_OP {: System.out.println("==");:}
+						|    DIFFERENT_OP {: System.out.println("NOTEQUAL");:}
+						|    AND_KWORD {: System.out.println("AND");:}
+						|    OR_KWORD {: System.out.println("OR");:}
 						;
 
 
