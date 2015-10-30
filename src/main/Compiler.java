@@ -19,8 +19,8 @@ public class Compiler {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		
-		String path = "/home/david/Desktop/exemplo.txt";	
+		//TODO: Alterar Path
+		String path = "C:/Users/Diego/Workspace/compilua/src/exemplo.txt";	
 		
 		Lexer scanner;
 		try {
