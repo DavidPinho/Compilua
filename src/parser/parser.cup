@@ -4,14 +4,12 @@ import java_cup.runtime.*;
 /* Terminals (tokens returned by lexer). */
 
 terminal      SEMICOLON, ASSIGN_OP, DO_KWORD, END_KWORD, WHILE;
-terminal      REPEAT_KWORD, UNTIL_KWORD, IF_KWORD, THEN_KWORD, ELSEIF_KWORD;
-terminal      ELSE_KWORD, FOR_KWORD, COMA, IN_KWORD, FUNCTION_KWORD;
-terminal      LOCAL_KWORD, RETURN_KWORD, BREAK_KWORD, DOT, COLON;
-terminal      LBRACKET, RBRACKET, NIL_KWORD, FALSE_KWORD, TRUE_KWORD;
-terminal      THREEDOTS, TWODOTS, LPAREN, RPAREN, LBRACE, RBRACE;
-terminal      PLUS_OP, MINUS_OP, TIMES_OP, SLASH_OP, POT_OP, PERCENT_OP;
+terminal      VAR_KWORD, IF_KWORD, THEN_KWORD;
+terminal      ELSE_KWORD, FOR_KWORD, COMA, FUNCTION_KWORD;
+terminal      LPAREN, RPAREN;
+terminal      PLUS_OP, MINUS_OP, TIMES_OP, SLASH_OP;
 terminal      LESSEQUALS_OP, MOREEQUALS_OP, LESS_OP, MORE_OP, EQUALS_OP, DIFFERENT_OP;
-terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP, MINUS_UNOP;
+terminal      AND_KWORD, OR_KWORD, NOT_KWORD, MINUS_UNOP;
 
 terminal 	  java.lang.Number NUMBER;
 terminal 	  java.lang.String STRING;
@@ -20,17 +18,13 @@ terminal 	  java.lang.String IDENTIFIER;
 
 /*NON TERMINALS */
 
-non terminal  trecho, trecho1, trecho2;
-non terminal  bloco, corpodafuncao, construtortabela;
-non terminal  comando, ultimocomando;
-non terminal  forstat, forcond, ifstat, elseifstat, elsestat;
-non terminal  nomedafuncao, nomedafuncaoaux1, nomedafuncaoaux2;
-non terminal  var, chamadadefuncao, args, funcao, campo, localfat;
-non terminal  listavar, listavaraux;
-non terminal  listadenomes, listadenomesaux, listadenomesfat, listaexp, listaexpaux, listapar;
-non terminal  listadecampos, listadecamposaux1, listadecamposaux2;
-non terminal  exp, expprefixo;
-non terminal  separadordecampos, opbin, opunaria;
+non terminal  bloco, declaracaodevariavel;
+non terminal  comando;
+non terminal  forstat, forcond, ifstat, elsestat;
+non terminal  chamadadefuncao;
+non terminal  listaexp, listaexpaux;
+non terminal  exp;
+non terminal  opbin, opunaria;
 
 
 //--------------- Precedences---------------------------------------------- 
@@ -39,11 +33,9 @@ precedence left COMA;
 precedence left OR_KWORD;
 precedence left AND_KWORD;
 precedence left LESS_OP, MORE_OP, LESSEQUALS_OP, MOREEQUALS_OP, DIFFERENT_OP, EQUALS_OP;
-precedence right TWODOTS;
 precedence left PLUS_OP,MINUS_OP;
-precedence left TIMES_OP, SLASH_OP, PERCENT_OP;
-precedence left NOT_KWORD, HASH_OP, PERCENT_OP, MINUS_UNOP;
-precedence right POT_OP;
+precedence left TIMES_OP, SLASH_OP;
+precedence left NOT_KWORD, MINUS_UNOP;
 precedence left LPAREN, RPAREN;
 
 
@@ -51,191 +43,63 @@ precedence left LPAREN, RPAREN;
 
 //----------------The grammar---------------------------------------------------- 
 
-start with trecho;
-
-trecho      ::= trecho1:t1 trecho2:t2 {: System.out.println(t1,t2);:}	;
-
-trecho1     ::= trecho1 comando {: System.out.println("trecho1a");:}
-  					| trecho1 comando SEMICOLON {: System.out.println("trecho1b");:}
-					|
-					;
-
-trecho2     ::= ultimocomando {: System.out.println("trecho2a");:}
-		            | ultimocomando SEMICOLON {: System.out.println("trecho2b");:}
-				    |
-				    ;
-    
-
-bloco 	    ::= trecho {: System.out.println("bloco");:};
-
-	
-comando     ::=	listavar ASSIGN_OP:a listaexp 	 {: System.out.println("comando " + a);:}		       
-					       | WHILE exp DO_KWORD bloco END_KWORD {: System.out.println("while");:}
-					  	   | REPEAT_KWORD bloco UNTIL_KWORD exp
-					       | ifstat {: System.out.println("if statement");:}
-			   			   | FOR_KWORD forstat
-				           | FUNCTION_KWORD nomedafuncao corpodafuncao
-				           | chamadadefuncao
-				           | LOCAL_KWORD localfat				                        
-				           ;
+start with bloco;
 
 
-forstat  ::=  IDENTIFIER ASSIGN_OP exp COMA  exp forcond DO_KWORD bloco END_KWORD {: System.out.println("for");:}
-						| listadenomes IN_KWORD listaexp DO_KWORD bloco END_KWORD {: System.out.println("foreach");:}
-						;
+bloco 	    ::= comando SEMICOLON {: System.out.println("bloco");:};
+
+
+comando		::= IDENTIFIER ASSIGN_OP exp
+				| chamadadefuncao
+				| declaracaodevariavel
+				| WHILE exp DO_KWORD bloco END_KWORD {: System.out.println("while");:}
+				| ifstat
+				| FOR_KWORD forstat
+				;
+							
+forstat  ::=  IDENTIFIER ASSIGN_OP exp COMA  exp forcond DO_KWORD bloco END_KWORD {: System.out.println("for");:};
 
 forcond        ::=   COMA exp
 						|
 						;
 
-ifstat 	        ::=   IF_KWORD exp THEN_KWORD bloco elseifstat elsestat END_KWORD;
+ifstat 	        ::=   IF_KWORD exp THEN_KWORD bloco elsestat END_KWORD;
 
-elseifstat      ::=  ELSEIF_KWORD exp THEN_KWORD bloco  elseifstat
-							|
-							;
-//esse n�o � necessario
+
 elsestat        ::=   ELSE_KWORD bloco {: System.out.println("else");:}
 					      |
-					      ;
-/* da pra substituir no elseifstat 
-	ifstat 	        ::=   IF_KWORD exp THEN_KWORD bloco elseifstat END_KWORD;
-elseifstat      ::=  ELSE bloco
-							| ELSEIF_KWORD exp THEN_KWORD bloco  elseifstat
-							|
+					      ;										 
+
+
+
+exp       ::=	     NUMBER:n1 {: System.out.println("number= "+n1);:}
+					   |  IDENTIFIER:s {: System.out.println(s);:}
+					   |  chamadadefuncao
+					   |  LPAREN exp RPAREN 
+					   |  exp opbin exp
+					   |  opunaria exp
+					   ; 
+
+
+
+chamadadefuncao ::=  	IDENTIFIER LPAREN listaexp RPAREN;
+
+
+declaracaodevariavel ::=  VAR_KWORD IDENTIFIER
+							| VAR_KWORD IDENTIFIER ASSIGN_OP exp
 							;
-*/
-
-localfat       ::=	  FUNCTION_KWORD IDENTIFIER corpodafuncao
-			               | listadenomes listadenomesfat				           
-						   ;
-
-ultimocomando   ::=  RETURN_KWORD
-					       |  RETURN_KWORD listaexp
-					       |   BREAK_KWORD
-					       ;
-
-
-nomedafuncao     ::= IDENTIFIER nomedafuncaoaux1 nomedafuncaoaux2;
-
-nomedafuncaoaux1 ::=     DOT IDENTIFIER nomedafuncaoaux1
-										|
-										;
-
-nomedafuncaoaux2 ::=   COLON IDENTIFIER
-								   |
-								   ;
-   
-listavar   ::=    var listavaraux;
-
-listavaraux   ::=  COMA var listavaraux
-						|
-						;
-
-
-var    ::=	    IDENTIFIER	 {: System.out.println("identifier");:}
-					|  expprefixo LBRACKET exp RBRACKET
-					|  expprefixo DOT IDENTIFIER
-					;
-
-
-
-listadenomes     ::=   	    IDENTIFIER listadenomesaux;
-
-listadenomesaux  ::=     COMA IDENTIFIER listadenomesaux
-									  |
-									  ;
-									 
-listadenomesfat  ::=   ASSIGN_OP listaexp	
-								|
-								;
-										 
-
 
 listaexp   ::=      listaexpaux  exp;
 
 listaexpaux  ::=    listaexpaux exp COMA 
 						|
 						;
-						
 
-
-exp       ::=	     NIL_KWORD
-					   |  FALSE_KWORD
-					   |  TRUE_KWORD
-					   |  NUMBER:n1 {: System.out.println("number= "+n1);:}
-					   |  STRING:s {: System.out.println(s);:}
-					   |  THREEDOTS
-					   |  funcao
-					   |  expprefixo 
-					   |  construtortabela 
-					   |  exp opbin exp
-					   |  opunaria exp
-					   ; 
-
-
-expprefixo   ::=         var
-						  |   LPAREN exp RPAREN	
-						  ; 
-
-chamadadefuncao ::=  	expprefixo args
-							| expprefixo COLON IDENTIFIER args
-							;
-
-
-args   ::=    LPAREN RPAREN
-					|  LPAREN listaexp RPAREN
-					|  construtortabela
-					|  STRING
-					;
-
-
-funcao  ::=   FUNCTION_KWORD corpodafuncao;
-
-
-corpodafuncao ::=    LPAREN  RPAREN bloco END_KWORD
-								|   LPAREN listapar  RPAREN bloco END_KWORD
-								;
-					
-
-listapar     ::=     listadenomes
-						|   listadenomes COMA THREEDOTS
-						|   THREEDOTS
-						;
-			
-			
-construtortabela  ::=   LBRACE  RBRACE
-							   |  LBRACE  listadecampos RBRACE
-							   ;
-
-listadecampos     ::= campo listadecamposaux1 listadecamposaux2;
-
-
-listadecamposaux1     ::=    listadecamposaux1 separadordecampos campo 
-												|
-												;
-
-listadecamposaux2       ::=   separadordecampos
-								   |
-								   ;
-
-
-campo    ::=      LBRACKET exp RBRACKET ASSIGN_OP exp
-						    |  IDENTIFIER ASSIGN_OP exp
-						    |  exp
-						    ;
-
-
-separadordecampos  ::=   COMA
-							|  SEMICOLON
-							;
 
 opbin   ::=         PLUS_OP {: System.out.println("+");:}
 						|   MINUS_OP {: System.out.println("-");:}
 						|    TIMES_OP {: System.out.println("*");:}
 						|    SLASH_OP {: System.out.println("/");:}
-						|    POT_OP {: System.out.println("pot");:}
-						|    PERCENT_OP {: System.out.println("%");:}
-						|    TWODOTS
 						|    LESS_OP {: System.out.println("<");:}
 						|    LESSEQUALS_OP {: System.out.println("<=");:}
 						|    MORE_OP  {: System.out.println(">");:}
@@ -249,6 +113,5 @@ opbin   ::=         PLUS_OP {: System.out.println("+");:}
 
 opunaria   ::=     MINUS_UNOP
 					   |   NOT_KWORD
-					   |   HASH_OP
 					   ;
 

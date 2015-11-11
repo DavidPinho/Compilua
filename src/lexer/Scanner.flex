@@ -70,23 +70,13 @@ CommentContent = (!("]""="*"]"))*
 
 /* keywords */
 
-"break"			{ return symbol(sym.BREAK_KWORD); }
 "do"			{ return symbol(sym.DO_KWORD); }
 "else"			{ return symbol(sym.ELSE_KWORD); }
-"elseif"		{ return symbol(sym.ELSEIF_KWORD); }
 "end"			{ return symbol(sym.END_KWORD); }
-"false"			{ return symbol(sym.FALSE_KWORD); }
 "for"			{ return symbol(sym.FOR_KWORD); }
-"function"      { return symbol(sym.FUNCTION_KWORD); }
 "if"			{ return symbol(sym.IF_KWORD); }
-"in"			{ return symbol(sym.IN_KWORD); }
-"local"         {return symbol(sym.LOCAL_KWORD); }
-"nil"			{ return symbol(sym.NIL_KWORD); }
-"repeat"		{ return symbol(sym.REPEAT_KWORD); }
-"return"		{ return symbol(sym.RETURN_KWORD); }
 "then"			{ return symbol(sym.THEN_KWORD); }
-"true"			{ return symbol(sym.TRUE_KWORD); }
-"until"			{ return symbol(sym.UNTIL_KWORD); }
+"var"			{ return symbol(sym.VAR_KWORD); }
 "while"			{ return symbol(sym.WHILE); }
 
 
@@ -96,8 +86,7 @@ CommentContent = (!("]""="*"]"))*
 "-"              { return symbol(sym.MINUS_OP); }
 "*"              { return symbol(sym.TIMES_OP); }
 "/"              { return symbol(sym.SLASH_OP); }
-"^"              { return symbol(sym.POT_OP); }
-"%"              { return symbol(sym.PERCENT_OP); }
+
 
 /* relational operators */
 
@@ -115,25 +104,15 @@ CommentContent = (!("]""="*"]"))*
 "not"			{ return symbol(sym.NOT_KWORD); }
 
 
-/* other operators */
-
-".."			 { return symbol(sym.TWODOTS); }
-"."				 { return symbol(sym.DOT); }
-":"				 { return symbol(sym.COLON); }
-"#"				{ return symbol(sym.HASH_OP); }
-
 /* other symbols */
 
-"..."			{ return symbol(sym.THREEDOTS); }
+
 "="				{ return symbol(sym.ASSIGN_OP); }
 ";"             { return symbol(sym.SEMICOLON); }
 ","				{ return symbol(sym.COMA); }
 "(" 			{ return symbol(sym.LPAREN); }
 ")" 			{ return symbol(sym.RPAREN); }
-"["				{ return symbol(sym.LBRACKET); }
-"]"				{ return symbol(sym.RBRACKET); }
-"{"				{ return symbol(sym.LBRACE); }
-"}"				{ return symbol(sym.RBRACE); }
+
 
 
 /* identifiers */

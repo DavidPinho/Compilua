@@ -1,15 +1,10 @@
 package main;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
 
-import java_cup.runtime.Scanner;
+import java_cup.Lexer;
 import java_cup.runtime.Symbol;
-import lexer.Lexer;
 import parser.parser;
-import parser.sym;
 
 
 public class Compiler {
