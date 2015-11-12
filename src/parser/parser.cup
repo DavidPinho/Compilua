@@ -1,4 +1,5 @@
 import java_cup.runtime.*;
+import tree.*;
 
 
 /* Terminals (tokens returned by lexer). */
@@ -49,7 +50,7 @@ start with bloco;
 bloco 	    ::= comando SEMICOLON {: System.out.println("bloco");:};
 
 
-comando		::= IDENTIFIER ASSIGN_OP exp
+comando		::= IDENTIFIER:id ASSIGN_OP exp:e {: RESULT =  new Assign(id, e); :}
 				| chamadadefuncao
 				| declaracaodevariavel
 				| WHILE exp DO_KWORD bloco END_KWORD {: System.out.println("while");:}

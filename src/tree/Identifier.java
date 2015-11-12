@@ -1,9 +1,11 @@
 package tree;
 
 public class Identifier extends Node {
-	public String name;
-
-	public Identifier(String name) {
-		this.name = name;
+	public Identifier(String id) {
+		this.value = id;
+	}
+	
+	public void cgen() {
+		//TODO: fazer o codigo MIPS32 pra mostrar o valor
 	}
 }
