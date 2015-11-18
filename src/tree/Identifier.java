@@ -1,12 +1,14 @@
 package tree;
 
+import main.MIPSPrinter;
+
 public class Identifier extends Node {
 	public Identifier(String id) {
 		this.value = id;
 	}
 	
 	public void cgen() {
-		//TODO: fazer o codigo MIPS32 pra mostrar o valor
+		MIPSPrinter.print(""+this.value+": .word 0", 'd');
 	}
 	
 	public String getValue() {
