@@ -12,20 +12,12 @@ public class Exp extends Node {
 		this.right = null;
 	}
 	
-	public Exp(ChamadaDeFuncao c) {
-		this.left = c;
-		this.right = null;
-	}
 	
 	public Exp(Exp exp) {
 		this.left = exp;
 		this.right = null;
 	}
 	
-	public Exp(OpUnaria op, Exp e) {
-		this.left = op;
-		this.right = e;
-	}
 	
 	public void cgen() {
 		if(this.left != null) {

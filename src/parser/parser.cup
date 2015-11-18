@@ -90,11 +90,14 @@ declaracaodevariavel ::=  VAR_KWORD IDENTIFIER
 							| VAR_KWORD IDENTIFIER ASSIGN_OP exp
 							;
 
-listaexp   ::=      listaexpaux  exp;
-
-listaexpaux  ::=    listaexpaux exp COMA 
+listaexp   ::=      listaexp  exp
+						| listaexp exp COMA
 						|
 						;
+
+//listaexpaux  ::=    listaexpaux exp COMA 
+//						|
+//						;
 
 
 opbin   ::=         PLUS_OP {: System.out.println("+");:}
