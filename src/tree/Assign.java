@@ -1,4 +1,7 @@
 package tree;
+
+import main.MIPSPrinter;
+
 public class Assign extends Node {
 
 
@@ -8,9 +11,10 @@ public class Assign extends Node {
 	}
 	
 	public void cgen() {
-		this.left.cgen();
-		//TODO: fazer o codigo do MIPS32 pra stack machine
-		this.right.cgen();
-		//TODO: fazer o codigo MIPS32 para desalocar da pilha
+		this.left.cgen();//declaracao da variavel
+		this.right.cgen();//exp
+		//atribuicao do valor da exp na variavel
+		MIPSPrinter.print("sw $a0, "+
+		((Identifier)this.left).getValue(), 't');
 	}
 }

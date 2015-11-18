@@ -1,18 +1,10 @@
 package tree;
-import parser.sym;
 
-public class Node {
+public abstract class Node {
 	protected String value;
 	protected Node left;
 	protected Node right;
 	
 
-	public Node() {
-		
-	}
-
-	
-	public void cgen() {
-		
-	}
+	public abstract void cgen();
 }
