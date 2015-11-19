@@ -1,12 +1,10 @@
 package tree;
 
-public class Node {
+public abstract class Node {
 	protected String value;
 	protected Node left;
 	protected Node right;
 	
 
-	public void cgen() {
-		
-	}
+	public abstract void cgen() ;
 }
