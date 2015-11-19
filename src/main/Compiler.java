@@ -2,8 +2,9 @@ package main;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-import java_cup.Lexer;
+
 import java_cup.runtime.Symbol;
+import lexer.Lexer;
 import parser.parser;
 import tree.Node;
 
