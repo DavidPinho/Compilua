@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java_cup.Lexer;
 import java_cup.runtime.Symbol;
 import parser.parser;
+import tree.Node;
 
 
 public class Compiler {
@@ -23,8 +24,10 @@ public class Compiler {
 	        
 			parser p = new parser(scanner);
 			Symbol symbol = p.parse();
-			System.out.println(symbol.value);
 			
+			Node root = (Node) symbol.value;
+			
+			System.out.println(root.getValue());
 			
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block

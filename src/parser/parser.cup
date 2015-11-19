@@ -1,5 +1,6 @@
 import java_cup.runtime.*;
 import tree.*;
+import tree.Number;
 
 
 /* Terminals (tokens returned by lexer). */
@@ -50,7 +51,7 @@ start with bloco;
 bloco 	    ::= comando SEMICOLON {: System.out.println("bloco");:};
 
 
-comando		::= IDENTIFIER:id ASSIGN_OP exp:e {: RESULT =  new Assign(id, e); :}
+comando		::= IDENTIFIER:id ASSIGN_OP exp:e {: RESULT =  new Assign(id, (Exp)e); :}
 				| chamadadefuncao
 				| declaracaodevariavel
 				| WHILE exp DO_KWORD bloco END_KWORD {: System.out.println("while");:}
@@ -73,8 +74,8 @@ elsestat        ::=   ELSE_KWORD bloco {: System.out.println("else");:}
 
 
 
-exp       ::=	     NUMBER:n1 {: System.out.println("number= "+n1);:}
-					   |  IDENTIFIER:s {: System.out.println(s);:}
+exp       ::=	     NUMBER:n1 {: RESULT = new Exp(new Number(n1));:}
+					   |  IDENTIFIER:s {: RESULT = new Exp(new Identifier(s));:}
 					   |  chamadadefuncao
 					   |  LPAREN exp RPAREN 
 					   |  exp opbin exp

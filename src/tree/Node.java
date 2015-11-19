@@ -6,5 +6,11 @@ public abstract class Node {
 	protected Node right;
 	
 
+	public String getValue() {
+		return value;
+	}
+
+
+
 	public abstract void cgen() ;
 }

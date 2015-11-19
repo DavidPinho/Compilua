@@ -3,8 +3,8 @@ package tree;
 import main.MIPSPrinter;
 
 public class Number extends Node {
-	public Number(Integer num) {
-		this.value = ""+ num;
+	public Number(java.lang.Number n1) {
+		this.value = ""+ n1;
 	}
 	
 	public void cgen() {

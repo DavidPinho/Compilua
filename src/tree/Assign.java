@@ -5,8 +5,8 @@ import main.MIPSPrinter;
 public class Assign extends Node {
 
 
-	public Assign(Identifier id, Exp exp) {
-		this.left = id;
+	public Assign(String id, Exp exp) {
+		this.left = new Identifier(id);
 		this.right = exp;
 	}
 	
