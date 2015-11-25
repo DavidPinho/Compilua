@@ -4,6 +4,7 @@ public abstract class Node {
 	protected String value;
 	protected Node left;
 	protected Node right;
+	public static Node root = null;
 	
 
 	public String getValue() {

@@ -28,7 +28,8 @@ public class Compiler {
 			
 			Node root = (Node) symbol.value;
 			
-			System.out.println(symbol);
+			System.out.println(root);
+			//System.out.println(Node.root);
 			
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
