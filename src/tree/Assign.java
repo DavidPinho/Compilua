@@ -8,6 +8,7 @@ public class Assign extends Node {
 	public Assign(String id, Exp exp) {
 		this.left = new Identifier(id);
 		this.right = exp;
+		System.out.println(id + " exp");
 	}
 	
 	public void cgen() {

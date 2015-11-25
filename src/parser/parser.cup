@@ -1,4 +1,6 @@
 import java_cup.runtime.*;
+import tree.*;
+import tree.Number;
 
 
 /* Terminals (tokens returned by lexer). */
@@ -7,7 +9,7 @@ terminal      SEMICOLON, ASSIGN_OP, DO_KWORD, END_KWORD, WHILE;
 terminal      IF_KWORD, THEN_KWORD;
 terminal      ELSE_KWORD, COMA, FOR_KWORD, VAR_KWORD;
 terminal      DOT, COLON;
-terminal      LBRACKET, RBRACKET, NIL_KWORD, FALSE_KWORD, TRUE_KWORD;
+terminal      LBRACKET, RBRACKET;
 terminal      LPAREN, RPAREN;
 terminal      PLUS_OP, MINUS_OP, TIMES_OP, SLASH_OP, POT_OP, PERCENT_OP;
 terminal      LESSEQUALS_OP, MOREEQUALS_OP, LESS_OP, MORE_OP, EQUALS_OP, DIFFERENT_OP;
@@ -20,13 +22,12 @@ terminal 	  java.lang.String IDENTIFIER;
 
 /*NON TERMINALS */
 
-non terminal  trecho;
-non terminal  bloco;
-non terminal  comando;
+non terminal  Bloco bloco;
+non terminal  Comando comando;
 non terminal  ifstat, elsestat;
 non terminal  var, chamadadefuncao, args;
-non terminal  listaexp, listaexpaux;
-non terminal  exp, expprefixo;
+non terminal  Exp listaexp, listaexpaux;
+non terminal  Exp exp, expprefixo;
 non terminal  opbin, opunaria;
 
 
@@ -50,17 +51,13 @@ precedence left LPAREN, RPAREN;
 start with bloco;
 
 
-
-trecho     ::= trecho comando {: System.out.println("trecho1a");:}
-  					| trecho comando SEMICOLON {: System.out.println("trecho1b");:}
+bloco 	    ::= bloco:b comando:c {: RESULT = new Bloco(b,c); :}
+					| bloco:b comando:c SEMICOLON {: RESULT = new Bloco(b,c); :}
 					|
 					;
 
-
-bloco 	    ::= trecho {: System.out.println("bloco");:};
-
 	
-comando     ::=	IDENTIFIER:id ASSIGN_OP listaexp 	 {: System.out.println(id);:}		       
+comando     ::=	IDENTIFIER:id ASSIGN_OP exp:e	 {: RESULT = new Comando(id, e);:}		       
 					       | WHILE exp DO_KWORD bloco END_KWORD
 					       | ifstat
 				           | chamadadefuncao			                        
@@ -73,21 +70,14 @@ ifstat 	        ::=   IF_KWORD exp THEN_KWORD bloco elsestat END_KWORD;
 elsestat        ::=   ELSE_KWORD bloco
 					      |
 					      ;
-/* da pra substituir no elseifstat 
-	ifstat 	        ::=   IF_KWORD exp THEN_KWORD bloco elseifstat END_KWORD;
-elseifstat      ::=  ELSE bloco
-							| ELSEIF_KWORD exp THEN_KWORD bloco  elseifstat
-							|
-							;
-*/
 
-
+/*
 var    ::=	    IDENTIFIER	 {: System.out.println("identifier");:}
 					|  expprefixo LBRACKET exp RBRACKET
 					|  expprefixo DOT IDENTIFIER
 					;
 						 
-
+*/
 
 listaexp   ::=      listaexpaux  exp;
 
@@ -97,11 +87,8 @@ listaexpaux  ::=    listaexpaux exp COMA
 						
 
 
-exp       ::=	     NIL_KWORD
-					   |  FALSE_KWORD
-					   |  TRUE_KWORD
-					   |  NUMBER:n1 {: System.out.println("number= "+n1);:}
-					   |  STRING
+exp       ::=	     NUMBER:n1 {: RESULT = new Exp(n1);:}
+					   |  IDENTIFIER:id {: RESULT =  new Exp(id); :}
 					   |  chamadadefuncao
 					   |  expprefixo 
 					   |  exp opbin exp
