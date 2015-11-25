@@ -29,6 +29,7 @@ non terminal  var, chamadadefuncao, args;
 non terminal  Exp listaexp, listaexpaux;
 non terminal  Exp exp, expprefixo;
 non terminal  opbin, opunaria;
+non terminal  declaracaovariavel;
 
 
 //--------------- Precedences---------------------------------------------- 
@@ -60,7 +61,8 @@ bloco 	    ::= bloco:b comando:c {: RESULT = new Bloco(b,c); :}
 comando     ::=	IDENTIFIER:id ASSIGN_OP exp:e	 {: RESULT = new Comando(id, e);:}		       
 					       | WHILE exp DO_KWORD bloco END_KWORD
 					       | ifstat
-				           | chamadadefuncao			                        
+				           | chamadadefuncao			
+				           | declaracaovariavel                        
 				           ;
 
 
@@ -135,3 +137,6 @@ opunaria   ::=     MINUS_UNOP
 					   |   HASH_OP
 					   ;
 
+declaracaovariavel ::= VAR_KWORD IDENTIFIER
+						| VAR_KWORD IDENTIFIER ASSIGN_OP exp
+						;
