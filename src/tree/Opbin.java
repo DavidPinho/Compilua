@@ -10,40 +10,40 @@ public class Opbin extends Node {
 	@Override
 	public void cgen() {
 		switch (opBin) {
-		case 16:
+		case 19:
 			//PLUS_OP
 			break;
-		case 17:
+		case 20:
 			//MINUS_OP
 			break;
-		case 18:
+		case 21:
 			//TIMES_OP
 			break;
-		case 19: 
+		case 22: 
 			//SLASH_OP
 			break;
-		case 22:
+		case 27:
 			//LESS_OP
 			break;
-		case 20:
+		case 25:
 			//LESSEQUALS_OP
 			break;
-		case 23:
+		case 28:
 			//MORE_OP
 			break;
-		case 21:
+		case 26:
 			//MOREEQUALS_OP
 			break;
-		case 24:
+		case 29:
 			//EQUALS_OP
 			break;
-		case 25:
+		case 30:
 			//DIFFERENT_OP
 			break;
-		case 26:
+		case 31:
 			//AND_KWORD
 			break;
-		case 27:
+		case 32:
 			//OR_KWORD
 			break;
 

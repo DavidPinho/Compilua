@@ -25,9 +25,9 @@ terminal 	  java.lang.String IDENTIFIER;
 non terminal  Bloco bloco;
 non terminal  Comando comando;
 non terminal  ifstat, elsestat;
-non terminal  var, chamadadefuncao, args;
+non terminal  chamadadefuncao, args;
 non terminal  Exp listaexp, listaexpaux;
-non terminal  Exp exp, expprefixo;
+non terminal  Exp exp;
 non terminal  opbin, opunaria;
 non terminal  declaracaovariavel;
 
@@ -59,7 +59,7 @@ bloco 	    ::= bloco:b comando:c {: RESULT = new Bloco(b,c); :}
 
 	
 comando     ::=	IDENTIFIER:id ASSIGN_OP exp:e	 {: RESULT = new Comando(id, e);:}		       
-					       | WHILE exp DO_KWORD bloco END_KWORD
+					       | WHILE exp:e DO_KWORD bloco:b END_KWORD {: RESULT = new Comando(e,b); :}
 					       | ifstat
 				           | chamadadefuncao			
 				           | declaracaovariavel                        
@@ -73,13 +73,6 @@ elsestat        ::=   ELSE_KWORD bloco
 					      |
 					      ;
 
-/*
-var    ::=	    IDENTIFIER	 {: System.out.println("identifier");:}
-					|  expprefixo LBRACKET exp RBRACKET
-					|  expprefixo DOT IDENTIFIER
-					;
-						 
-*/
 
 listaexp   ::=      listaexpaux  exp;
 
@@ -92,18 +85,14 @@ listaexpaux  ::=    listaexpaux exp COMA
 exp       ::=	     NUMBER:n1 {: RESULT = new Exp(n1);:}
 					   |  IDENTIFIER:id {: RESULT =  new Exp(id); :}
 					   |  chamadadefuncao
-					   |  expprefixo 
+					   |  LPAREN exp RPAREN
 					   |  exp opbin exp
 					   |  opunaria exp
 					   ; 
 
 
-expprefixo   ::=         var
-						  |   LPAREN exp RPAREN	
-						  ; 
-
-chamadadefuncao ::=  	expprefixo args
-							| expprefixo COLON IDENTIFIER args
+chamadadefuncao ::=  	LPAREN exp:e RPAREN args
+							| LPAREN exp:e RPAREN COLON IDENTIFIER args
 							;
 
 
