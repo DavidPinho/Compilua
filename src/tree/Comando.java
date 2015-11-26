@@ -1,7 +1,7 @@
 package tree;
 public class Comando extends Node {
 	
-	public Comando(String identifier, Exp exp) {
+	/*public Comando(String identifier, Exp exp) {
 		this.left = new Assign(identifier, exp);
 		this.right = null;
 	}
@@ -10,7 +10,7 @@ public class Comando extends Node {
 	public Comando(Exp e, Bloco b) {
 		this.left = new While(e, b);
 		this.right = null;
-	}
+	}*/
 
 	public void cgen() {
 		// TODO Auto-generated method stub

@@ -1,6 +1,6 @@
 package tree;
 
-public class While extends Node {
+public class While extends Comando {
 	
 	public While(Exp e, Bloco b) {
 		this.left = e;

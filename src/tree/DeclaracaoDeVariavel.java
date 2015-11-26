@@ -1,14 +1,15 @@
 package tree;
 
-public class DeclaracaoDeVariavel extends Node{
+public class DeclaracaoDeVariavel extends Comando{
 
 	
 	public DeclaracaoDeVariavel(String identifier) {
+		
 		this.left = new Identifier(identifier);
 		this.right = null;
 	}
 	
-	public DeclaracaoDeVariavel(String identifier, Exp exp) {
+	public DeclaracaoDeVariavel(String identifier, Exp exp) {	
 		this.left = new Identifier(identifier);
 		this.right = exp;
 	}

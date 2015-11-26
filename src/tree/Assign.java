@@ -2,7 +2,7 @@ package tree;
 
 import main.MIPSPrinter;
 
-public class Assign extends Node {
+public class Assign extends Comando {
 
 
 	public Assign(String id, Exp exp) {

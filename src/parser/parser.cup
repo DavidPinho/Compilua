@@ -28,7 +28,7 @@ non terminal  ifstat, elsestat;
 non terminal  chamadadefuncao, args;
 non terminal  Exp listaexp, listaexpaux;
 non terminal  Exp exp;
-non terminal  declaracaovariavel;
+non terminal  DeclaracaoDeVariavel declaracaovariavel;
 
 
 //--------------- Precedences---------------------------------------------- 
@@ -57,11 +57,11 @@ bloco 	    ::= bloco:b comando:c {: RESULT = new Bloco(b,c); :}
 					;
 
 	
-comando     ::=	IDENTIFIER:id ASSIGN_OP exp:e	 {: RESULT = new Comando(id, e);:}		       
-					       | WHILE exp:e DO_KWORD bloco:b END_KWORD {: RESULT = new Comando(e,b); :}
+comando     ::=	IDENTIFIER:id ASSIGN_OP exp:e	 {: RESULT = new Assign(id, e);:}		       
+					       | WHILE exp:e DO_KWORD bloco:b END_KWORD {: RESULT = new While(e,b); :}
 					       | ifstat
 				           | chamadadefuncao			
-				           | declaracaovariavel                        
+				           | declaracaovariavel:v {:RESULT = v; :}                        
 				           ;
 
 
