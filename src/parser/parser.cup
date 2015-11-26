@@ -66,7 +66,7 @@ comando     ::=	IDENTIFIER:id ASSIGN_OP exp:e	 {: RESULT = new Assign(id, e);:}
 				           ;
 
 
-ifstat 	        ::=   IF_KWORD exp:exp1 THEN_KWORD bloco:b1 elsestat:b2 END_KWORD {: RESULT = new Comando(new IfComando(exp1,b1),b2);:};
+ifstat 	        ::=   IF_KWORD exp:exp1 THEN_KWORD bloco:b1 elsestat:b2 END_KWORD {: RESULT = new Comando(new IfComando(exp1,b1),new ElseBloco(b2));:};
 
 
 elsestat        ::=   ELSE_KWORD bloco:b1  {:RESULT = b1;:}
