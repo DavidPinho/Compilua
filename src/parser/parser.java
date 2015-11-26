@@ -411,7 +411,10 @@ class CUP$parser$actions {
           case 6: // comando ::= ifstat 
             {
               Comando RESULT =null;
-
+		int if1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int if1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		IfComando if1 = (IfComando)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT =if1; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("comando",1, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -440,8 +443,14 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 9: // ifstat ::= IF_KWORD exp THEN_KWORD bloco elsestat END_KWORD 
             {
-              Object RESULT =null;
-
+              IfComando RESULT =null;
+		int exp1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).left;
+		int exp1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-4)).right;
+		Exp exp1 = (Exp)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-4)).value;
+		int b1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int b1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		Bloco b1 = (Bloco)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		 RESULT = new IfComando(exp1,b1);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ifstat",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

@@ -1,4 +1,4 @@
 x = 2 + 3;
-while x<1 do
+if x<2 then
   x = x + 1;
 end
