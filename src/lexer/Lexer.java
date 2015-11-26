@@ -4,7 +4,6 @@ package lexer;
 
 // JFlex scanner: Lua language lexer specification
 
-
 import java_cup.runtime.Symbol;
 import parser.sym;
 
@@ -14,7 +13,7 @@ import parser.sym;
  * <a href="http://www.jflex.de/">JFlex</a> 1.6.1
  * from the specification file <tt>C:/Users/Diego/Workspace/compilua/src/lexer/Scanner.flex</tt>
  */
-public class Lexer implements java_cup.runtime.Scanner, sym {
+class Lexer implements java_cup.runtime.Scanner, sym {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -318,7 +317,7 @@ public class Lexer implements java_cup.runtime.Scanner, sym {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  public Lexer(java.io.Reader in) {
+  Lexer(java.io.Reader in) {
     this.zzReader = in;
   }
 
@@ -847,7 +846,7 @@ public class Lexer implements java_cup.runtime.Scanner, sym {
             }
           case 79: break;
           case 38: 
-            { return symbol(sym.IDENTIFIER);
+            { return symbol(sym.VAR_KWORD);
             }
           case 80: break;
           case 39: 
