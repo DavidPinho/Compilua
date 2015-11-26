@@ -25,7 +25,7 @@ terminal 	  java.lang.String IDENTIFIER;
 non terminal  Bloco bloco;
 non terminal  Comando comando;
 non terminal  IfComando ifstat;
-non terminal  elsestat;
+non terminal  Bloco elsestat;
 non terminal  chamadadefuncao, args;
 non terminal  Exp listaexp, listaexpaux;
 non terminal  Exp exp;
@@ -66,10 +66,10 @@ comando     ::=	IDENTIFIER:id ASSIGN_OP exp:e	 {: RESULT = new Assign(id, e);:}
 				           ;
 
 
-ifstat 	        ::=   IF_KWORD exp:exp1 THEN_KWORD bloco:b1 elsestat END_KWORD {: RESULT = new IfComando(exp1,b1);:};
+ifstat 	        ::=   IF_KWORD exp:exp1 THEN_KWORD bloco:b1 elsestat:b2 END_KWORD {: RESULT = new IfComando(exp1,b1,b2);:};
 
 
-elsestat        ::=   ELSE_KWORD bloco
+elsestat        ::=   ELSE_KWORD bloco:b1  {:RESULT = b1;:}
 					      |
 					      ;
 

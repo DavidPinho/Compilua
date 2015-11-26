@@ -1,10 +1,11 @@
 package tree;
 
 public class IfComando extends Comando{
-	
-	public IfComando(Exp e, Bloco b) {
+	private Bloco esleComando;
+	public IfComando(Exp e, Bloco b, Bloco b2) {
 		this.left = e;
 		this.right = b;
+		this.esleComando = b2;
 	}
 	
 	@Override
@@ -17,8 +18,14 @@ public class IfComando extends Comando{
 		System.out.print("(IF ");
 		left.print();        
         System.out.print(", ");
-        right.print();     	
-        System.out.print(")");		
+        right.print();  
+        if(this.esleComando!=null){
+            System.out.print(", ");
+            System.out.print("(ELSE ");
+            this.esleComando.print();
+            System.out.print(")");	
+          }
+        System.out.print(")");       
 	}
 
 }
