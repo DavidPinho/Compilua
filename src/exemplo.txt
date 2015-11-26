@@ -1,8 +1,1 @@
-if x<2 then
-  x = x + 1;
-else
-  if w == 10 then
-    w = 6;
-  end
-  y = 3;
-end
+x = (2 + 3 - 4) ;

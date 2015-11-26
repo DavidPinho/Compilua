@@ -543,7 +543,10 @@ class CUP$parser$actions {
           case 18: // exp ::= LPAREN exp RPAREN 
             {
               Exp RESULT =null;
-
+		int exp1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
+		int exp1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
+		Exp exp1 = (Exp)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		 RESULT = new Exp(exp1);
               CUP$parser$result = parser.getSymbolFactory().newSymbol("exp",8, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
