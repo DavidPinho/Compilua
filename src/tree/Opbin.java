@@ -65,36 +65,47 @@ public class Opbin extends Node {
 			break;
 		case 20:
 			//MINUS_OP
+			System.out.print("(MINUS ");	
 			break;
 		case 21:
 			//TIMES_OP
+			System.out.print("(TIMES ");	
 			break;
 		case 22: 
 			//SLASH_OP
+			System.out.print("(SLASH ");	
 			break;
 		case 27:
 			//LESS_OP
+			System.out.print("(LESS_OP ");	
 			break;
 		case 25:
 			//LESSEQUALS_OP
+			System.out.print("(LESSEQUALS_OP ");	
 			break;
 		case 28:
 			//MORE_OP
+			System.out.print("(MORE_OP ");
 			break;
 		case 26:
 			//MOREEQUALS_OP
+			System.out.print("(MOREEQUALS_OP ");
 			break;
 		case 29:
 			//EQUALS_OP
+			System.out.print("(EQUALS_OP ");
 			break;
 		case 30:
 			//DIFFERENT_OP
+			System.out.print("(DIFFERENT_OP ");
 			break;
 		case 31:
 			//AND_KWORD
+			System.out.print("(AND_KWORD ");
 			break;
 		case 32:
 			//OR_KWORD
+			System.out.print("(OR_KWORD ");
 			break;
 
 		default:

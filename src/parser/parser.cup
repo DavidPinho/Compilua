@@ -5,9 +5,9 @@ import tree.Number;
 
 /* Terminals (tokens returned by lexer). */
 
-terminal      SEMICOLON, ASSIGN_OP, DO_KWORD, END_KWORD, WHILE;
+terminal      SEMICOLON, ASSIGN_OP, DO_KWORD, END_KWORD, FOR_KWORD, WHILE;
 terminal      IF_KWORD, THEN_KWORD;
-terminal      ELSE_KWORD, COMA, FOR_KWORD, VAR_KWORD;
+terminal      ELSE_KWORD, COMA, VAR_KWORD;
 terminal      DOT, COLON;
 terminal      LBRACKET, RBRACKET;
 terminal      LPAREN, RPAREN;
@@ -28,7 +28,6 @@ non terminal  ifstat, elsestat;
 non terminal  chamadadefuncao, args;
 non terminal  Exp listaexp, listaexpaux;
 non terminal  Exp exp;
-non terminal  opbin, opunaria;
 non terminal  declaracaovariavel;
 
 
@@ -86,8 +85,20 @@ exp       ::=	     NUMBER:n1 {: RESULT = new Exp(n1);:}
 					   |  IDENTIFIER:id {: RESULT =  new Exp(id); :}
 					   |  chamadadefuncao
 					   |  LPAREN exp RPAREN				
-					   |  exp:exp1 PLUS_OP exp:exp2 {: RESULT =  new Exp(exp1,PLUS_OP,exp2); :}
-					   |  opunaria exp
+					   |  exp:exp1 PLUS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.PLUS_OP,exp2); :}
+					   |  exp:exp1 MINUS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.MINUS_OP,exp2); :}
+					   |  exp:exp1 TIMES_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.TIMES_OP,exp2); :}
+					   |  exp:exp1 SLASH_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.SLASH_OP,exp2); :}
+					   |  exp:exp1 LESS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.LESS_OP,exp2); :}
+					   |  exp:exp1 LESSEQUALS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.LESSEQUALS_OP,exp2); :}
+					   |  exp:exp1 MORE_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.MORE_OP,exp2); :}
+					   |  exp:exp1 MOREEQUALS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.MOREEQUALS_OP,exp2); :}
+					   |  exp:exp1 EQUALS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.EQUALS_OP,exp2); :}
+					   |  exp:exp1 DIFFERENT_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.DIFFERENT_OP,exp2); :}
+					   |  exp:exp1 AND_KWORD exp:exp2 {: RESULT =  new Exp(exp1,sym.AND_KWORD,exp2); :}		
+					   |  exp:exp1 OR_KWORD exp:exp2 {: RESULT =  new Exp(exp1,sym.OR_KWORD,exp2); :}					   
+					   |  MINUS_UNOP exp:exp1 {: RESULT = new Exp(sym.MINUS_UNOP,exp1);:}
+					   |  NOT_KWORD exp:exp1 {: RESULT = new Exp(sym.NOT_KWORD,exp1);:}
 					   ; 
 
 
@@ -101,30 +112,6 @@ args   ::=    LPAREN RPAREN
 					|  STRING
 					;
 
-
-
-
-opbin   ::=         PLUS_OP {: System.out.println("+");:}
-						|   MINUS_OP {: System.out.println("-");:}
-						|    TIMES_OP {: System.out.println("*");:}
-						|    SLASH_OP {: System.out.println("/");:}
-						|    POT_OP
-						|    PERCENT_OP
-						|    LESS_OP
-						|    LESSEQUALS_OP
-						|    MORE_OP 
-						|    MOREEQUALS_OP
-						|    EQUALS_OP
-						|    DIFFERENT_OP
-						|    AND_KWORD
-						|    OR_KWORD
-						;
-
-
-opunaria   ::=     MINUS_UNOP
-					   |   NOT_KWORD
-					   |   HASH_OP
-					   ;
 
 declaracaovariavel ::= VAR_KWORD IDENTIFIER
 						| VAR_KWORD IDENTIFIER ASSIGN_OP exp
