@@ -26,8 +26,8 @@ non terminal  Bloco bloco;
 non terminal  Comando comando;
 non terminal  Comando ifstat;
 non terminal  Bloco elsestat;
-non terminal  chamadadefuncao, args;
-non terminal  Exp listaexp, listaexpaux;
+non terminal  ChamadaDeFuncao chamadadefuncao;
+non terminal  ExpList listaexp;
 non terminal  Exp exp;
 non terminal  DeclaracaoDeVariavel declaracaovariavel;
 
@@ -61,7 +61,7 @@ bloco 	    ::= bloco:b comando:c {: RESULT = new Bloco(b,c); :}
 comando     ::=	IDENTIFIER:id ASSIGN_OP exp:e	 {: RESULT = new Assign(id, e);:}		       
 					       | WHILE exp:e DO_KWORD bloco:b END_KWORD {: RESULT = new While(e,b); :}
 					       | ifstat:if1 {: RESULT =if1; :}
-				           | chamadadefuncao			
+				           | chamadadefuncao:f {:RESULT = f; :} 			
 				           | declaracaovariavel:v {:RESULT = v; :}                        
 				           ;
 
@@ -72,15 +72,6 @@ ifstat 	        ::=   IF_KWORD exp:exp1 THEN_KWORD bloco:b1 elsestat:b2 END_KWOR
 elsestat        ::=   ELSE_KWORD bloco:b1  {:RESULT = b1;:}
 					      |
 					      ;
-
-
-listaexp   ::=      listaexpaux  exp;
-
-listaexpaux  ::=    listaexpaux exp COMA 
-						|
-						;
-						
-
 
 exp       ::=	     NUMBER:n1 {: RESULT = new Number(n1);:}
 					   |  IDENTIFIER:id {: RESULT =  new Identifier(id); :}
@@ -103,15 +94,13 @@ exp       ::=	     NUMBER:n1 {: RESULT = new Number(n1);:}
 					   ; 
 
 
-chamadadefuncao ::=  	LPAREN exp:e RPAREN args
-							| LPAREN exp:e RPAREN COLON IDENTIFIER args
+chamadadefuncao ::=  	IDENTIFIER:id LPAREN RPAREN {:RESULT = new ChamadaDeFuncao(id);:}
+							| IDENTIFIER:id LPAREN listaexp:explist RPAREN {:RESULT = new ChamadaDeFuncao(id,explist);:}
 							;
 
-
-args   ::=    LPAREN RPAREN
-					|  LPAREN listaexp RPAREN
-					|  STRING
-					;
+listaexp   ::=      exp:e {:RESULT = new ExpList(e,null);:}
+					  | exp:e COMA listaexp:el {:RESULT = new ExpList(e,el);:}
+					  ;
 
 
 declaracaovariavel ::= VAR_KWORD IDENTIFIER:id  {: RESULT = new DeclaracaoDeVariavel(id); :}
