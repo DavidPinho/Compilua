@@ -13,12 +13,6 @@ public class Number extends Node {
 	
 	@Override
 	public void print() {
-		// TODO Auto-generated method stub
-		System.out.print("(NUMBER "+this.value+")");
-        left.print();
-        System.out.print(", ");
-        right.print();
-        System.out.print(")");
-		
+		System.out.print("(NUMBER "+this.value+")");   
 	}
 }

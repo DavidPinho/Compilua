@@ -86,7 +86,7 @@ exp       ::=	     NUMBER:n1 {: RESULT = new Exp(n1);:}
 					   |  IDENTIFIER:id {: RESULT =  new Exp(id); :}
 					   |  chamadadefuncao
 					   |  LPAREN exp RPAREN
-					   |  exp opbin exp
+					   |  exp opbin exp {: System.out.println("Operacao");:}
 					   |  opunaria exp
 					   ; 
 

@@ -8,7 +8,6 @@ public class Assign extends Node {
 	public Assign(String id, Exp exp) {
 		this.left = new Identifier(id);
 		this.right = exp;
-		//System.out.println(id + " exp");
 	}
 	
 	public void cgen() {
@@ -21,13 +20,10 @@ public class Assign extends Node {
 
 	@Override
 	public void print() {
-		// TODO Auto-generated method stub
-		System.out.print("(");
-		if(left!=null)
-			left.print();
-        System.out.print(" = ");
-        if(right!=null)
-        	right.print();
+		System.out.print("(ASSIGNMENT ");
+		this.left.print();
+		System.out.print(",");
+        this.right.print();
         System.out.print(")");
 		
 	}

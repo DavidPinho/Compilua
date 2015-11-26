@@ -1,8 +1,8 @@
 package tree;
 public class Comando extends Node {
 	
-	public Comando(String id, Exp exp) {
-		this.left = new Assign(id, exp);
+	public Comando(String identifier, Exp exp) {
+		this.left = new Assign(identifier, exp);
 		this.right = null;
 	}
 	
@@ -21,11 +21,11 @@ public class Comando extends Node {
 	public void print() {
 		// TODO Auto-generated method stub
 		System.out.print("(COMANDO ");
-		if(left!=null)
-			left.print();
-        System.out.print(", ");
-        if(right!=null)
+		left.print();
+        if(right!=null){
+        	System.out.print(", ");
         	right.print();
+        }        	
         System.out.print(")");
 		
 	}

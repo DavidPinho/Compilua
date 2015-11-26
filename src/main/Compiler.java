@@ -18,8 +18,8 @@ public class Compiler {
 		// TODO Auto-generated method stub
 		
 		//TODO: Alterar Path
-		//String path = "/home/david/Documents/UFBA/8° semestre/Topicos em DB/workspace/compilua/src/exemplo.txt";
-		String path = "C:/Users/Diego/Workspace/compilua/src/exemplo.txt";	
+		String path = "/home/david/Documents/UFBA/8° semestre/Topicos em DB/workspace/compilua/src/exemplo.txt";
+		//String path = "C:/Users/Diego/Workspace/compilua/src/exemplo.txt";	
 		
 		Lexer scanner;
 		try {
@@ -37,8 +37,6 @@ public class Compiler {
 			
 			root.print();
 			
-			System.out.println(root);
-			//System.out.println(Node.root);
 			
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block

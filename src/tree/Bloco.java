@@ -19,9 +19,10 @@ public class Bloco extends Node {
 	public void print() {
 		// TODO Auto-generated method stub
 		System.out.print("(BLOCO ");
-		if(left!=null)
+		if(left!=null){
 			left.print();
-        System.out.print(", ");
+		    System.out.print(", ");
+		}
         if(right!=null)
         	right.print();
         System.out.print(")");

@@ -30,12 +30,18 @@ public class Exp extends Node {
 	
 	@Override
 	public void print() {
-		// TODO Auto-generated method stub
-		System.out.print("(EXP ");
-        left.print();
-        System.out.print(", ");
-        right.print();
-        System.out.print(")");
+		if(right!=null){
+		  System.out.print("(EXP ");
+          left.print();
+          System.out.print(", ");
+          right.print();
+          System.out.print(")");
+		}else{
+			System.out.print("(EXP ");
+	        left.print();	          
+	        System.out.print(")");
+		}
+		
 		
 	}
 	
