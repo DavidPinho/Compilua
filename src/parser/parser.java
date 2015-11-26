@@ -428,7 +428,7 @@ class CUP$parser$actions {
 		int b2left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int b2right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Bloco b2 = (Bloco)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		 RESULT = new Comando(new IfComando(exp1,b1),b2);
+		 RESULT = new Comando(new IfComando(exp1,b1),new ElseBloco(b2));
               CUP$parser$result = parser.getSymbolFactory().newSymbol("ifstat",2, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-5)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
