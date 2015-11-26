@@ -11,5 +11,10 @@ public class While extends Node {
 		// TODO Auto-generated method stub
 
 	}
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		
+	}
 
 }

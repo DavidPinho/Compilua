@@ -28,4 +28,15 @@ public class Exp extends Node {
 		}
 	}
 	
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		System.out.print("(EXP ");
+        left.print();
+        System.out.print(", ");
+        right.print();
+        System.out.print(")");
+		
+	}
+	
 }

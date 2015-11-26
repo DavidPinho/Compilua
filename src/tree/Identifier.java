@@ -14,4 +14,12 @@ public class Identifier extends Node {
 	public String getValue() {
 		return this.value;
 	}
+	
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		System.out.print("(IDENTIFIER "+this.value+")");        
+		
+	}
+	
 }

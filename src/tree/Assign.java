@@ -18,4 +18,17 @@ public class Assign extends Node {
 		MIPSPrinter.print("sw $a0, "+
 		((Identifier)this.left).getValue(), 't');
 	}
+
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		System.out.print("(");
+		if(left!=null)
+			left.print();
+        System.out.print(" = ");
+        if(right!=null)
+        	right.print();
+        System.out.print(")");
+		
+	}
 }

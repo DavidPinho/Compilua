@@ -15,5 +15,20 @@ public class Bloco extends Node {
 		
 	}
 
+	@Override
+	public void print() {
+		// TODO Auto-generated method stub
+		System.out.print("(BLOCO ");
+		if(left!=null)
+			left.print();
+        System.out.print(", ");
+        if(right!=null)
+        	right.print();
+        System.out.print(")");
+		
+	}
+	
+	
+
 	
 }

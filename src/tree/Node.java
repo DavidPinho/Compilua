@@ -11,7 +11,7 @@ public abstract class Node {
 		return value;
 	}
 
-
-
-	public abstract void cgen() ;
+	public abstract void cgen();
+	
+	public abstract void print();
 }
