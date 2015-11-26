@@ -44,6 +44,7 @@ public class MIPSPrinter {
 		for (String s : textBuffer) {
 			compiluaOut.println(s);
 		}
+		compiluaOut.close();
 	}
 	/**
 	 * 
