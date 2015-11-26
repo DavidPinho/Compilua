@@ -18,6 +18,10 @@ public class Exp extends Node {
 		this.right = null;
 	}
 	
+	public Exp(Exp exp1,int op,Exp exp2 ){
+		this.left = new Opbin(exp1, op, exp2);
+		this.right = null;
+	}
 	
 	public void cgen() {
 		if(this.left != null) {

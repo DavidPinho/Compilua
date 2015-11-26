@@ -8,6 +8,8 @@ public class Opbin extends Node {
 		opBin = op;
 	}
 	
+	
+	
 	@Override
 	public void cgen() {
 		switch (opBin) {
@@ -59,11 +61,7 @@ public class Opbin extends Node {
 		switch (opBin) {
 		case 19:
 			//PLUS_OP
-			System.out.print("(PLUS ");
-	        left.print();
-	        System.out.print(", ");
-	        right.print();
-	        System.out.print(")");
+			System.out.print("(PLUS ");	        
 			break;
 		case 20:
 			//MINUS_OP
@@ -102,6 +100,12 @@ public class Opbin extends Node {
 		default:
 			break;
 		}
+		left.print();
+        System.out.print(", ");
+        right.print();
+        System.out.print(")");
 		
 	}
+	
+	
 }

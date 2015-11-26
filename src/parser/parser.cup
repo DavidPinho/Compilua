@@ -85,8 +85,8 @@ listaexpaux  ::=    listaexpaux exp COMA
 exp       ::=	     NUMBER:n1 {: RESULT = new Exp(n1);:}
 					   |  IDENTIFIER:id {: RESULT =  new Exp(id); :}
 					   |  chamadadefuncao
-					   |  LPAREN exp RPAREN
-					   |  exp opbin exp {: System.out.println("Operacao");:}
+					   |  LPAREN exp RPAREN				
+					   |  exp:exp1 PLUS_OP exp:exp2 {: RESULT =  new Exp(exp1,PLUS_OP,exp2); :}
 					   |  opunaria exp
 					   ; 
 
