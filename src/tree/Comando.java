@@ -12,6 +12,15 @@ public class Comando extends Node {
 		this.right = null;
 	}*/
 
+	public Comando() {
+		
+	}
+	
+	public Comando(IfComando ifcmd, Bloco elseBlock) {
+		this.left = ifcmd;
+		this.right = elseBlock;
+	}
+	
 	public void cgen() {
 		// TODO Auto-generated method stub
 		

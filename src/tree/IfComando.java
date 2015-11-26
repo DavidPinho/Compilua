@@ -2,10 +2,10 @@ package tree;
 
 public class IfComando extends Comando{
 	private Bloco esleComando;
-	public IfComando(Exp e, Bloco b, Bloco b2) {
+	public IfComando(Exp e, Bloco b) {
 		this.left = e;
 		this.right = b;
-		this.esleComando = b2;
+		//this.esleComando = b2;
 	}
 	
 	@Override
