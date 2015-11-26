@@ -1,6 +1,6 @@
 package tree;
 
-public class ChamadaDeFuncao extends Node {
+public class ChamadaDeFuncao extends Exp {
 	
 	public ChamadaDeFuncao(ListaExp lista, Exp e) {
 		

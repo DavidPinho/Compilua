@@ -2,7 +2,7 @@ package tree;
 
 import main.MIPSPrinter;
 
-public class Identifier extends Node {
+public class Identifier extends Exp {
 	public Identifier(String id) {
 		this.value = id;
 	}

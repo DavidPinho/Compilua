@@ -2,7 +2,7 @@ package tree;
 
 import main.MIPSPrinter;
 
-public class Number extends Node {
+public class Number extends Exp {
 	public Number(java.lang.Number n1) {
 		this.value = ""+ n1;
 	}
