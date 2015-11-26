@@ -1,5 +1,10 @@
 package main;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class MIPSPrinter {
 	/* TODO: Usar o mesmo arquivo a ser impresso pra facilitar
 	 * Usar o metodo init para iniciar o arquivo e funcionar tudo que precise
@@ -12,13 +17,33 @@ public class MIPSPrinter {
 	 * e isso pode ficar baguncado na geracao. sugiro o buffer do data e do text ai gravamos no arquivo o do
 	 * data e depois o do text, acho que fica mais facil.
 	 */
+	private static ArrayList<String> dataBuffer, textBuffer;
+	private static PrintWriter compiluaOut;
 
 	public static void init() {
-		//TODO: implementar
+		dataBuffer = new ArrayList<String>();
+		textBuffer = new ArrayList<String>();
+		try {
+			compiluaOut = new PrintWriter("compilua.out");
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static void finish() {
-		//TODO: implementar
+		if(!dataBuffer.isEmpty()) {
+			compiluaOut.println(".data");
+			for (String s : dataBuffer) {
+				compiluaOut.println(s);
+			}
+		}
+		compiluaOut.println(".text");
+		compiluaOut.println(".globl  main");
+		compiluaOut.println("main:");		
+		for (String s : textBuffer) {
+			compiluaOut.println(s);
+		}
 	}
 	/**
 	 * 
@@ -29,9 +54,23 @@ public class MIPSPrinter {
 	public static void print(String s, char segment) {
 		//TODO: fazer chamada para impressao em arquivo ao inves de console
 		if (segment == 't') {
-			System.out.println(s); //segmento texto
+			textBuffer.add(s);
 		} else {
-			System.err.println(s); //segmento data
+			dataBuffer.add(s); //segmento data
 		}
+	}
+	/**
+	 * 
+	 * @param var
+	 * @return true se variavel no segmento texto foi declarada no data, false otherwise
+	 */
+	public static boolean isVarOnDataSegment(String var) {
+		for (Iterator iterator = dataBuffer.iterator(); iterator.hasNext();) {
+			String s = (String) iterator.next();
+			if(var.equals(s)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
