@@ -13,8 +13,11 @@ public class While extends Node {
 	}
 	@Override
 	public void print() {
-		// TODO Auto-generated method stub
-		
+		System.out.print("(WHILE ");
+		left.print();        
+        System.out.print(", ");
+        right.print();     	
+        System.out.print(")");		
 	}
 
 }
