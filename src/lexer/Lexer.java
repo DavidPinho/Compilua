@@ -13,7 +13,7 @@ import parser.sym;
  * <a href="http://www.jflex.de/">JFlex</a> 1.6.1
  * from the specification file <tt>C:/Users/Diego/Workspace/compilua/src/lexer/Scanner.flex</tt>
  */
-class Lexer implements java_cup.runtime.Scanner, sym {
+public class Lexer implements java_cup.runtime.Scanner, sym {
 
   /** This character denotes the end of file */
   public static final int YYEOF = -1;
@@ -317,7 +317,7 @@ class Lexer implements java_cup.runtime.Scanner, sym {
    *
    * @param   in  the java.io.Reader to read input from.
    */
-  Lexer(java.io.Reader in) {
+  public Lexer(java.io.Reader in) {
     this.zzReader = in;
   }
 

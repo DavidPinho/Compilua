@@ -113,6 +113,6 @@ args   ::=    LPAREN RPAREN
 					;
 
 
-declaracaovariavel ::= VAR_KWORD IDENTIFIER
-						| VAR_KWORD IDENTIFIER ASSIGN_OP exp
+declaracaovariavel ::= VAR_KWORD IDENTIFIER:id  {: RESULT = new DeclaracaoDeVariavel(id); :}
+						| VAR_KWORD IDENTIFIER:id ASSIGN_OP exp:exp1 {: RESULT = new DeclaracaoDeVariavel(id,exp1); :}
 						;

@@ -789,7 +789,10 @@ class CUP$parser$actions {
           case 38: // declaracaovariavel ::= VAR_KWORD IDENTIFIER 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		java.lang.String id = (java.lang.String)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new DeclaracaoDeVariavel(id); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("declaracaovariavel",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -798,7 +801,13 @@ class CUP$parser$actions {
           case 39: // declaracaovariavel ::= VAR_KWORD IDENTIFIER ASSIGN_OP exp 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		java.lang.String id = (java.lang.String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		int exp1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int exp1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		Exp exp1 = (Exp)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		 RESULT = new DeclaracaoDeVariavel(id,exp1); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("declaracaovariavel",9, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
