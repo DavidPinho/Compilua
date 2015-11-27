@@ -18,8 +18,8 @@ public class Compiler {
 		// TODO Auto-generated method stub
 		
 		//TODO: Alterar Path
-		//String path = "/home/david/Documents/UFBA/8° semestre/Topicos em DB/workspace/compilua/src/exemplo.txt";
-		String path = "C:/Users/Diego/Workspace/compilua.git/src/exemplo.txt";	
+		String path = "/home/david/Documents/UFBA/8° semestre/Topicos em DB/workspace/compilua/src/exemplo.txt";
+		//String path = "C:/Users/Diego/Workspace/compilua.git/src/exemplo.txt";	
 		
 		Lexer scanner;
 		try {
@@ -35,7 +35,11 @@ public class Compiler {
 			Symbol symbol = p.parse();
 			Node root = (Node) symbol.value;
 			
-			root.print();
+			//root.print();
+			MIPSPrinter.init();
+			root.cgen();
+			MIPSPrinter.finish();
+			
 			
 			
 		} catch (FileNotFoundException e1) {

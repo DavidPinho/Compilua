@@ -1,6 +1,5 @@
 package tree;
 
-import main.MIPSPrinter;
 
 public class Identifier extends Exp {
 	public Identifier(String id) {
@@ -8,7 +7,7 @@ public class Identifier extends Exp {
 	}
 	
 	public void cgen() {
-		MIPSPrinter.print(""+this.value+": .word 0", 'd');
+		
 	}
 	
 	public String getValue() {

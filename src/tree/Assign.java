@@ -10,9 +10,9 @@ public class Assign extends Comando {
 		this.right = exp;
 	}
 	
+	@Override
 	public void cgen() {
-		this.left.cgen();//declaracao da variavel
-		this.right.cgen();//exp
+		this.right.cgen();// Load Number li $a0 number
 		//atribuicao do valor da exp na variavel
 		MIPSPrinter.print("sw $a0, "+
 		((Identifier)this.left).getValue(), 't');
