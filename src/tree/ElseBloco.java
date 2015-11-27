@@ -13,12 +13,8 @@ public class ElseBloco extends Bloco {
 		System.out.print("(ELSE ");
 		if(left!=null){
 			left.print();
-		    System.out.print(", ");
-		}
-        if(right!=null)
-        	right.print();
-        System.out.print(")");
-		
+		    
+		} 
 	}
 
 }
