@@ -16,9 +16,11 @@ public class Comando extends Node {
 		
 	}
 	
-	public Comando(IfComando ifcmd, ElseBloco elseBlock) {
+	public Comando(IfComando ifcmd, Bloco elseBlock) {
 		this.left = ifcmd;
-		this.right = elseBlock;
+		if(elseBlock != null) {
+			this.right = new ElseBloco(elseBlock);
+		}
 	}
 	
 	public void cgen() {
