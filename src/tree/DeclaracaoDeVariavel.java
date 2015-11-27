@@ -1,5 +1,7 @@
 package tree;
 
+import main.MIPSPrinter;
+
 public class DeclaracaoDeVariavel extends Comando{
 
 	
@@ -17,7 +19,7 @@ public class DeclaracaoDeVariavel extends Comando{
 	
 	@Override
 	public void cgen() {
-		// TODO Auto-generated method stub
+		MIPSPrinter.print(""+this.left.value+": .word 0", 'd');
 		
 	}
 
