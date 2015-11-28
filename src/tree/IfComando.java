@@ -1,16 +1,23 @@
 package tree;
 
+import main.MIPSPrinter;
+
 public class IfComando extends Comando{
-	private Bloco esleComando;
+	
+	
 	public IfComando(Exp e, Bloco b) {
 		this.left = e;
 		this.right = b;
-		//this.esleComando = b2;
 	}
 	
 	@Override
 	public void cgen() {
-		// TODO Auto-generated method stub
+		MIPSPrinter.labelJump = "true";
+		this.left.cgen(); 
+		MIPSPrinter.print("", 't');
+		MIPSPrinter.print(MIPSPrinter.labelJump+Integer.toString(MIPSPrinter.labelCount)+":", 't');
+		this.right.cgen();
+		
 
 	}
 	@Override
@@ -18,13 +25,7 @@ public class IfComando extends Comando{
 		System.out.print("(IF ");
 		left.print();        
         System.out.print(", ");
-        right.print();  
-        if(this.esleComando!=null){
-            System.out.print(", ");
-            System.out.print("(ELSE ");
-            this.esleComando.print();
-            System.out.print(")");	
-          }
+        right.print();         
         System.out.print(")");       
 	}
 

@@ -25,7 +25,8 @@ public class Comando extends Node {
 	
 	public void cgen() {
 		this.left.cgen();
-		this.right.cgen();
+		if(this.right!=null)
+			this.right.cgen();
 		
 	}
 	

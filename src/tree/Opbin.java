@@ -45,6 +45,7 @@ public class Opbin extends Node {
 			break;
 		case 29:
 			//EQUALS_OP
+			printComparison("beq");
 			break;
 		case 30:
 			//DIFFERENT_OP
@@ -132,6 +133,16 @@ public class Opbin extends Node {
 		MIPSPrinter.print("lw $t1, 4($sp)", 't');
 		MIPSPrinter.print(op+" $a0, $t1, $a0", 't');
 		MIPSPrinter.print("addiu $sp, $sp, 4", 't');	
+	}
+	
+	private void printComparison(String op){
+		this.left.cgen();
+		MIPSPrinter.print("sw $a0, 0($sp)", 't');
+		MIPSPrinter.print("addiu $sp, $sp, -4", 't');
+		this.right.cgen();
+		MIPSPrinter.print("lw $t1, 4($sp)", 't');
+		MIPSPrinter.print("addiu $sp, $sp, 4", 't');	
+		MIPSPrinter.print(op+" $ao $t1 "+MIPSPrinter.labelJump+Integer.toString(MIPSPrinter.labelCount), 't');
 	}
 	
 	
