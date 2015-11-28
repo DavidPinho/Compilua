@@ -17,23 +17,19 @@ public class Opbin extends Node {
 		switch (opBin) {
 		case 19:
 			//PLUS_OP
-			this.left.cgen();
-			MIPSPrinter.print("sw $a0, 0($sp)", 't');
-			MIPSPrinter.print("addiu $sp, $sp, -4", 't');
-			this.right.cgen();
-			MIPSPrinter.print("lw $t1, 4($sp)", 't');
-			MIPSPrinter.print("add $a0, $a0, $t1", 't');
-			MIPSPrinter.print("addiu $sp, $sp, 4", 't');
-			
+			printArithmetic("add");		
 			break;
 		case 20:
 			//MINUS_OP
+			printArithmetic("sub");
 			break;
 		case 21:
 			//TIMES_OP
+			printArithmetic("mul");
 			break;
 		case 22: 
 			//SLASH_OP
+			printArithmetic("div");
 			break;
 		case 27:
 			//LESS_OP
@@ -126,6 +122,16 @@ public class Opbin extends Node {
         right.print();
         System.out.print(")");
 		
+	}
+	
+	private void printArithmetic(String op){
+		this.left.cgen();
+		MIPSPrinter.print("sw $a0, 0($sp)", 't');
+		MIPSPrinter.print("addiu $sp, $sp, -4", 't');
+		this.right.cgen();
+		MIPSPrinter.print("lw $t1, 4($sp)", 't');
+		MIPSPrinter.print(op+" $a0, $t1, $a0", 't');
+		MIPSPrinter.print("addiu $sp, $sp, 4", 't');	
 	}
 	
 	

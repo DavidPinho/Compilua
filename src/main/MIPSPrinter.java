@@ -38,12 +38,16 @@ public class MIPSPrinter {
 				compiluaOut.println(s);
 			}
 		}
+		compiluaOut.println("");
 		compiluaOut.println(".text");
 		compiluaOut.println(".globl  main");
-		compiluaOut.println("main:");		
+		compiluaOut.println("");
+		compiluaOut.println("main:");	
+		compiluaOut.println("");	
 		for (String s : textBuffer) {
 			compiluaOut.println(s);
 		}
+		compiluaOut.println("");
 		compiluaOut.println("# exit");
 		compiluaOut.println("li $v0, 10");
 		compiluaOut.println("syscall ");
