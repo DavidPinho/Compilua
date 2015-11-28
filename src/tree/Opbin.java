@@ -33,15 +33,19 @@ public class Opbin extends Node {
 			break;
 		case 27:
 			//LESS_OP
+			printComparison("blt");
 			break;
 		case 25:
 			//LESSEQUALS_OP
+			printComparison("ble");
 			break;
 		case 28:
 			//MORE_OP
+			printComparison("bgt");
 			break;
 		case 26:
 			//MOREEQUALS_OP
+			printComparison("bge");
 			break;
 		case 29:
 			//EQUALS_OP
@@ -49,6 +53,7 @@ public class Opbin extends Node {
 			break;
 		case 30:
 			//DIFFERENT_OP
+			printComparison("bne");
 			break;
 		case 31:
 			//AND_KWORD
