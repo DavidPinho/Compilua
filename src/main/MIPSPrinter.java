@@ -44,6 +44,9 @@ public class MIPSPrinter {
 		for (String s : textBuffer) {
 			compiluaOut.println(s);
 		}
+		compiluaOut.println("# exit");
+		compiluaOut.println("li $v0, 10");
+		compiluaOut.println("syscall ");
 		compiluaOut.close();
 	}
 	/**
