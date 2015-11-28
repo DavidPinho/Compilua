@@ -1,5 +1,7 @@
 package tree;
 
+import main.MIPSPrinter;
+
 public class ChamadaDeFuncao extends Comando {
 	
 	public ChamadaDeFuncao(String identifier) {
@@ -13,7 +15,13 @@ public class ChamadaDeFuncao extends Comando {
 	}
 	
 	public void cgen() {
-		
+		if(left.getValue().equals("print")) {
+			right.cgen();
+			MIPSPrinter.print("li $v0, 1", 't');
+			MIPSPrinter.print("syscall", 't');
+		} else {
+			//TODO: estourar uma exception
+		}
 	}
 
 	@Override

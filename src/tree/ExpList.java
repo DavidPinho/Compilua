@@ -9,8 +9,12 @@ public class ExpList extends Node {
 
 	@Override
 	public void cgen() {
-		// TODO Auto-generated method stub
-		
+		if(this.left != null) {
+			this.left.cgen();
+		}
+		if(this.right != null) {
+			this.right.cgen();
+		}
 	}
 
 	@Override
