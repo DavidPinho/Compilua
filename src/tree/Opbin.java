@@ -20,7 +20,7 @@ public class Opbin extends Node {
 			this.left.cgen();
 			MIPSPrinter.print("sw $a0, 0($sp)", 't');
 			MIPSPrinter.print("addiu $sp, $sp, -4", 't');
-			this.left.cgen();
+			this.right.cgen();
 			MIPSPrinter.print("lw $t1, 4($sp)", 't');
 			MIPSPrinter.print("add $a0, $a0, $t1", 't');
 			MIPSPrinter.print("addiu $sp, $sp, 4", 't');
