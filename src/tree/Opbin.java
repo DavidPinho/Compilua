@@ -150,7 +150,7 @@ public class Opbin extends Node {
 		int blocoNumber=0;
 		if(MIPSPrinter.labelJump.equals("true"))
 			blocoNumber= MIPSPrinter.ifCount;
-		else if (MIPSPrinter.labelJump.equals("bloco")) {
+		else if (MIPSPrinter.labelJump.equals("WHILE")) {
 			blocoNumber= MIPSPrinter.whileCount;
 		}
 			

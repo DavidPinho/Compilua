@@ -1,5 +1,7 @@
 package tree;
 
+import main.MIPSPrinter;
+
 public class While extends Comando {
 	
 	public While(Exp e, Bloco b) {
@@ -8,8 +10,16 @@ public class While extends Comando {
 	}
 	@Override
 	public void cgen() {
-		// TODO Auto-generated method stub
-
+		int count = MIPSPrinter.whileCount;
+		MIPSPrinter.labelJump = "WHILE";
+		MIPSPrinter.print(MIPSPrinter.labelJump+Integer.toString(count)+":", 't');
+		MIPSPrinter.whileCount++;
+		this.right.cgen();//gera o bloco
+		MIPSPrinter.print("WHILE_CONDITION"+Integer.toString(count)+":", 't');
+		MIPSPrinter.whileCount--;
+		this.left.cgen();
+		MIPSPrinter.whileCount++;
+		
 	}
 	@Override
 	public void print() {
