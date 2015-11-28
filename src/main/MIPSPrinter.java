@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.List;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -20,7 +21,8 @@ public class MIPSPrinter {
 	private static ArrayList<String> dataBuffer, textBuffer;
 	private static PrintWriter compiluaOut;
 	public static String labelJump;
-	public static int ifCount = 1;
+	public static ArrayList<String> ifCount = new ArrayList<>();
+	public static int elseCount = 1;
 	public static int whileCount = 1;
 
 	public static void init() {

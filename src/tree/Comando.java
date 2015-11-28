@@ -1,4 +1,7 @@
 package tree;
+
+import main.MIPSPrinter;
+
 public class Comando extends Node {
 	
 	/*public Comando(String identifier, Exp exp) {
@@ -23,10 +26,13 @@ public class Comando extends Node {
 		}
 	}
 	
-	public void cgen() {
-		this.left.cgen();
+	public void cgen() {	
+		MIPSPrinter.labelJump = "TRUE";
+		MIPSPrinter.ifCount.add(Integer.toString(MIPSPrinter.ifCount.size()+1));
+		this.left.left.cgen(); 
 		if(this.right!=null)
-			this.right.cgen();
+			this.right.cgen();		
+		this.left.cgen();
 		
 	}
 	

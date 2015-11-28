@@ -11,16 +11,17 @@ public class IfComando extends Comando{
 	}
 	
 	@Override
-	public void cgen() {
-		MIPSPrinter.labelJump = "true";
-		this.left.cgen(); 
+	public void cgen() {	
+		String id = MIPSPrinter.ifCount.remove(MIPSPrinter.ifCount.size()-1);
 		MIPSPrinter.print("", 't');
-		MIPSPrinter.print(MIPSPrinter.labelJump+Integer.toString(MIPSPrinter.ifCount)+":", 't');
-		MIPSPrinter.ifCount++;
+		MIPSPrinter.print(MIPSPrinter.labelJump+id+":", 't');
+		MIPSPrinter.print("", 't');
 		this.right.cgen();
-		
-
+		MIPSPrinter.print("", 't');
+		MIPSPrinter.print("ENDIF"+id+":", 't');
+		MIPSPrinter.print("", 't');
 	}
+	
 	@Override
 	public void print() {
 		System.out.print("(IF ");
