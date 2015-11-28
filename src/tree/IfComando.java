@@ -15,7 +15,8 @@ public class IfComando extends Comando{
 		MIPSPrinter.labelJump = "true";
 		this.left.cgen(); 
 		MIPSPrinter.print("", 't');
-		MIPSPrinter.print(MIPSPrinter.labelJump+Integer.toString(MIPSPrinter.labelCount)+":", 't');
+		MIPSPrinter.print(MIPSPrinter.labelJump+Integer.toString(MIPSPrinter.ifCount)+":", 't');
+		MIPSPrinter.ifCount++;
 		this.right.cgen();
 		
 

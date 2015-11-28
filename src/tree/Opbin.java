@@ -146,8 +146,15 @@ public class Opbin extends Node {
 		MIPSPrinter.print("addiu $sp, $sp, -4", 't');
 		this.right.cgen();
 		MIPSPrinter.print("lw $t1, 4($sp)", 't');
-		MIPSPrinter.print("addiu $sp, $sp, 4", 't');	
-		MIPSPrinter.print(op+" $ao $t1 "+MIPSPrinter.labelJump+Integer.toString(MIPSPrinter.labelCount), 't');
+		MIPSPrinter.print("addiu $sp, $sp, 4", 't');
+		int blocoNumber=0;
+		if(MIPSPrinter.labelJump.equals("true"))
+			blocoNumber= MIPSPrinter.ifCount;
+		else if (MIPSPrinter.labelJump.equals("bloco")) {
+			blocoNumber= MIPSPrinter.whileCount;
+		}
+			
+		MIPSPrinter.print(op+" $ao $t1 "+MIPSPrinter.labelJump+Integer.toString(blocoNumber), 't');
 	}
 	
 	

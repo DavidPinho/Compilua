@@ -20,7 +20,8 @@ public class MIPSPrinter {
 	private static ArrayList<String> dataBuffer, textBuffer;
 	private static PrintWriter compiluaOut;
 	public static String labelJump;
-	public static int labelCount = 1;
+	public static int ifCount = 1;
+	public static int whileCount = 1;
 
 	public static void init() {
 		dataBuffer = new ArrayList<String>();
