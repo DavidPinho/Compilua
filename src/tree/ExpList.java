@@ -1,5 +1,7 @@
 package tree;
 
+import main.MIPSPrinter;
+
 public class ExpList extends Node {
 	
 	public ExpList(Exp e1, ExpList e2) {
@@ -11,6 +13,11 @@ public class ExpList extends Node {
 	public void cgen() {
 		if(this.left != null) {
 			this.left.cgen();
+			if (MIPSPrinter.isVarOnDataSegment(left.getValue())) {
+				MIPSPrinter.print("lw $a0, " + left.getValue(), 't');
+				MIPSPrinter.print("li $v0, 1", 't');
+				MIPSPrinter.print("syscall", 't');
+			}
 		}
 		if(this.right != null) {
 			this.right.cgen();
