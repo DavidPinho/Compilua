@@ -24,7 +24,8 @@ public class Comando extends Node {
 	}
 	
 	public void cgen() {
-		// TODO Auto-generated method stub
+		this.left.cgen();
+		this.right.cgen();
 		
 	}
 	

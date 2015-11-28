@@ -14,7 +14,12 @@ public class Bloco extends Node {
 
 	@Override
 	public void cgen() {
-		this.right.cgen();		
+		if (this.left != null) {
+			this.left.cgen();
+		}
+		if (this.right != null) {
+			this.right.cgen();
+		}		
 	}
 
 	@Override

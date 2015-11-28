@@ -14,6 +14,7 @@ public class Assign extends Comando {
 	public void cgen() {
 		this.right.cgen();// Load Number li $a0 number
 		//atribuicao do valor da exp na variavel
+		//TODO:verificar se variavel foi declarada antes, caso contrario disparar excepion e bortar compilacao
 		MIPSPrinter.print("sw $a0, "+
 		((Identifier)this.left).getValue(), 't');
 	}

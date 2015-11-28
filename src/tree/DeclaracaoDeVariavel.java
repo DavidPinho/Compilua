@@ -19,8 +19,13 @@ public class DeclaracaoDeVariavel extends Comando{
 	
 	@Override
 	public void cgen() {
+		//declaracao da variavel
 		MIPSPrinter.print(""+this.left.value+": .word 0", 'd');
-		
+		if(right != null) {
+			right.cgen();
+			MIPSPrinter.print("sw $a0, "+
+					((Identifier)this.left).getValue(), 't');
+		}
 	}
 
 	@Override
@@ -28,7 +33,11 @@ public class DeclaracaoDeVariavel extends Comando{
 		System.out.print("(DECLARA_VAR");
 		left.print();        
         System.out.print(", ");
-        right.print();     	
+        if(right != null) {
+        	System.out.print("(ASSIGNMENT ");
+        	right.print();   
+        	System.out.print(")");
+        }
         System.out.print(")");
 		
 	}
