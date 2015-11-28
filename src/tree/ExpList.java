@@ -1,5 +1,6 @@
 package tree;
 
+import parser.CompilerException;
 import main.MIPSPrinter;
 
 public class ExpList extends Node {
@@ -17,6 +18,8 @@ public class ExpList extends Node {
 				MIPSPrinter.print("lw $a0, " + left.getValue(), 't');
 				MIPSPrinter.print("li $v0, 1", 't');
 				MIPSPrinter.print("syscall", 't');
+			} else {
+				throw new CompilerException("linha"); //TODO: implementar linhas
 			}
 		}
 		if(this.right != null) {

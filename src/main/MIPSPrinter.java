@@ -73,9 +73,9 @@ public class MIPSPrinter {
 	 * @return true se variavel no segmento texto foi declarada no data, false otherwise
 	 */
 	public static boolean isVarOnDataSegment(String var) {
-		for (Iterator iterator = dataBuffer.iterator(); iterator.hasNext();) {
+		for (Iterator<String> iterator = dataBuffer.iterator(); iterator.hasNext();) {
 			String s = (String) iterator.next();
-			if(var.equals(s)) {
+			if(s.equals(var+": .word 0")) {
 				return true;
 			}
 		}
