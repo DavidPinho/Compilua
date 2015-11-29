@@ -10,15 +10,24 @@ public class While extends Comando {
 	}
 	@Override
 	public void cgen() {
-		int count = MIPSPrinter.whileCount;
 		MIPSPrinter.labelJump = "WHILE";
+		int count = MIPSPrinter.whileCount;
+		MIPSPrinter.print("WHILE_CONDITION"+Integer.toString(count)+":", 't');
+		this.left.cgen();	
+		MIPSPrinter.print("b ENDWHILE"+count, 't');
+		MIPSPrinter.print("", 't');
+		
+		
 		MIPSPrinter.print(MIPSPrinter.labelJump+Integer.toString(count)+":", 't');
+		MIPSPrinter.print("", 't');
 		MIPSPrinter.whileCount++;
 		this.right.cgen();//gera o bloco
-		MIPSPrinter.print("WHILE_CONDITION"+Integer.toString(count)+":", 't');
-		MIPSPrinter.whileCount--;
-		this.left.cgen();
-		MIPSPrinter.whileCount++;
+		MIPSPrinter.print("b WHILE_CONDITION"+count, 't');
+		MIPSPrinter.print("", 't');
+		MIPSPrinter.print("ENDWHILE"+count+":", 't');
+		MIPSPrinter.print("", 't');
+		
+		
 		
 	}
 	@Override

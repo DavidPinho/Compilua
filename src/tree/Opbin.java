@@ -157,7 +157,7 @@ public class Opbin extends Node {
 			blocoNumber= MIPSPrinter.whileCount;
 		}
 			
-		MIPSPrinter.print(op+" $a0, $t1, "+MIPSPrinter.labelJump+Integer.toString(blocoNumber), 't');
+		MIPSPrinter.print(op+" $t1, $a0, "+MIPSPrinter.labelJump+Integer.toString(blocoNumber), 't');
 	}
 	
 	
