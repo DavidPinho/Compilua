@@ -5,9 +5,10 @@
 
 package parser;
 
+import java_cup.runtime.*;
 import tree.*;
 import tree.Number;
-
+import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20150326 (SVN rev 63) generated parser.
   */
@@ -269,6 +270,31 @@ public class parser extends java_cup.runtime.lr_parser {
 
   /** <code>error</code> Symbol index. */
   public int error_sym() {return 1;}
+
+
+
+  
+    public void report_error(String message, Object info) {
+    
+        StringBuffer m = new StringBuffer("Error");
+        if (info instanceof java_cup.runtime.Symbol) {        
+            java_cup.runtime.Symbol s = ((java_cup.runtime.Symbol) info);
+   
+            if (s.left >= 0) {                      
+                m.append(" in line "+(s.left+1));                   
+                if (s.right >= 0)                          
+                    m.append(", column "+(s.right+1));
+            }
+        }
+
+        m.append(" : "+message);
+        System.err.println(m);
+    }
+    
+    public void report_fatal_error(String message, Object info) {
+        report_error(message, info);
+        System.exit(1);
+    }
 
 
 /** Cup generated class to encapsulate user supplied action code.*/
