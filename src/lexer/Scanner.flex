@@ -174,3 +174,7 @@ CommentContent = (!("]""="*"]"))*
 	\\\'			{ string.append("\'"); }
 
 }
+
+ /* error fallback */
+    [^]                              { throw new Error("Illegal character <"+
+                                                        yytext()+"> at line:"+yyline+1); }
