@@ -152,7 +152,7 @@ public class Opbin extends Node {
 		MIPSPrinter.print("addiu $sp, $sp, 4", 't');
 		int blocoNumber=0;
 		if(MIPSPrinter.labelJump.equals("TRUE"))
-			blocoNumber= MIPSPrinter.ifCount.size();
+			blocoNumber= MIPSPrinter.ifCount;
 		else if (MIPSPrinter.labelJump.equals("WHILE")) {
 			blocoNumber= MIPSPrinter.whileCount;
 		}

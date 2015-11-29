@@ -12,10 +12,13 @@ public class IfComando extends Comando{
 	
 	@Override
 	public void cgen() {	
-		String id = MIPSPrinter.ifCount.remove(MIPSPrinter.ifCount.size()-1);
+		String id = ""+MIPSPrinter.ifCount;
+		MIPSPrinter.print("b ENDIF"+id, 't');
 		MIPSPrinter.print("", 't');
 		MIPSPrinter.print(MIPSPrinter.labelJump+id+":", 't');
 		MIPSPrinter.print("", 't');
+		MIPSPrinter.ifCount++;
+		
 		this.right.cgen();
 		MIPSPrinter.print("", 't');
 		MIPSPrinter.print("ENDIF"+id+":", 't');

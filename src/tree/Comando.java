@@ -28,7 +28,7 @@ public class Comando extends Node {
 	
 	public void cgen() {	
 		MIPSPrinter.labelJump = "TRUE";
-		MIPSPrinter.ifCount.add(Integer.toString(MIPSPrinter.ifCount.size()+1));
+		//MIPSPrinter.ifCount++;
 		this.left.left.cgen(); 
 		if(this.right!=null)
 			this.right.cgen();		
