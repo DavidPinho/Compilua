@@ -1,6 +1,5 @@
 package tree;
 
-import main.MIPSPrinter;
 
 public class ChamadaDeFuncao extends Comando {
 	

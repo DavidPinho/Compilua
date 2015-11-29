@@ -3,10 +3,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 
-import java_cup.runtime.Symbol;
-import lexer.Lexer;
-import parser.parser;
-import tree.Node;
+import java_cup.runtime.*;
+import lexer.*;
+import parser.*;
+import tree.*;
 
 
 public class Compiler {   
@@ -16,10 +16,6 @@ public class Compiler {
 		String path = "/home/david/Documents/UFBA/8° semestre/Topicos em DB/workspace/compilua/src/exemplo.txt";
 		//String path = "C:/Users/Diego/Workspace/compilua.git/src/exemplo.txt";	
 		//String pathInput = args[0];
-		String fileOutput = null;
-		
-		if(fileOutput==null)
-			fileOutput="compilua.out";
 		
 		Lexer scanner;
 		try {
@@ -39,7 +35,7 @@ public class Compiler {
 			//root.print();
 				
 			//generating code
-			MIPSPrinter.init(fileOutput);
+			MIPSPrinter.init("compilua.out");
 			root.cgen();
 			MIPSPrinter.finish();
 			
