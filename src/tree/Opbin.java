@@ -60,9 +60,43 @@ public class Opbin extends Node {
 			break;
 		case 31:
 			//AND_KWORD
+			this.left.left.left.cgen();
+			MIPSPrinter.print("sw $a0, 0($sp)", 't');
+			MIPSPrinter.print("addiu $sp, $sp, -4", 't');
+			this.left.left.right.cgen();
+			MIPSPrinter.print("lw $t1, 4($sp)", 't');
+			MIPSPrinter.print("addiu $sp, $sp, 4", 't');				
+			MIPSPrinter.print(getCommand(((Opbin)this.left.left).getOpBin())+" $t1, $a0, CONTINUEAND",'t');
+			MIPSPrinter.print("b ENDAND", 't');
+			MIPSPrinter.print("", 't');
+			MIPSPrinter.print("CONTINUEAND:", 't');
+			MIPSPrinter.print("", 't');
+			this.right.left.left.cgen();
+			MIPSPrinter.print("sw $a0, 0($sp)", 't');
+			MIPSPrinter.print("addiu $sp, $sp, -4", 't');
+			this.right.left.right.cgen();
+			MIPSPrinter.print("lw $t1, 4($sp)", 't');
+			MIPSPrinter.print("addiu $sp, $sp, 4", 't');		
+			int blocoNumber=0;
+			if(MIPSPrinter.labelJump.equals("TRUE"))
+				blocoNumber= MIPSPrinter.ifCount;
+			else if (MIPSPrinter.labelJump.equals("WHILE")) {
+				blocoNumber= MIPSPrinter.whileCount;
+			}				
+			MIPSPrinter.print(getCommand(((Opbin)this.right.left).getOpBin())+" $t1, $a0, "+MIPSPrinter.labelJump+Integer.toString(blocoNumber),'t');
+			MIPSPrinter.print("", 't');
+			MIPSPrinter.print("ENDAND:", 't');
+			
 			break;
 		case 32:
 			//OR_KWORD
+			this.left.cgen();
+			MIPSPrinter.print("sw $a0, 0($sp)", 't');
+			MIPSPrinter.print("addiu $sp, $sp, -4", 't');
+			this.right.cgen();
+			MIPSPrinter.print("lw $t1, 4($sp)", 't');
+			MIPSPrinter.print("addiu $sp, $sp, 4", 't');				
+			MIPSPrinter.print("or $a0, $t1, $a0",'t');
 			break;
 
 		default:
@@ -158,6 +192,45 @@ public class Opbin extends Node {
 		}
 			
 		MIPSPrinter.print(op+" $t1, $a0, "+MIPSPrinter.labelJump+Integer.toString(blocoNumber), 't');
+	}
+	
+	private String getCommand(int opBin){
+		switch (opBin) {
+		case 19:
+			//PLUS_OP
+			return "add";		
+		case 20:
+			//MINUS_OP
+			return "sub";			
+		case 21:
+			//TIMES_OP
+			return "mul";			
+		case 22: 
+			//SLASH_OP
+			return "div";			
+		case 27:
+			//LESS_OP
+			return "blt";			
+		case 25:
+			//LESSEQUALS_OP
+			return "ble";
+		case 28:
+			//MORE_OP
+			return "bgt";			
+		case 26:
+			//MOREEQUALS_OP
+			return "bge";			
+		case 29:
+			//EQUALS_OP
+			return "beq";			
+		case 30:
+			//DIFFERENT_OP
+			return "bne";
+		
+		default:
+			break;
+		}
+		return null;
 	}
 	
 	
