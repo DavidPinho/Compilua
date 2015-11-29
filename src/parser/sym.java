@@ -24,7 +24,6 @@ public interface sym {
   public static final int SLASH_OP = 22;
   public static final int DOT = 13;
   public static final int IF_KWORD = 8;
-  public static final int MINUS_UNOP = 35;
   public static final int EOF = 0;
   public static final int RBRACKET = 16;
   public static final int VAR_KWORD = 12;
@@ -33,7 +32,7 @@ public interface sym {
   public static final int LESS_OP = 27;
   public static final int COMA = 11;
   public static final int AND_KWORD = 31;
-  public static final int NUMBER = 36;
+  public static final int NUMBER = 35;
   public static final int DIFFERENT_OP = 30;
   public static final int PLUS_OP = 19;
   public static final int MINUS_OP = 20;
@@ -42,11 +41,11 @@ public interface sym {
   public static final int WHILE = 7;
   public static final int MOREEQUALS_OP = 26;
   public static final int FOR_KWORD = 6;
-  public static final int STRING = 37;
+  public static final int STRING = 36;
   public static final int HASH_OP = 34;
   public static final int ELSE_KWORD = 10;
   public static final int OR_KWORD = 32;
-  public static final int IDENTIFIER = 38;
+  public static final int IDENTIFIER = 37;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -83,7 +82,6 @@ public interface sym {
   "OR_KWORD",
   "NOT_KWORD",
   "HASH_OP",
-  "MINUS_UNOP",
   "NUMBER",
   "STRING",
   "IDENTIFIER"

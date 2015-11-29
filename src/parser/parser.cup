@@ -13,7 +13,7 @@ terminal      LBRACKET, RBRACKET;
 terminal      LPAREN, RPAREN;
 terminal      PLUS_OP, MINUS_OP, TIMES_OP, SLASH_OP, POT_OP, PERCENT_OP;
 terminal      LESSEQUALS_OP, MOREEQUALS_OP, LESS_OP, MORE_OP, EQUALS_OP, DIFFERENT_OP;
-terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP, MINUS_UNOP;
+terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP;
 
 terminal 	  java.lang.Number NUMBER;
 terminal 	  java.lang.String STRING;
@@ -39,9 +39,8 @@ precedence left OR_KWORD;
 precedence left AND_KWORD;
 precedence left LESS_OP, MORE_OP, LESSEQUALS_OP, MOREEQUALS_OP, DIFFERENT_OP, EQUALS_OP;
 precedence left PLUS_OP,MINUS_OP;
-precedence left TIMES_OP, SLASH_OP, PERCENT_OP;
-precedence left NOT_KWORD, HASH_OP, PERCENT_OP, MINUS_UNOP;
-precedence right POT_OP;
+precedence left TIMES_OP, SLASH_OP;
+precedence left HASH_OP, PERCENT_OP;
 precedence left LPAREN, RPAREN;
 
 
@@ -76,7 +75,9 @@ elsestat        ::=   ELSE_KWORD bloco:b1  {:RESULT = b1;:}
 exp       ::=	     NUMBER:n1 {: RESULT = new Number(n1);:}
 					   |  IDENTIFIER:id {: RESULT =  new Identifier(id); :}
 					   |  chamadadefuncao
-					   |  LPAREN exp:exp1 RPAREN	{: RESULT = new Exp(exp1);:}			
+					   |  LPAREN exp:exp1 RPAREN	{: RESULT = new Exp(exp1);:}		
+					   |  MINUS_OP exp:exp1 {: RESULT = new Exp(sym.MINUS_OP,exp1);:}
+					   |  NOT_KWORD exp:exp1 {: RESULT = new Exp(sym.NOT_KWORD,exp1);:}	
 					   |  exp:exp1 PLUS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.PLUS_OP,exp2); :}
 					   |  exp:exp1 MINUS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.MINUS_OP,exp2); :}
 					   |  exp:exp1 TIMES_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.TIMES_OP,exp2); :}
@@ -88,9 +89,7 @@ exp       ::=	     NUMBER:n1 {: RESULT = new Number(n1);:}
 					   |  exp:exp1 EQUALS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.EQUALS_OP,exp2); :}
 					   |  exp:exp1 DIFFERENT_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.DIFFERENT_OP,exp2); :}
 					   |  exp:exp1 AND_KWORD exp:exp2 {: RESULT =  new Exp(exp1,sym.AND_KWORD,exp2); :}		
-					   |  exp:exp1 OR_KWORD exp:exp2 {: RESULT =  new Exp(exp1,sym.OR_KWORD,exp2); :}					   
-					   |  MINUS_UNOP exp:exp1 {: RESULT = new Exp(sym.MINUS_UNOP,exp1);:}
-					   |  NOT_KWORD exp:exp1 {: RESULT = new Exp(sym.NOT_KWORD,exp1);:}
+					   |  exp:exp1 OR_KWORD exp:exp2 {: RESULT =  new Exp(exp1,sym.OR_KWORD,exp2); :}					  
 					   ; 
 
 

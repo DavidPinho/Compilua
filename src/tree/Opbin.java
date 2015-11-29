@@ -10,6 +10,9 @@ public class Opbin extends Node {
 		opBin = op;
 	}
 	
+	public int getOpBin(){
+		return opBin;
+	}
 	
 	
 	@Override
@@ -154,7 +157,7 @@ public class Opbin extends Node {
 			blocoNumber= MIPSPrinter.whileCount;
 		}
 			
-		MIPSPrinter.print(op+" $ao $t1 "+MIPSPrinter.labelJump+Integer.toString(blocoNumber), 't');
+		MIPSPrinter.print(op+" $a0, $t1, "+MIPSPrinter.labelJump+Integer.toString(blocoNumber), 't');
 	}
 	
 	
