@@ -25,11 +25,11 @@ public class MIPSPrinter {
 	public static int elseCount = 1;
 	public static int whileCount = 1;
 
-	public static void init() {
+	public static void init(String fileName) {
 		dataBuffer = new ArrayList<String>();
 		textBuffer = new ArrayList<String>();
 		try {
-			compiluaOut = new PrintWriter("compilua.out");
+			compiluaOut = new PrintWriter(fileName);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

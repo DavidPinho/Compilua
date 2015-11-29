@@ -13,7 +13,7 @@ terminal      LBRACKET, RBRACKET;
 terminal      LPAREN, RPAREN;
 terminal      PLUS_OP, MINUS_OP, TIMES_OP, SLASH_OP, POT_OP, PERCENT_OP;
 terminal      LESSEQUALS_OP, MOREEQUALS_OP, LESS_OP, MORE_OP, EQUALS_OP, DIFFERENT_OP;
-terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP;
+terminal      AND_KWORD, OR_KWORD, NOT_KWORD, HASH_OP, MINUS_UNOP;
 
 terminal 	  java.lang.Number NUMBER;
 terminal 	  java.lang.String STRING;
@@ -40,7 +40,7 @@ precedence left AND_KWORD;
 precedence left LESS_OP, MORE_OP, LESSEQUALS_OP, MOREEQUALS_OP, DIFFERENT_OP, EQUALS_OP;
 precedence left PLUS_OP,MINUS_OP;
 precedence left TIMES_OP, SLASH_OP;
-precedence left HASH_OP, PERCENT_OP;
+precedence left HASH_OP, PERCENT_OP,MINUS_UNOP;
 precedence left LPAREN, RPAREN;
 
 
@@ -76,7 +76,7 @@ exp       ::=	     NUMBER:n1 {: RESULT = new Number(n1);:}
 					   |  IDENTIFIER:id {: RESULT =  new Identifier(id); :}
 					   |  chamadadefuncao
 					   |  LPAREN exp:exp1 RPAREN	{: RESULT = new Exp(exp1);:}		
-					   |  MINUS_OP exp:exp1 {: RESULT = new Exp(sym.MINUS_OP,exp1);:}
+					   |  MINUS_OP exp:exp1 {: RESULT = new Exp(sym.MINUS_OP,exp1);:} %prec MINUS_UNOP
 					   |  NOT_KWORD exp:exp1 {: RESULT = new Exp(sym.NOT_KWORD,exp1);:}	
 					   |  exp:exp1 PLUS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.PLUS_OP,exp2); :}
 					   |  exp:exp1 MINUS_OP exp:exp2 {: RESULT =  new Exp(exp1,sym.MINUS_OP,exp2); :}

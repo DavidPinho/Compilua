@@ -8,6 +8,6 @@ public class CompilerException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 
 	public CompilerException(String linha) {
-		super("compilação abortada: erro na linha "+linha+" variavel não declarada.");
+		super("compilacao abortada: erro na linha "+linha+" variavel nao declarada.");
 	}
 }
