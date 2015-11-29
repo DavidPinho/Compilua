@@ -21,7 +21,7 @@ public class MIPSPrinter {
 	private static ArrayList<String> dataBuffer, textBuffer;
 	private static PrintWriter compiluaOut;
 	public static String labelJump;
-	public static int ifCount = 1;
+	public static int ifCount = 1, prevIfCount = 1;
 	public static int elseCount = 1;
 	public static int whileCount = 1;
 

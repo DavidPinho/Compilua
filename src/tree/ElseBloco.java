@@ -11,11 +11,14 @@ public class ElseBloco extends Bloco {
 
 	@Override
 	public void cgen(){
+		MIPSPrinter.prevIfCount = MIPSPrinter.ifCount;
 		MIPSPrinter.print("", 't');
 		MIPSPrinter.print("FALSE"+Integer.toString(MIPSPrinter.elseCount)+":", 't');
 		MIPSPrinter.print("", 't');
 		MIPSPrinter.elseCount++;
+		MIPSPrinter.ifCount++;
 		this.left.cgen();
+		MIPSPrinter.ifCount = MIPSPrinter.prevIfCount;
 	}
 	
 	

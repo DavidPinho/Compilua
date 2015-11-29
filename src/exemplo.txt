@@ -8,7 +8,9 @@ while(x>0) do
 		print(z);
 	else
 		while(z > 0) do
-			print(z);
+			if(z ~= 1) then
+				print(z+1);
+			end
 			z = z - 1;
 		end
 	end
